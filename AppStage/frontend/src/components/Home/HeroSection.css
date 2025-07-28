@@ -1,0 +1,54 @@
+.client-hero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .client-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.agencekna.com/assets/images/slides/agence-immobiliere-marrakech.webp'); /* À adapter selon ton chemin */
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    filter: brightness(0.5); /* Pour rendre le texte plus lisible */
+  }
+  
+  .client-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 20px;
+  }
+  
+  .client-hero-content h1 {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 48px;
+    font-weight: 100; 
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .client-hero-content p {
+    
+    font-size: 20px;
+    margin-bottom: 30px;
+    
+    font-weight: 500;
+  }
+  
+  /* Si SearchBarComponent a besoin d'ajustements */
+  .client-hero-content .search-bar {
+    margin-top: 20px;
+  }
+  

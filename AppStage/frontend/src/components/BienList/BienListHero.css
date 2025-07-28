@@ -1,0 +1,81 @@
+/* Section principale de la bannière */
+.bienslist-hero {
+    position: relative;
+    height: 45vh; /* Hauteur de la bannière, ajustable */
+    min-height: 300px;
+    color: white;
+    
+    /* Centrage du titre */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    /* Styles pour l'image de fond */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Ajoute un calque sombre sur l'image pour la lisibilité du texte */
+  .bienslist-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay noir semi-transparent */
+  }
+  
+  /* Style du titre "Immobilier Marrakech" */
+  .bienslist-hero h1 {
+    position: relative; /* Pour s'assurer qu'il est au-dessus de l'overlay */
+    z-index: 2;
+    font-family: 'Times New Roman', Times, serif; /* Police à empattement comme sur l'image */
+    font-size: 3.5rem; /* Taille de la police */
+    font-weight: 400; /* Police non grasse */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Ombre portée pour le contraste */
+  }
+  
+ 
+  .bienslist-breadcrumb-modern {
+    display: flex; /* Aligne les éléments sur une ligne */
+    align-items: center; /* Centre verticalement les éléments */
+    justify-content: center;
+    gap: 0.75em; /* Ajoute un espace entre chaque élément */
+    padding: 1.5rem 0;
+    font-size: 0.75rem; /* Taille de police légèrement réduite */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+  }
+  
+  /* Style pour "VOUS ÊTES ICI :" */
+  .bienslist-breadcrumb-modern > span:first-of-type {
+    color: #a0a0a0; /* Gris moyen, comme sur l'image */
+    font-weight: 500;
+  }
+  
+  /* Style pour le lien "ACCUEIL" */
+  .bienslist-breadcrumb-modern a {
+    color: #d0d0d0; /* Gris très clair, pour l'effet "effacé" */
+    font-weight: 300; /* Police normale, non grasse */
+    letter-spacing: 1.5px; /* Espacement ajouté entre les lettres */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .bienslist-breadcrumb-modern a:hover {
+    color:#8B4513; /* Change de couleur au survol */
+  }
+  
+  /* Style pour le chevron ">" après "ACCUEIL" */
+  .bienslist-breadcrumb-modern a + span {
+    color: #8B4513; /* Couleur rouge/rose */
+    font-weight: bold;
+  }
+  
+  /* Style pour le texte de la page actuelle */
+  .bienslist-breadcrumb-current {
+    color: #8B4513; /* Couleur rouge/rose */
+    font-weight: 500; /* Légèrement plus gras */
+    letter-spacing: 2px; /* Espacement encore plus important pour un style aéré */
+  }

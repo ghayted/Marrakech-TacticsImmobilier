@@ -1,0 +1,224 @@
+/* src/components/AboutBlock.css */
+.about-block-section {
+    padding: 4rem 2rem;
+    background-color: #f0f0f0;
+  }
+  
+  .about-block-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  
+  .about-text-content {
+    padding-right: 2rem;
+  }
+  
+  .about-text-content h2 {
+    font-family: 'Garamond', serif; /* Police élégante */
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .about-text-content p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .btn-view-all {
+    background-color:  #8B4513;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-view-all:hover {
+    background-color: #8B4513;
+  }
+  
+  .about-properties-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .property-card-about {
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .property-card-about:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  
+  .card-image-container {
+    height: 250px;
+    position: relative;
+  }
+  
+  .card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .property-type {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  
+  .property-title-about {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+    margin: 0 0 1rem;
+    min-height: 3.6rem; /* Pour aligner les cartes */
+  }
+  
+  .property-features-about {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #555;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+  }
+  
+  .property-features-about span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .property-price-about {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #555;
+    margin-left: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.2em;
+  }
+
+  .property-ref-about {
+    font-size: 0.95rem;
+    color: #888;
+    background: #f3f3f3;
+    border-radius: 6px;
+    padding: 4px 12px;
+    display: inline-block;
+    margin-top: 0.7rem;
+    margin-bottom: 0;
+  }
+
+  .property-bottom-about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .about-block-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .about-text-content {
+      padding-right: 0;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .about-properties-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  .about-properties-list-slider {
+    width: 100%;
+    max-width: 900px; /* ou 880px, à ajuster selon ton design */
+    margin: 0 auto;
+  }
+  
+  .slick-slide > div {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .slick-list {
+    margin: 0 -10px;
+  }
+  
+  .property-card-about {
+    max-width: 420px;
+    min-width: 320px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+.slick-arrow {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50%;
+  background: #fff !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px #0001;
+  z-index: 10;
+  transition: background 0.2s;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-prev {
+  left: -24px !important;
+}
+.slick-next {
+  right: -24px !important;
+}
+
+.slick-arrow svg {
+  stroke: #8B4513;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border-radius: 0;
+  transition: stroke 0.2s;
+}
+
+.slick-arrow:hover, .slick-arrow:focus {
+  background: #8B4513 !important;
+}
+.slick-arrow:hover svg, .slick-arrow:focus svg {
+  stroke: #fff;
+}
+
+/* Masquer les icônes par défaut de react-slick */
+.slick-arrow:before {
+  content: none !important;
+  display: none !important;
+}
+  

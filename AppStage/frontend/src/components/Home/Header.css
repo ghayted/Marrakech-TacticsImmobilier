@@ -1,0 +1,331 @@
+/* Header.css - Style professionnel Barnes International Realty */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.client-header {
+  background-color: #ffffff;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  
+}
+
+.client-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 23px;
+  height: 70px;
+  border-bottom: 3px solid #e8e8e8;
+  margin-bottom: 5px;
+}
+
+.client-burger-menu {
+  cursor: pointer;
+  color: #333;
+  font-size: 18px;
+  padding-left: 60px;
+  transition: color 0.3s ease;
+}
+
+.client-burger-menu:hover {
+  color: #8B4513;
+}
+
+.client-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+  justify-content: center;
+}
+
+.client-logo-main {
+  font-size: 28px;
+  font-weight: 300;
+  color: #333;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.client-logo-line {
+  width: 2px;
+  height: 40px;
+  background-color: #8B4513;
+  margin: 0 10px;
+}
+
+.client-logo-sub {
+  font-size: 28px;
+  font-weight: 700;
+  color: #8B4513;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.client-logo-tagline {
+  font-size: 11px;
+  color: #666;
+  letter-spacing: 1.5px;
+  margin-left: 10px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.client-header-utils {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.client-currency-selector,
+.client-language-selector {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.client-currency-selector:hover,
+.client-language-selector:hover {
+  color: #e96d47;
+}
+
+.arrow-down {
+  font-size: 10px;
+  color: #666;
+}
+
+.client-favorites {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.client-favorites:hover {
+  color: #8B4513;
+}
+
+.client-favorites svg {
+  font-size: 16px;
+  color: #666;
+}
+
+.client-favorite-count {
+  background-color: #d32f2f;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
+.client-navbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 40px;
+  background: #fff;
+  width: 100%;
+  max-width: 100vw;
+  height: 60px;
+}
+
+.client-navbar-left {
+  flex: 0 0 220px; /* même largeur que le bouton à droite */
+}
+
+.client-nav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex: 1 1 auto;
+}
+
+.client-nav-estimation {
+  background: none;
+  color: #8B4513;
+  border: 2px solid #8B4513;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 28px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: 
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.18s,
+    padding 0.18s;
+  white-space: nowrap;
+  flex: 0 0 220px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  will-change: transform;
+}
+
+.client-nav-estimation:hover {
+  
+  background: none;
+  transform: scale(1.08);
+}
+
+.client-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 0;
+  position: relative;
+  transition: color 0.3s ease;
+  
+}
+
+.client-nav a:hover {
+  color: #8B4513;
+}
+
+.client-nav a:hover::after {
+  width: 100%;
+}
+
+.client-header-bottom-action {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 40px 20px 40px;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .client-header-top {
+    padding: 15px 30px;
+  }
+  
+  .client-nav {
+    gap: 30px;
+    padding: 20px 30px;
+  }
+  
+  .client-header-bottom-action {
+    padding: 0 30px 20px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .client-header-top {
+    padding: 12px 20px;
+  }
+  
+  .client-logo-main {
+    font-size: 22px;
+  }
+  
+  .client-logo-sub {
+    font-size: 22px;
+  }
+  
+  .client-logo-tagline {
+    font-size: 9px;
+  }
+  
+  .client-header-utils {
+    gap: 15px;
+  }
+  
+  .client-nav {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 15px 20px;
+  }
+  
+  .client-nav a {
+    font-size: 12px;
+  }
+  
+  .client-header-bottom-action {
+    padding: 0 20px 15px 20px;
+  }
+  
+  .client-estimation-btn {
+    padding: 10px 25px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .client-header-top {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 20px;
+  }
+  
+  .client-logo-container {
+    order: 1;
+  }
+  
+  .client-burger-menu {
+    order: 0;
+    align-self: flex-start;
+  }
+  
+  .client-header-utils {
+    order: 2;
+  }
+  
+  .client-nav {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .client-nav a {
+    font-size: 11px;
+  }
+
+  @media (max-width: 900px) {
+    .client-navbar-row {
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px 10px;
+    }
+    .client-navbar-left,
+    .client-nav-estimation {
+      flex: none;
+      width: 100%;
+      max-width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+}

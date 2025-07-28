@@ -1,0 +1,36 @@
+.similar-properties-section {
+    padding: 4rem 1rem;
+    background-color: #f8f9fa;
+  }
+  .similar-title {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    color: #2d3748;
+  }
+  .properties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .discover-more-container {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .discover-more-btn {
+    background-color: #d83a56; /* Rouge */
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .discover-more-btn:hover {
+    background-color: #b92e48;
+  }

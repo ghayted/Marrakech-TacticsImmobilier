@@ -1,0 +1,101 @@
+.bienslist-section {
+  padding: 2rem 0;
+}
+
+.bienslist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bienslist-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.bienslist-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  transform: translateY(-6px);
+}
+
+.bienslist-img-container {
+  width: 100%;
+  height: 220px;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bienslist-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bienslist-card-content {
+  padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bienslist-card-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.7rem 0;
+  color: #333;
+}
+
+.bienslist-card-desc {
+  font-size: 0.97rem;
+  color: #666;
+  margin-bottom: 0.7rem;
+}
+
+.bienslist-card-meta {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 0.93rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.bienslist-card-price {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #8B4513;
+  margin-bottom: 1rem;
+}
+
+.bienslist-card-btn {
+  background: #8B4513;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background 0.2s;
+}
+
+.bienslist-card-btn:hover {
+  background: #a05a2c;
+}
+
+.client-biens-empty {
+  grid-column: 1/-1;
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  padding: 2rem 0;
+} 

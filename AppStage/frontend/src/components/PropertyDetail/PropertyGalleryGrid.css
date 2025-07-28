@@ -1,0 +1,134 @@
+/* --- Conteneur principal de la galerie --- */
+.gallery-grid-container {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    max-height: 700px;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  
+  /* --- AFFICHAGE PAR DÉFAUT (3 IMAGES OU PLUS) --- */
+  .gallery-grid-container.image-count-3 {
+    grid-template-columns: 2fr 1fr; /* Grille asymétrique */
+  }
+  
+  /* --- ADAPTATION SI SEULEMENT 2 IMAGES --- */
+  /* La grille reste la même, mais seul un des deux slots de droite sera rempli */
+  .gallery-grid-container.image-count-2 {
+    grid-template-columns: 2fr 1fr;
+  }
+  
+  /* --- ADAPTATION SI SEULEMENT 1 IMAGE --- */
+  /* La colonne de l'image principale prend toute la largeur */
+  .gallery-grid-container.image-count-1 {
+    grid-template-columns: 1fr;
+  }
+  .gallery-grid-container.image-count-1 .gallery-small-images {
+    display: none; /* On cache la colonne de droite */
+  }
+  
+  
+  /* --- Colonne de gauche (grande image) --- */
+  .gallery-large-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 400px; /* Hauteur minimum pour ne pas être écrasé */
+    cursor: normal ;
+  }
+  
+  /* --- Colonne de droite (petites images) --- */
+  .gallery-small-images {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .gallery-small-image-item {
+    width: 100%;
+    height: 100%;
+    cursor: normal ;
+    background-color: #f0f0f0; /* Couleur de fond si l'image ne charge pas */
+  }
+  
+  /* Style commun pour toutes les images */
+  .gallery-large-image img,
+  .gallery-small-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+
+  
+  /* Message si aucune image n'est disponible */
+  .gallery-no-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 400px;
+    background-color: #f8f8f8;
+    border: 1px dashed #ccc;
+    border-radius: 1px;
+    color: #888;
+    font-family: sans-serif;
+  }
+  
+  
+  /* --- Le reste du CSS pour les superpositions (badge, boutons) reste identique --- */
+  
+  .gallery-status-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 14px;
+    border-radius: 5px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 10;
+  }
+  .status-badge-sale { background-color: #bf4343; }
+  .status-badge-rent { background-color: #3b82f6; }
+  
+  .gallery-favorite-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: #555;
+  }
+  .gallery-favorite-btn:hover { color: #e53e3e; }
+  
+  .gallery-bottom-controls {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 10;
+  }
+  .gallery-photos-btn {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gallery-photos-btn:hover { background-color: rgba(0, 0, 0, 0.8); }

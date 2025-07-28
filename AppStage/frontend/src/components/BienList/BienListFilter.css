@@ -1,0 +1,163 @@
+/* Conteneur global du filtre */
+.filter-wrapper2 {
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  .intro-title2 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 400;
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  /* Barre de recherche principale */
+  .filter-bar2 {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    height: 60px;
+  }
+  
+  .filter-field2 {
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #f0f0f0;
+    flex: 1 1 auto;
+  }
+  
+  /* Style commun pour les inputs et selects */
+  .filter-field2 input,
+  .filter-field2 select {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    padding: 0 1.5rem;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .filter-field2 select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l128%20127.9c3.6%203.6%207.8%205.4%2013%205.4s9.4-1.8%2013-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-13%200-5-1.8-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1.5rem center;
+    background-size: 0.6rem auto;
+    cursor: pointer;
+  }
+  
+  /* Conteneur pour les deux boutons */
+  .filter-buttons2 {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem 0 1rem;
+  }
+  
+  .plus-btn2 {
+    background-color: #f0f0f0;
+    color: #c94f53; /* Couleur rouge/rose */
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  
+  .search-btn2 {
+    background-color: #c94f53;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 44px;
+    width: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .search-btn2:hover {
+    background-color: #b03e42;
+  }
+  
+  /* Barre d'information sous le filtre */
+  .info-bar2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .annonces-info2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .annonces-count2 {
+    font-weight: bold;
+    color: #c94f53;
+  }
+  
+  .create-alert-link2 {
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 0.5rem;
+  }
+  .create-alert-link2:hover {
+    color: #c94f53;
+  }
+  
+  /* Section de tri */
+  .sort-by2 {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+  }
+  
+  .sort-icon2 {
+    color: #555;
+    margin-right: 0.75rem;
+  }
+  
+  .sort-select2 {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.9rem;
+    color: #555;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    padding-right: 1.5rem; /* Espace pour la flèche personnalisée */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l128%20127.9c3.6%203.6%207.8%205.4%2013%205.4s9.4-1.8%2013-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-13%200-5-1.8-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 0.5rem auto;
+  }

@@ -1,0 +1,53 @@
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  color: #888;
+  
+  margin-top: 50px;   
+  margin-bottom: 25px; /* Diminue l'espace EN DESSOUS (le rapproche des photos) */
+  letter-spacing: 0.5px;
+}
+  
+  .breadcrumb-home-icon {
+    cursor: pointer;
+    color: #888;
+    font-size: 1rem;
+    margin-right: 0.2rem;
+    transition: color 0.2s ease;
+  }
+  
+  .breadcrumb-home-icon:hover {
+    color: #b08d57; /* Votre couleur primaire */
+  }
+  
+  .breadcrumb-separator {
+    color: #ccc;
+  }
+  
+  .breadcrumb-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    color: #888;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+  
+  .breadcrumb-link:hover {
+    color: #b08d57; /* Votre couleur primaire */
+  }
+  
+  .breadcrumb-current {
+    color: #a35d5d; /* Couleur plus foncée pour la page actuelle */
+    font-weight: bold;
+    text-transform: uppercase;
+  }

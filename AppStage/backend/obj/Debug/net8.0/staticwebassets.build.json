@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "pmagcg7rhWMyJh8EkbQokeqrz40vT15PoJCuGO960pE=",
+  "Source": "backend",
+  "BasePath": "_content/backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "backend\\wwwroot",
+      "Source": "backend",
+      "ContentRoot": "C:\\Users\\dafal\\Desktop\\AppStage\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

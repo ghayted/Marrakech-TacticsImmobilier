@@ -1,0 +1,112 @@
+.property-info-container {
+    font-family: 'Lato', sans-serif;
+    color: #333;
+  }
+  .property-info-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: #1a202c;
+  }
+  .property-key-features {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    color: #718096;
+  }
+  .price-ask {
+    font-weight: bold;
+    color: #b08d57;
+  }
+  .property-description {
+    line-height: 1.7;
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+  }
+  .property-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .property-actions a {
+    color: #b08d57;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .property-details-grid, .property-amenities {
+    margin-bottom: 2.5rem;
+  }
+  .property-details-grid h3, .property-amenities h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+  }
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+  }
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .detail-item span:first-child {
+    font-weight: bold;
+    color: #718096;
+    font-size: 0.8rem;
+  }
+  .detail-item span:last-child {
+    font-weight: 500;
+  }
+  .amenities-list {
+    list-style: none;
+    padding: 0;
+    column-count: 2;
+    column-gap: 2rem;
+  }
+  .amenities-list li {
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .amenities-list li svg {
+    color: #b08d57;
+  }
+  .features-group {
+    display: flex;
+    align-items: center;
+    gap: 24px; /* Crée un espace entre "chambres", "salles de bain" et "surface" */
+  }
+  
+  /* Vous devriez déjà avoir cette classe, assurez-vous qu'elle utilise flexbox */
+  .property-key-features {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    color: #718096;
+  }
+  
+  /* Assurez-vous que chaque icône est bien alignée avec son texte */
+  .features-group span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+  }

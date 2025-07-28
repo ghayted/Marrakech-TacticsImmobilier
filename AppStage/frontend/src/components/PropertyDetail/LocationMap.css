@@ -1,0 +1,48 @@
+/* --- Conteneur Principal de la Section Carte --- */
+.map-section-wrapper {
+  /* Ajoute un fond gris clair pour séparer la section du reste de la page */
+  background-color: #f8f9fa;
+  
+  /* Ajoute de l'espace au-dessus et en dessous de la section */
+
+  padding-bottom: 60px;
+  
+  /* Ajoute une marge pour l'éloigner du contenu principal au-dessus */
+  margin-top: 20px;
+}
+
+/* --- Titre de la Section ("Localisation du bien") --- */
+.map-section-title {
+  /* Utilise la police élégante des titres */
+  font-family: 'Playfair Display', serif; 
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: #2d3748; /* Couleur de texte sombre */
+  
+  /* Ajoute de l'espace en dessous du titre, avant la carte */
+  margin-bottom: 30px; 
+}
+
+/* --- Conteneur de la carte Leaflet --- */
+.map-container-wrapper {
+  /* Limite la largeur de la carte sur les grands écrans et la centre */
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  /* Ajoute une bordure subtile et une ombre portée pour un effet de profondeur */
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  /* Assure que la carte ne dépasse pas de son conteneur */
+  overflow: hidden;
+
+  /* Pas de border-radius pour garder les angles droits comme demandé */
+  border-radius: 0; 
+}
+
+/* Assure que la carte Leaflet elle-même n'a pas de bordure non désirée */
+.leaflet-container {
+  border: none;
+}

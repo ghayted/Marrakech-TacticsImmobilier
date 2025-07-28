@@ -1,0 +1,136 @@
+/* src/pages/ContactPage.css */
+.contact-section {
+
+    padding: 4rem 2rem;
+    background-color: #fff;
+    font-family: 'Garamond', serif;
+  }
+  
+  .contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 19rem;
+  }
+  
+  .contact-info-block {
+    color: #333;
+  }
+  
+
+  .contact-image-wrapper img {
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+  }
+  
+  .contact-info-block h3, .contact-form-block h2 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+  }
+  
+  .contact-details, .contact-hours {
+    margin-bottom: 1.5rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #555;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .contact-item svg {
+    flex-shrink: 0;
+  }
+  
+  .contact-info-block h4 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-form-block form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    flex: 1;
+  }
+  
+  .form-group input, .form-group textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.8rem 0;
+    font-size: 1rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    transition: border-color 0.3s;
+    border-radius: 0;
+  }
+  
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-bottom-color: #8B4513;
+    box-shadow: none;
+  }
+  
+  .required-notice {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+  }
+  
+
+  .btn-submit2 {
+    background-color: white;
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid #414141;
+    color:  #414141;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    align-self: flex-start;
+
+  }
+  
+  .btn-submit2:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+  }
+  
+  .contact-confirmation {
+    margin-top: 1.5rem;
+    color: #155724;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    font-family: 'Garamond', serif;
+  }
+  
+
+  
+  @media (max-width: 900px) {
+    .contact-container {
+      grid-template-columns: 1fr;
+    }
+  }
