@@ -18,6 +18,7 @@ public class UpdateBienDto
     public int TypeDeBienId { get; set; }
     public bool EstDisponible { get; set; } // On ajoute la disponibilité
     public string StatutTransaction { get; set; } = string.Empty; // Et le statut
+    public decimal? PrixParNuit { get; set; } // Prix par nuit pour les locations
 
     public List<int> AmenagementIds { get; set; } = new(); 
     public List<string> ImageUrls { get; set; } = new(); // Ajout du champ pour les images

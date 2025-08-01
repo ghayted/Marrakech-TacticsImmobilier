@@ -19,9 +19,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // ➤ Injection des services personnalisés
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IBienImmobilierService, BienImmobilierService>();
-// ...
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IDashboardService, DashboardService>(); // <-- Ajouter cette ligne
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IPaiementService, PaiementService>();
+builder.Services.AddScoped<IDisponibiliteService, DisponibiliteService>();
 // ...
 // ➤ Configurer CORS pour autoriser le frontend React (localhost:5173)
 builder.Services.AddCors(options =>
@@ -47,7 +48,7 @@ if (app.Environment.IsDevelopment())
 // ➤ Middleware
 app.UseHttpsRedirection();
 
-// ➤ Servir les fichiers statiques (pour les images uploadées)
+// ➤ Servir les fichiers statiques (pour les images uploadées et factures)
 app.UseStaticFiles();
 
 // ➤ Utiliser la politique CORS avant les endpoints

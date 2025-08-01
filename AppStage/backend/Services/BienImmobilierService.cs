@@ -97,6 +97,7 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
             Longitude = bienDto.Longitude,
             TypeDeBienId = bienDto.TypeDeBienId,
             StatutTransaction = bienDto.StatutTransaction,
+            PrixParNuit = bienDto.PrixParNuit,
             DateDePublication = DateTime.UtcNow,
             EstDisponible = true
         };
@@ -162,6 +163,7 @@ public async Task<BiensImmobilier?> UpdateBienAsync(int id, UpdateBienDto bienDt
     bienExistant.TypeDeBienId = bienDto.TypeDeBienId;
     bienExistant.StatutTransaction = bienDto.StatutTransaction;
     bienExistant.EstDisponible = bienDto.EstDisponible;
+    bienExistant.PrixParNuit = bienDto.PrixParNuit;
 
     // La logique pour les aménagements
     if (bienDto.AmenagementIds != null)

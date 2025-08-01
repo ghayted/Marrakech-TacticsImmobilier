@@ -39,10 +39,16 @@ public partial class BiensImmobilier
 
     public string StatutTransaction { get; set; } = null!; 
 
+    public decimal? PrixParNuit { get; set; } // Prix par nuit pour les locations
+
 
     public virtual ICollection<ImagesBien> ImagesBiens { get; set; } = new List<ImagesBien>();
 
     public virtual TypesDeBien TypeDeBien { get; set; } = null!;
 
     public virtual ICollection<Amenagement> Amenagements { get; set; } = new List<Amenagement>();
+
+    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+
+    public virtual ICollection<Disponibilite> Disponibilites { get; set; } = new List<Disponibilite>();
 }

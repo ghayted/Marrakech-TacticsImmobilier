@@ -16,6 +16,7 @@ public class CreateBienDto
     public decimal? Longitude { get; set; }
     public int TypeDeBienId { get; set; }
  public string StatutTransaction { get; set; } = "À Vendre";
+    public decimal? PrixParNuit { get; set; } // Prix par nuit pour les locations
     // On enverra une liste des IDs des aménagements cochés
     public List<int> AmenagementIds { get; set; } = new(); 
     // On enverra une liste des URLs des images uploadées
