@@ -18,6 +18,8 @@ public class ReservationDto
     public string TitreBien { get; set; } = string.Empty;
     public int UtilisateurId { get; set; }
     public string NomUtilisateur { get; set; } = string.Empty;
+    public string? EmailUtilisateur { get; set; }
+    public string? TelephoneUtilisateur { get; set; }
     public DateTime DateDebut { get; set; }
     public DateTime DateFin { get; set; }
     public int NombreDeVoyageurs { get; set; }

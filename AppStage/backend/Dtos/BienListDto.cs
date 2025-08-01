@@ -7,6 +7,7 @@ public class BienListDto
     public decimal Prix { get; set; }
     public string StatutTransaction { get; set; }
     public string TypeDeBien { get; set; }
+    public int TypeDeBienId { get; set; }
     public string ImagePrincipale { get; set; }
     public int NombreDeChambres { get; set; }
     public int Surface { get; set; }

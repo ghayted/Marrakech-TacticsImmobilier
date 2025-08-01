@@ -16,7 +16,8 @@ public interface IBienImmobilierService
     string? quartier = null, // Ajout du paramètre quartier pour correspondre à l'implémentation
     decimal? prixMin = null, 
     decimal? prixMax = null, 
-    string? triParPrix = null
+    string? triParPrix = null,
+    string? triParDate = null
 );
     Task<BiensImmobilier?> CreateBienAsync(CreateBienDto bienDto); 
     Task<BiensImmobilier?> GetBienByIdAsync(int id); 

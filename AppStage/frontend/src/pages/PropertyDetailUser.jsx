@@ -48,7 +48,12 @@ function PropertyDetail() {
             const response = await fetch(`http://localhost:5257/api/BiensImmobiliers/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            if (response.ok) setBien(await response.json());
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Données du bien reçues:', data);
+                console.log('Coordonnées:', { lat: data.latitude, lng: data.longitude });
+                setBien(data);
+            }
         } catch (error) {
             console.error('Erreur:', error);
         } finally {
@@ -109,7 +114,13 @@ function PropertyDetail() {
       </div>
       
       {/* Composant pour la Localisation */}
-      <LocationMap latitude={bien.latitude} longitude={bien.longitude} />
+      {bien.latitude && bien.longitude ? (
+        <LocationMap latitude={bien.latitude} longitude={bien.longitude} />
+      ) : (
+        <div className="no-map-message">
+          <p>Aucune coordonnée disponible pour ce bien</p>
+        </div>
+      )}
       <SimilarProperties
   currentPropertyId={bien.id}
   propertyStatus={bien.statutTransaction}
