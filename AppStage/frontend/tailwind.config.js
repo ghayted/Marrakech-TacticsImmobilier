@@ -4,6 +4,7 @@ module.exports = {
       "./index.html",
       "./src/**/*.{js,jsx,ts,tsx}",
     ],
+    darkMode: 'class', // Mode manuel pour éviter les conflits système
     theme: {
       extend: {},
     },

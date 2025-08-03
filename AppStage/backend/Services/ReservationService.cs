@@ -43,7 +43,7 @@ public class ReservationService : IReservationService
             DateFin = reservationDto.DateFin,
             NombreDeVoyageurs = reservationDto.NombreDeVoyageurs,
             PrixTotal = prixTotal,
-            Statut = "En attente de paiement",
+            Statut = "Confirmée", // Statut par défaut modifié
             DateDeReservation = DateTime.UtcNow
         };
 

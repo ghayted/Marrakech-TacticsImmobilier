@@ -4,4 +4,5 @@ namespace backend.Services;
 public interface IAuthService
 {
     Task<string?> LoginAsync(string username, string password);
+    Task<int> CreateOrFindUserAsync(string email, string prenom, string nom, string? telephone);
 }

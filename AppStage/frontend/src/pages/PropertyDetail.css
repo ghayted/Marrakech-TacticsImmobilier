@@ -983,8 +983,8 @@
   }
 }
 
-/* Mode sombre (optionnel) */
-@media (prefers-color-scheme: dark) {
+/* Mode sombre désactivé pour cohérence d'équipe */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-primary: #1a202c;
     --bg-secondary: #2d3748;
@@ -995,4 +995,4 @@
     --border-color: #4a5568;
     --border-light: #2d3748;
   }
-}
+} */

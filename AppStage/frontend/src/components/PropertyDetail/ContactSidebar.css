@@ -38,6 +38,33 @@
     background: #e2e8f0;
     border-color: #aaa;
   }
+
+  /* Bouton de réservation dans la sidebar */
+  .reservation-btn-sidebar {
+    width: 100%;
+    background: #B85450;
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .reservation-btn-sidebar:hover {
+    background: #a04743;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(184, 84, 80, 0.3);
+  }
+
+  .reservation-btn-sidebar:active {
+    transform: translateY(0);
+  }
   .form-group {
     margin-bottom: 1rem;
   }

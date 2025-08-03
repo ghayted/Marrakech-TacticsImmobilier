@@ -283,6 +283,13 @@ function AdminDashboard() {
 
   const handleNavClick = (sectionId) => {
     setActiveSection(sectionId)
+    
+    // Rafraîchir les données quand on navigue vers certaines sections
+    if (sectionId === 'reservations') {
+      fetchReservations()
+    } else if (sectionId === 'paiements') {
+      fetchPaiements()
+    }
   }
 
   const handleAddProperty = () => {
@@ -788,6 +795,14 @@ function AdminDashboard() {
           <div className="reservations-section">
             <div className="section-header">
               <h2>Gestion des Réservations</h2>
+              <button 
+                className="btn-primary" 
+                onClick={() => fetchReservations()}
+                disabled={loading}
+              >
+                <SettingsIcon />
+                Actualiser
+              </button>
             </div>
             <div className="reservations-table-container">
               <table className="reservations-table">

@@ -30,6 +30,16 @@ public IActionResult HashPassword(string password)
     string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
     return Ok(new { Original = password, Hashed = hashedPassword });
 }
+
+    /// <summary>
+    /// Créer ou trouver un utilisateur client pour une réservation
+    /// </summary>
+    [HttpPost("create-or-find-user")]
+    public async Task<IActionResult> CreateOrFindUser([FromBody] CreateUserRequest request)
+    {
+        var userId = await _authService.CreateOrFindUserAsync(request.Email, request.Prenom, request.Nom, request.Telephone);
+        return Ok(new { UserId = userId });
+    }
 }
 
 // Classe simple pour représenter la requête de connexion
@@ -37,4 +47,13 @@ public class LoginRequest
 {
     public string Username { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+}
+
+// Classe pour créer/trouver un utilisateur client
+public class CreateUserRequest
+{
+    public string Email { get; set; } = string.Empty;
+    public string Prenom { get; set; } = string.Empty;
+    public string Nom { get; set; } = string.Empty;
+    public string? Telephone { get; set; }
 }

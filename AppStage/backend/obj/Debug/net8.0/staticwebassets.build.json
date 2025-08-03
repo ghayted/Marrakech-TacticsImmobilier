@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "02Tz2et0ZtjFMi8ZjxBj9A01T1GcA4gmZgo9fmtFXoA=",
+  "Hash": "1vbLrAfa9c4X8hO39jXa5sdobrsuMkvRR6HZlPtVXzc=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "backend\\wwwroot",
       "Source": "backend",
-      "ContentRoot": "C:\\Users\\dafal\\Desktop\\StageImmoblier\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\dafal\\Desktop\\StageImmoblier\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1_20250801_215627.pdf",
+      "Identity": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1_20250801_215627.pdf",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dafal\\Desktop\\StageImmoblier\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "factures/facture_1_20250801_215627.pdf",
       "AssetKind": "All",
@@ -36,10 +36,29 @@
       "OriginalItemSpec": "wwwroot\\factures\\facture_1_20250801_215627.pdf"
     },
     {
-      "Identity": "C:\\Users\\dafal\\Desktop\\StageImmoblier\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_2_20250801_161653.txt",
+      "Identity": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1002_20250803_135517.pdf",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dafal\\Desktop\\StageImmoblier\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "RelativePath": "factures/facture_1002_20250803_135517.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\factures\\facture_1002_20250803_135517.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_2_20250801_161653.txt",
+      "SourceId": "backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "factures/facture_2_20250801_161653.txt",
       "AssetKind": "All",
@@ -55,10 +74,29 @@
       "OriginalItemSpec": "wwwroot\\factures\\facture_2_20250801_161653.txt"
     },
     {
-      "Identity": "C:\\Users\\dafal\\Desktop\\StageImmoblier\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_3_20250801_162455.pdf",
+      "Identity": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_2_20250801_223440.pdf",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dafal\\Desktop\\StageImmoblier\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "RelativePath": "factures/facture_2_20250801_223440.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\factures\\facture_2_20250801_223440.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_3_20250801_162455.pdf",
+      "SourceId": "backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "factures/facture_3_20250801_162455.pdf",
       "AssetKind": "All",
@@ -72,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\factures\\facture_3_20250801_162455.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_3_20250801_225719.pdf",
+      "SourceId": "backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "RelativePath": "factures/facture_3_20250801_225719.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\factures\\facture_3_20250801_225719.pdf"
     }
   ]
 }

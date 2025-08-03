@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ContactSidebar.css';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
 
-const ContactSidebar = ({ property }) => {
+const ContactSidebar = ({ property, onReservationClick }) => {
   const [formData, setFormData] = useState({
     nom: '', // Ce champ contiendra le nom complet
     tel: '',
@@ -77,6 +77,17 @@ const ContactSidebar = ({ property }) => {
          </div>
       </div>
       <button className="agent-properties-btn">PLUS DE PROPRIÉTÉS</button>
+
+      {/* Bouton de réservation - s'affiche seulement pour les locations */}
+      {(property.statutTransaction?.toLowerCase().includes('louer') || 
+        property.statutTransaction?.toLowerCase().includes('location')) && onReservationClick && (
+        <button 
+          className="reservation-btn-sidebar" 
+          onClick={onReservationClick}
+        >
+          RÉSERVER MAINTENANT
+        </button>
+      )}
 
       <form className="contact-form" onSubmit={handleSubmit}>
         <div className="form-group">

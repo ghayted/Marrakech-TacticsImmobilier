@@ -13,6 +13,7 @@ import PropertyInfo from '../components/PropertyDetail/PropertyInfo';
 import ContactSidebar from '../components/PropertyDetail/ContactSidebar';
 import LocationMap from '../components/PropertyDetail/LocationMap';
 import SimilarProperties from '../components/PropertyDetail/SimilarProperties'; 
+import ReservationModal from '../components/PropertyDetail/ReservationModal';
 import Footer from '../components/Home/Footer';
 
 const quartiersDeMarrakech = [
@@ -38,6 +39,7 @@ function PropertyDetail() {
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullscreen, setShowFullscreen] = useState(false); // Gardé pour une future utilisation
+  const [showReservationModal, setShowReservationModal] = useState(false);
   const token = localStorage.getItem('authToken');
 
   // La logique pour récupérer les données reste ici, dans le composant parent
@@ -108,8 +110,11 @@ function PropertyDetail() {
           {/* Composant pour les Infos (Caractéristiques, Description...) */}
           <PropertyInfo property={bienAvecQuartier} />
 
-          {/* Composant pour le Contact */}
-          <ContactSidebar property={bien} />
+          {/* Composant pour le Contact avec bouton de réservation intégré */}
+          <ContactSidebar 
+            property={bien} 
+            onReservationClick={() => setShowReservationModal(true)}
+          />
         </div>
       </div>
       
@@ -126,6 +131,14 @@ function PropertyDetail() {
   propertyStatus={bien.statutTransaction}
   propertyType={bien.typeDeBien?.nom} // 👈 On ajoute simplement ".nom"
 />
+
+      {/* Modal de réservation */}
+      <ReservationModal
+        isOpen={showReservationModal}
+        onClose={() => setShowReservationModal(false)}
+        property={bienAvecQuartier}
+      />
+
       <Footer />
     </div>
   );

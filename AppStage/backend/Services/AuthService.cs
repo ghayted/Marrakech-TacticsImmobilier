@@ -64,4 +64,40 @@ public class AuthService : IAuthService
     Console.WriteLine("--- Fin de la tentative (Jeton créé) ---");
     return tokenHandler.WriteToken(token);
 }
+
+    /// <summary>
+    /// Créer ou trouver un utilisateur client pour les réservations
+    /// </summary>
+    public async Task<int> CreateOrFindUserAsync(string email, string prenom, string nom, string? telephone)
+    {
+        // 1. Chercher si l'utilisateur existe déjà par email
+        var existingUser = await _context.Utilisateurs
+            .FirstOrDefaultAsync(u => u.Email == email);
+
+        if (existingUser != null)
+        {
+            // Mettre à jour les informations si nécessaire
+            existingUser.NomComplet = $"{prenom} {nom}";
+            if (!string.IsNullOrEmpty(telephone))
+                existingUser.Telephone = telephone;
+            
+            await _context.SaveChangesAsync();
+            return existingUser.Id;
+        }
+
+        // 2. Créer un nouvel utilisateur client
+        var newUser = new Utilisateur
+        {
+            Email = email,
+            NomComplet = $"{prenom} {nom}",
+            Telephone = telephone,
+            NomUtilisateur = email, // Utiliser l'email comme nom d'utilisateur
+            MotDePasseHashe = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString()) // Mot de passe aléatoire
+        };
+
+        _context.Utilisateurs.Add(newUser);
+        await _context.SaveChangesAsync();
+
+        return newUser.Id;
+    }
 }
