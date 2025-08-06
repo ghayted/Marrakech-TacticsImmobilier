@@ -73,6 +73,21 @@
   font-weight: 600;
   color: #8B4513;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.bienslist-card-price .price-amount {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #8B4513;
+}
+
+.bienslist-card-price .price-unit {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
 }
 
 .bienslist-card-btn {

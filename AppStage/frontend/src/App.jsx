@@ -4,9 +4,11 @@ import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import PropertyDetail from './pages/PropertyDetail';
 import PropertyDetailUser from './pages/PropertyDetailUser';
+import ReservationPage from './pages/ReservationPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import ClientHome from './pages/ClientHome';
 import BiensList from './pages/BiensList';
+import MesReservations from './pages/MesReservations';
 
 function PropertyDetailUserWrapper() {
   const { id } = useParams();
@@ -21,6 +23,10 @@ function App() {
         <Route path="/biens" element={<BiensList />} />
         {/* Route utilisateur pour les détails */}
         <Route path="/property/:id" element={<PropertyDetailUserWrapper />} />
+        {/* Route pour la réservation */}
+        <Route path="/reservation/:id" element={<ReservationPage />} />
+        {/* Page Mes Réservations */}
+        <Route path="/mes-reservations" element={<MesReservations />} />
         {/* Routes admin protégées */}
         
           <Route path="/admin" element={<AdminDashboard />} />

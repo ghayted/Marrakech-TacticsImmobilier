@@ -1,28 +1,56 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1002_20250803_135517.pdf",
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1002_20250803_135517.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_1002_20250803_135517.pdf"
     },
     {
-      "Id": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1_20250801_215627.pdf",
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1003_20250803_143532.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_1003_20250803_143532.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1_20250801_215627.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_1_20250801_215627.pdf"
     },
     {
-      "Id": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_2_20250801_161653.txt",
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_2_20250801_161653.txt",
       "PackagePath": "staticwebassets\\factures\\facture_2_20250801_161653.txt"
     },
     {
-      "Id": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_2_20250801_223440.pdf",
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_2_20250801_223440.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_2_20250801_223440.pdf"
     },
     {
-      "Id": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_3_20250801_162455.pdf",
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_3_20250801_162455.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_3_20250801_162455.pdf"
     },
     {
-      "Id": "C:\\Users\\Microsoft\\Desktop\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_3_20250801_225719.pdf",
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_3_20250801_225719.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_3_20250801_225719.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_4_20250804_181546.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_4_20250804_181546.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_5_20250804_202400.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_5_20250804_202400.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_6_20250805_034505.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_6_20250805_034505.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_7_20250805_034915.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_7_20250805_034915.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_8_20250805_042439.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_8_20250805_042439.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_9_20250805_184652.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_9_20250805_184652.pdf"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -201,3 +201,83 @@
 .fab-contact {
   background-color: #c94f53;
 }
+
+/* --- Styles pour l'affichage des dates sélectionnées --- */
+.selected-dates-info {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #c94f53;
+}
+
+.dates-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.dates-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.dates-value {
+  background: #c94f53;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(201, 79, 83, 0.3);
+}
+
+.travelers-info {
+  color: #6c757d;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.reset-dates-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+}
+
+.reset-dates-btn:hover {
+  background: #ff5252;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+}
+
+/* Responsive design pour les dates sélectionnées */
+@media (max-width: 768px) {
+  .dates-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .dates-value {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .reset-dates-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}

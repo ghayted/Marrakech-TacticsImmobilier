@@ -26,9 +26,12 @@ public async Task<IActionResult> GetAllBiens(
     [FromQuery] decimal? prixMin = null,
     [FromQuery] decimal? prixMax = null,
     [FromQuery] string? triParPrix = null,
-    [FromQuery] string? triParDate = null)
+    [FromQuery] string? triParDate = null,
+    [FromQuery] string? dateDebut = null,
+    [FromQuery] string? dateFin = null,
+    [FromQuery] int? nombreVoyageurs = null)
 {
-    var biens = await _bienService.GetAllBiensAsync(recherche, typeDeBienNom, statut, ville, quartier, prixMin, prixMax, triParPrix, triParDate);
+    var biens = await _bienService.GetAllBiensAsync(recherche, typeDeBienNom, statut, ville, quartier, prixMin, prixMax, triParPrix, triParDate, dateDebut, dateFin, nombreVoyageurs);
     return Ok(biens);
 }
     // POINT D'API N°2 : Créer un nouveau bien

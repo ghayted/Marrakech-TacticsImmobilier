@@ -1,0 +1,134 @@
+.mes-reservations-page .page-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: 'Lato', sans-serif;
+}
+.mes-reservations-page h1 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 2rem;
+}
+.reservations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.reservation-card {
+  display: flex;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.reservation-card:hover {
+  transform: translateY(-5px);
+}
+.reservation-card-image {
+  flex-shrink: 0;
+  width: 200px;
+}
+.reservation-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.reservation-card-details {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.reservation-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+.reservation-card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.status-confirmée { background-color: #e6fffa; color: #2c7a7b; }
+.status-annulée { background-color: #fff5f5; color: #c53030; }
+.status-terminée { background-color: #f1f5f9; color: #64748b; }
+
+.reservation-card .location {
+  color: #718096;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.reservation-card .info-line {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+.reservation-card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reservation-card-footer .price {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.cancel-btn {
+  background: none;
+  border: 1px solid #e53e3e;
+  color: #e53e3e;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+.cancel-btn:hover {
+  background: #e53e3e;
+  color: white;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+}
+.modal-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+.modal-actions button {
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-secondary { background: #e2e8f0; color: #4a5568; }
+.btn-danger { background: #e53e3e; color: white; }

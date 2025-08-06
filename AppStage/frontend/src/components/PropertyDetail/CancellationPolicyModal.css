@@ -1,0 +1,92 @@
+/* --- Arrière-plan de la modale (Overlay) --- */
+.cancellation-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: modal-fade-in 0.3s ease-out;
+}
+
+/* --- Contenu de la modale --- */
+.cancellation-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  font-family: 'Lato', sans-serif;
+  animation: modal-slide-in 0.4s ease-out;
+}
+
+/* --- Animations d'apparition --- */
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-slide-in {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Bouton pour fermer --- */
+.cancellation-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.cancellation-modal-close:hover {
+  color: #333;
+}
+
+/* --- Titre H2 --- */
+.cancellation-modal-content h2 {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: #2d3748;
+  margin: 0 0 2rem 0;
+}
+
+/* --- Section (une ligne d'info) --- */
+.cancellation-modal-section {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Colonne de gauche plus petite */
+  gap: 2rem;
+  align-items: start;
+}
+
+.cancellation-modal-section > div {
+  line-height: 1.6;
+}
+
+.cancellation-modal-section strong {
+  color: #333;
+}
+
+/* Texte descriptif */
+.cancellation-modal-section > div:last-child {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* --- Ligne de séparation --- */
+.cancellation-modal-content hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 1.5rem 0;
+}

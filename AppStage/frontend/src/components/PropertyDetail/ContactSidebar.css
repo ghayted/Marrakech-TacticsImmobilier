@@ -1,6 +1,7 @@
 .contact-sidebar-container {
     background-color: #ffffff;
     padding: 1.5rem;
+    max-height: 800px;
   }
   .agent-card {
     display: flex;

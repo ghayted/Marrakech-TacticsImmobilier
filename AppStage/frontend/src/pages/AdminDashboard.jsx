@@ -461,7 +461,7 @@ function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="admin-dashboard">
+      <div className="app-admin-dashboard">
         <div className="loading-container">
           <div className="loading-spinner"></div>
           <p>Chargement...</p>
@@ -471,7 +471,7 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="admin-dashboard">
+    <div className="app-admin-dashboard">
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">

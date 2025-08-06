@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // Import des styles
 import './PropertyDetailUser.css';
@@ -35,6 +35,7 @@ const trouverQuartierDansAdresse = (adresse, listeQuartiers) => {
 function PropertyDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [bien, setBien] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -80,6 +81,15 @@ function PropertyDetail() {
   if (loading) return <div className="property-detail-loading"><span>Chargement...</span></div>;
   if (!bien) return <div className="property-detail-error"><h2>Propriété introuvable</h2></div>;
 
+  // Debug: Afficher les paramètres de l'URL
+  const searchParams = new URLSearchParams(location.search);
+  const dateDebut = searchParams.get('dateDebut');
+  const dateFin = searchParams.get('dateFin');
+  const nombreVoyageurs = searchParams.get('nombreVoyageurs');
+
+  console.log('🔍 [PropertyDetailUser] URL complète:', location.pathname + location.search);
+  console.log('🔍 [PropertyDetailUser] Dates dans l\'URL:', { dateDebut, dateFin, nombreVoyageurs });
+
   const isNew = bien.dateDePublication && (Date.now() - new Date(bien.dateDePublication).getTime() < 7 * 24 * 60 * 60 * 1000);
   const quartierDetecte = trouverQuartierDansAdresse(bien.adresse, quartiersDeMarrakech);
 
@@ -112,7 +122,10 @@ function PropertyDetail() {
 
           {/* Composant pour le Contact avec bouton de réservation intégré */}
           <ContactSidebar 
-            property={bien} 
+            property={bien}
+            dateDebut={dateDebut}
+            dateFin={dateFin}
+            nombreVoyageurs={nombreVoyageurs}
             onReservationClick={() => setShowReservationModal(true)}
           />
         </div>

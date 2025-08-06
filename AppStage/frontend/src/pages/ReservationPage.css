@@ -1,0 +1,343 @@
+/* --- Style général de la page --- */
+.app-reservation-page {
+  background-color: white; /* Fond blanc épuré */
+  font-family: 'Lato', sans-serif;
+}
+/* --- Style pour la section "Votre Voyage" --- */
+.booking-details-card {
+  background-color: white;
+border: 1px solid #e2e8f0;
+  border-radius: 50px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-top: 0; /* Reset margin top to align with right column */
+}
+.trip-section {
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee; /* Ligne de séparation */
+  padding: 1.5rem; /* Add some padding inside the box */
+  margin-bottom: 2.5rem; /* Increase margin to separate from the next section */
+  background-color: white; /* Ensure a white background for the shadow to be visible */
+}
+
+.trip-section h2 {
+  /* Le titre de la section, stylisé comme les autres */
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  color: #2d3748;
+}
+
+.trip-details {
+  display: flex;
+  flex-direction: column; /* Empile la ligne des dates et la ligne des voyageurs */
+  gap: 1.5rem; /* Espace vertical entre les deux lignes */
+}
+
+/* --- Style pour une ligne (ex: Dates ou Voyageurs) --- */
+.trip-item {
+  display: flex;
+  justify-content: space-between; /* Pousse le bouton "Modifier" à droite */
+  align-items: center;
+}
+
+/* On groupe l'icône et le texte ensemble à gauche */
+.trip-item > span {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Espace entre l'icône et le texte */
+  font-weight: 600;
+  color: #333;
+}
+
+/* Style de l'icône */
+.trip-item svg {
+  font-size: 1.2rem;
+  color: #718096;
+}
+
+/* --- Style du bouton "Modifier" --- */
+.modify-btn {
+  /* On le transforme en un lien stylisé, plus discret */
+  background: none;
+  border: none;
+  color: #333;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+
+.modify-btn:hover {
+  color: #b08d57; /* Votre couleur Or/Brun au survol */
+}
+
+.no-dates {
+  font-style: italic;
+  color: #718096;
+  font-weight: normal;
+}
+.reservation-container {
+  max-width: 1120px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr; /* Une seule colonne par défaut pour mobile */
+  gap: 3rem 5rem; /* Espace vertical et horizontal */
+  align-items: flex-start; /* Aligne les éléments en haut */
+}
+
+/* Passage à 2 colonnes sur les grands écrans */
+@media (min-width: 992px) {
+  .reservation-container {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+/* --- COLONNE DE GAUCHE (Détails et Paiement) --- */
+.reservation-left .back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.reservation-left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin: 0 0 1rem 0; /* Réduit encore plus la marge pour aligner avec la colonne de droite */
+}
+/* Conteneur principal de l'en-tête */
+.reservation-header {
+  display: flex;         /* 👈 Aligne le bouton et le titre horizontalement */
+  align-items: center;   /* 👈 Centre verticalement le bouton et le titre */
+  gap: 1.5rem;           /* Espace entre le bouton et le titre */
+  margin-bottom: 2rem;   /* Espace sous l'en-tête */
+}
+
+/* Style du bouton retour pour le rendre circulaire */
+.reservation-header .back-btn {
+  background-color: #f0f2f5; /* Fond gris clair */
+  margin: 0;
+  border-radius: 50%;      /* 👈 Rend le bouton parfaitement rond */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s;
+}
+.app-reservation-page header {
+  background-color: white; /* Assure un fond blanc pour que l'ombre soit visible */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Ajoute une ombre subtile */
+  position: sticky; /* Fait en sorte que le header reste en haut quand on scroll */
+  top: 0;
+  z-index: 999; /* S'assure qu'il passe au-dessus du reste du contenu */
+}
+.reservation-header .back-btn:hover {
+  background-color: #e4e6e9; /* Un gris légèrement plus foncé au survol */
+}
+
+/* Style du titre H1 */
+.reservation-header h1 {
+  /* On utilise la police sans-serif pour un look plus moderne */
+  font-family: 'Lato', sans-serif; 
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0; /* Supprime la marge par défaut pour un alignement parfait */
+  line-height: 1;
+}
+.reservation-section {
+  margin-bottom: 2.5rem;
+}
+.reservation-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* --- COLONNE DE DROITE (Résumé de la réservation) --- */
+.reservation-right {
+  position: relative;
+ top: 107px;
+  margin-top: 0; /* Reset margin pour aligner avec la colonne de gauche */
+  padding-top: 0; /* Supprime le padding top pour aligner parfaitement */
+}
+.reservation-summary-card {
+  background: white;
+ border: 1px solid #bebebe;
+  border-radius:50px;
+  padding: 1.5rem;
+  
+  margin-top: 0; /* S'assure qu'il n'y a pas de marge supérieure */
+}
+/* --- Style pour le résumé de la propriété (Sidebar Droite) --- */
+
+.property-summary {
+  display: flex;         /* 👈 Met l'image et le bloc d'info côte à côte */
+  align-items: center;   /* 👈 Aligne verticalement l'image et le texte */
+  gap: 0.7rem;             /* Espace entre l'image et le texte */
+  padding-bottom: 1.5rem;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  background: white;
+}
+
+.property-summary .property-image {
+  width: 110px;  /* Largeur fixe pour l'image */
+  height: 100px;   /* Hauteur fixe */
+  flex-shrink: 0; /* Empêche l'image de se rétrécir */
+  border-radius: 8px;
+  overflow: hidden; /* Assure que l'image respecte les coins arrondis */
+}
+
+.property-summary .property-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Remplit l'espace sans déformer l'image */
+}
+
+.property-summary .property-info {
+  display: flex;
+  flex-direction: column; /* Empile le titre et les paragraphes */
+  gap: 0.25rem; /* Petit espace vertical entre les lignes de texte */
+}
+
+.property-summary .property-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748; /* Couleur de texte sombre */
+  line-height: 1.4; /* Améliore la lisibilité si le titre est sur plusieurs lignes */
+}
+
+.property-summary .property-info p {
+  margin: 0;
+  font-size: 0.7rem;
+  color: #718096; /* Couleur de texte secondaire/grise */
+}
+
+/* Style pour la notation (même si elle est vide pour l'instant) */
+.property-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #4a5568;
+}
+
+/* Pour l'icône étoile, si vous l'ajoutez */
+.property-rating svg {
+  color: #f59e0b; /* Couleur or/jaune pour l'étoile */
+}
+.property-summary .property-type,
+.property-summary .property-location {
+  margin: 0 0 0.05rem 0;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Annulation gratuite */
+.cancellation-policy {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+.cancellation-policy h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.cancellation-policy p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #718096;
+}
+.cancellation-policy .policy-link {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Bloc d'infos sur le voyage */
+.trip-info-block {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.trip-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.trip-info-header .modify-btn {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Bloc de détail du prix */
+.price-details-block {
+  padding: 1.5rem 0 0.5rem 0;
+}
+.price-details-block h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  color: #4a5568;
+}
+.price-row.reduction {
+  color: #008a05; /* Vert pour la réduction */
+}
+.price-row.total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  color: #2d3748;
+}
+.price-details-link {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #718096;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Message de statut (succès/erreur) */
+.status-message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+}
+.status-message.success { background-color: #e6fffa; color: #2c7a7b; }
+.status-message.error { background-color: #fff5f5; color: #c53030; }

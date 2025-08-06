@@ -17,18 +17,19 @@ const PropertyInfo = ({ property }) => {
   <div className="property-key-features">
     {/* 👇 On regroupe les caractéristiques ici pour un meilleur alignement 👇 */}
     <div className="features-group">
-      <span><FaBed /> {property.nombreDeChambres} chambres</span>
-
-      {/* --- LIGNE AJOUTÉE POUR LES SALLES DE BAIN --- */}
+      <span><FaBed /> {property.nombreDeChambres} chambre{property.nombreDeChambres > 1 ? 's' : ''}</span>
       <span><FaBath /> {property.nombreDeSallesDeBain} salle{property.nombreDeSallesDeBain > 1 ? 's' : ''} de bain</span>
-
-      {/* --- LIGNE AJOUTÉE POUR LA SURFACE --- */}
       <span><FaRulerCombined /> {property.surface} m²</span>
+      <span>{property.nombreDeSalons} salon{property.nombreDeSalons > 1 ? 's' : ''}</span>
+      <span>{property.nombreDeCuisines} cuisine{property.nombreDeCuisines > 1 ? 's' : ''}</span>
     </div>
 
     {/* Le prix reste à droite */}
     <span className="price-ask">
-      {property.prix ? property.prix.toLocaleString('fr-FR') : 'Nous consulter'} EUR
+      {property.statutTransaction === 'À Louer' 
+        ? `${property.prixParNuit?.toLocaleString('fr-FR')} EUR/nuit`
+        : `${property.prix?.toLocaleString('fr-FR')} EUR`
+      }
     </span>
   </div>
 </header>
@@ -51,7 +52,17 @@ const PropertyInfo = ({ property }) => {
           <div className="detail-item"><span>VILLE</span><span>{property.ville}</span></div>
           <div className="detail-item"><span>CHAMBRES</span><span>{property.nombreDeChambres}</span></div>
           <div className="detail-item"><span>SDB</span><span>{property.nombreDeSallesDeBain}</span></div>
-
+          <div className="detail-item"><span>SALONS</span><span>{property.nombreDeSalons}</span></div>
+          <div className="detail-item"><span>CUISINES</span><span>{property.nombreDeCuisines}</span></div>
+          <div className="detail-item">
+            <span>PRIX</span>
+            <span>
+              {property.statutTransaction === 'À Louer' 
+                ? `${property.prixParNuit?.toLocaleString('fr-FR')} EUR/nuit`
+                : `${property.prix?.toLocaleString('fr-FR')} EUR`
+              }
+            </span>
+          </div>
           <div className="detail-item"><span>OPÉRATION</span><span>{property.statutTransaction}</span></div>
           <div className="detail-item"><span>TYPE</span><span>{property.typeDeBien?.nom}</span></div>
           <div className="detail-item"><span>QUARTIER</span><span>{property.quartier || 'Non spécifié'}</span></div>

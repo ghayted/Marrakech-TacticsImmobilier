@@ -22,12 +22,16 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
     decimal? prixMin = null, 
     decimal? prixMax = null, 
     string? triParPrix = null,
-    string? triParDate = null)
+    string? triParDate = null,
+    string? dateDebut = null,
+    string? dateFin = null,
+    int? nombreVoyageurs = null)
 {
     var query = _context.BiensImmobiliers
         .Include(b => b.TypeDeBien)
         .Include(b => b.Amenagements)
         .Include(b => b.ImagesBiens)
+        .Include(b => b.Disponibilites) // Inclure les disponibilités
         .AsQueryable();
 
     if (!string.IsNullOrEmpty(recherche))
@@ -50,6 +54,22 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
         query = query.Where(b => b.Prix >= prixMin.Value);
     if (prixMax.HasValue)
         query = query.Where(b => b.Prix <= prixMax.Value);
+
+    // Filtrage par disponibilité si des dates sont fournies
+    if (!string.IsNullOrEmpty(dateDebut) && !string.IsNullOrEmpty(dateFin))
+    {
+        var dateDebutParsed = DateTime.Parse(dateDebut);
+        var dateFinParsed = DateTime.Parse(dateFin);
+
+        // Filtrer les biens qui ont des disponibilités pour toutes les dates demandées
+        // Si un bien n'a pas de disponibilités définies, on le considère comme disponible
+        query = query.Where(b => 
+            !b.Disponibilites.Any() || // Pas de disponibilités définies = disponible
+            b.Disponibilites
+                .Where(d => d.Date >= dateDebutParsed && d.Date <= dateFinParsed)
+                .All(d => d.EstDisponible));
+    }
+
     if (!string.IsNullOrEmpty(triParPrix))
     {
         if (triParPrix.Equals("asc", StringComparison.OrdinalIgnoreCase))
@@ -86,6 +106,7 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
         Titre = b.Titre,
         Ville = b.Ville,
         Prix = b.Prix,
+        PrixParNuit = b.PrixParNuit,
         StatutTransaction = b.StatutTransaction,
         TypeDeBien = b.TypeDeBien.Nom,
         TypeDeBienId = b.TypeDeBienId,

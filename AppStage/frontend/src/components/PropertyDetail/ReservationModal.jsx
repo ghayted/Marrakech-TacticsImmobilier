@@ -4,15 +4,22 @@ import { FaTimes, FaCalendarAlt, FaUsers } from 'react-icons/fa';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import StripePayment from './StripePayment';
+import ClientLoginModal from '../Auth/ClientLoginModal';
 
 // Initialiser Stripe avec votre clé publique
 const stripePromise = loadStripe('pk_test_51RW28ZPNEpqAWzT7eCsUilQuStwuC1prDFJrpnsHLtOGCnZff84op1KxaukE48ILVMl4RlYjL2tvHFTuKxr7YyN800kTuYHpZe');
 
 const ReservationModal = ({ isOpen, onClose, property }) => {
+  // Récupérer les paramètres de l'URL
+  const searchParams = new URLSearchParams(window.location.search);
+  const urlDateDebut = searchParams.get('dateDebut');
+  const urlDateFin = searchParams.get('dateFin');
+  const urlNombreVoyageurs = searchParams.get('nombreVoyageurs');
+
   const [formData, setFormData] = useState({
-    dateDebut: '',
-    dateFin: '',
-    nombreDeVoyageurs: 1,
+    dateDebut: urlDateDebut || '',
+    dateFin: urlDateFin || '',
+    nombreDeVoyageurs: urlNombreVoyageurs ? parseInt(urlNombreVoyageurs) : 1,
     // Données utilisateur
     nom: '',
     prenom: '',
@@ -25,23 +32,13 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
   const [prixTotal, setPrixTotal] = useState(0);
   const [showPayment, setShowPayment] = useState(false);
   const [reservationId, setReservationId] = useState(null);
+  
+  // États pour l'authentification
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState(null);
 
-  if (!isOpen) return null;
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Reset availability when dates change
-    if (name === 'dateDebut' || name === 'dateFin') {
-      setAvailability(null);
-      setPrixTotal(0);
-    }
-  };
-
-  const checkAvailability = async () => {
+  const checkAvailability = React.useCallback(async () => {
     if (!formData.dateDebut || !formData.dateFin) {
       setMessage('Veuillez sélectionner les dates de début et de fin');
       return;
@@ -91,10 +88,57 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
     } finally {
       setLoading(false);
     }
+  }, [formData.dateDebut, formData.dateFin, property.id, setMessage, setLoading, setAvailability, setPrixTotal]);
+
+  // Vérifier l'authentification au chargement et initialiser les données
+  React.useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const storedUserData = localStorage.getItem('userData');
+    
+    if (token && storedUserData) {
+      setIsAuthenticated(true);
+      setUserData(JSON.parse(storedUserData));
+      
+      // Pré-remplir les champs avec les données utilisateur
+      const user = JSON.parse(storedUserData);
+      setFormData(prev => ({
+        ...prev,
+        nom: user.nom || '',
+        prenom: user.prenom || '',
+        email: user.email || '',
+        telephone: user.telephone || ''
+      }));
+    }
+
+    // Si des dates sont présentes dans l'URL, vérifier automatiquement la disponibilité
+    if (urlDateDebut && urlDateFin) {
+      checkAvailability();
+    }
+  }, [urlDateDebut, urlDateFin, checkAvailability]);
+
+  if (!isOpen) return null;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Reset availability when dates change
+    if (name === 'dateDebut' || name === 'dateFin') {
+      setAvailability(null);
+      setPrixTotal(0);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Vérifier l'authentification avant de permettre la réservation
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     
     if (!availability || !availability.estDisponible) {
       setMessage('Veuillez vérifier la disponibilité avant de réserver');
@@ -169,6 +213,34 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
     }
   };
 
+  const handleLoginSuccess = (user) => {
+    setIsAuthenticated(true);
+    setUserData(user);
+    
+    // Pré-remplir les champs avec les données utilisateur
+    setFormData(prev => ({
+      ...prev,
+      nom: user.nom || '',
+      prenom: user.prenom || '',
+      email: user.email || '',
+      telephone: user.telephone || ''
+    }));
+  };
+
+  const handleRegisterSuccess = (user) => {
+    setIsAuthenticated(true);
+    setUserData(user);
+    
+    // Pré-remplir les champs avec les données utilisateur
+    setFormData(prev => ({
+      ...prev,
+      nom: user.nom || '',
+      prenom: user.prenom || '',
+      email: user.email || '',
+      telephone: user.telephone || ''
+    }));
+  };
+
   const calculateNights = () => {
     if (formData.dateDebut && formData.dateFin) {
       const start = new Date(formData.dateDebut);
@@ -199,13 +271,11 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
       setShowPayment(false);
       setReservationId(null);
       onClose();
-    }, 3000);
+    }, 2000);
   };
 
-  // Gestionnaire d'erreur de paiement
   const handlePaymentError = (error) => {
     setMessage(`❌ Erreur de paiement: ${error.message}`);
-    // Ne pas fermer le modal, laisser l'utilisateur réessayer
   };
 
   return (
@@ -394,6 +464,16 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
                 }}
               />
             </Elements>
+          )}
+
+          {/* Modal de connexion */}
+          {showLoginModal && (
+            <ClientLoginModal
+              isOpen={showLoginModal}
+              onClose={() => setShowLoginModal(false)}
+              onLoginSuccess={handleLoginSuccess}
+              onRegisterSuccess={handleRegisterSuccess}
+            />
           )}
         </div>
       </div>

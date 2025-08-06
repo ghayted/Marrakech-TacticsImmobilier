@@ -66,6 +66,123 @@ public class AuthService : IAuthService
 }
 
     /// <summary>
+    /// Connexion pour les clients
+    /// </summary>
+    public async Task<ClientAuthResult?> ClientLoginAsync(string email, string password)
+    {
+        var user = await _context.Utilisateurs.SingleOrDefaultAsync(u => u.Email == email);
+
+        if (user == null)
+        {
+            return null;
+        }
+
+        bool motDePasseValide = BCrypt.Net.BCrypt.Verify(password, user.MotDePasseHashe);
+
+        if (!motDePasseValide)
+        {
+            return null;
+        }
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? "votre_super_cle_secrete_personnelle_doit_etre_longue");
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+            Expires = DateTime.UtcNow.AddDays(7), // Token plus long pour les clients
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        return new ClientAuthResult
+        {
+            Token = tokenHandler.WriteToken(token),
+            User = new ClientUserInfo
+            {
+                Id = user.Id,
+                Email = user.Email,
+                NomComplet = user.NomComplet,
+                Nom = user.NomComplet?.Split(' ').LastOrDefault() ?? "",
+                Prenom = user.NomComplet?.Split(' ').FirstOrDefault() ?? "",
+                Telephone = user.Telephone
+            }
+        };
+    }
+
+    /// <summary>
+    /// Inscription pour les clients
+    /// </summary>
+    public async Task<ClientAuthResult?> ClientRegisterAsync(string email, string password, string prenom, string nom, string? telephone)
+    {
+        // Vérifier si l'email existe déjà
+        var existingUser = await _context.Utilisateurs.SingleOrDefaultAsync(u => u.Email == email);
+        if (existingUser != null)
+        {
+            return null;
+        }
+
+        // Créer le nouvel utilisateur
+        var newUser = new Utilisateur
+        {
+            Email = email,
+            NomComplet = $"{prenom} {nom}",
+            Telephone = telephone,
+            NomUtilisateur = email,
+            MotDePasseHashe = BCrypt.Net.BCrypt.HashPassword(password)
+        };
+
+        _context.Utilisateurs.Add(newUser);
+        await _context.SaveChangesAsync();
+
+        // Générer le token
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? "votre_super_cle_secrete_personnelle_doit_etre_longue");
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[] { new Claim("id", newUser.Id.ToString()) }),
+            Expires = DateTime.UtcNow.AddDays(7),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        return new ClientAuthResult
+        {
+            Token = tokenHandler.WriteToken(token),
+            User = new ClientUserInfo
+            {
+                Id = newUser.Id,
+                Email = newUser.Email,
+                NomComplet = newUser.NomComplet,
+                Nom = nom,
+                Prenom = prenom,
+                Telephone = telephone
+            }
+        };
+    }
+
+    /// <summary>
+    /// Récupérer un utilisateur par ID
+    /// </summary>
+    public async Task<ClientUserInfo?> GetUserByIdAsync(int userId)
+    {
+        var user = await _context.Utilisateurs.FindAsync(userId);
+        if (user == null)
+        {
+            return null;
+        }
+
+        return new ClientUserInfo
+        {
+            Id = user.Id,
+            Email = user.Email,
+            NomComplet = user.NomComplet,
+            Nom = user.NomComplet?.Split(' ').LastOrDefault() ?? "",
+            Prenom = user.NomComplet?.Split(' ').FirstOrDefault() ?? "",
+            Telephone = user.Telephone
+        };
+    }
+
+    /// <summary>
     /// Créer ou trouver un utilisateur client pour les réservations
     /// </summary>
     public async Task<int> CreateOrFindUserAsync(string email, string prenom, string nom, string? telephone)
@@ -97,7 +214,23 @@ public class AuthService : IAuthService
 
         _context.Utilisateurs.Add(newUser);
         await _context.SaveChangesAsync();
-
         return newUser.Id;
     }
+}
+
+// Classes pour les résultats d'authentification client
+public class ClientAuthResult
+{
+    public string Token { get; set; } = string.Empty;
+    public ClientUserInfo User { get; set; } = new();
+}
+
+public class ClientUserInfo
+{
+    public int Id { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public string NomComplet { get; set; } = string.Empty;
+    public string Nom { get; set; } = string.Empty;
+    public string Prenom { get; set; } = string.Empty;
+    public string? Telephone { get; set; }
 }

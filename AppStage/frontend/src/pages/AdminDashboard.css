@@ -39,7 +39,7 @@ body {
 }
 
 /* Layout principal */
-.admin-dashboard {
+.app-admin-dashboard {
   display: flex;
   min-height: 100vh;
 }

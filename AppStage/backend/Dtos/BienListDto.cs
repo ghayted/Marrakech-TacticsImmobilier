@@ -5,6 +5,7 @@ public class BienListDto
     public string Titre { get; set; }
     public string Ville { get; set; }
     public decimal Prix { get; set; }
+    public decimal? PrixParNuit { get; set; }  // Ajout du prix par nuit
     public string StatutTransaction { get; set; }
     public string TypeDeBien { get; set; }
     public int TypeDeBienId { get; set; }

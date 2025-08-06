@@ -17,7 +17,10 @@ public interface IBienImmobilierService
     decimal? prixMin = null, 
     decimal? prixMax = null, 
     string? triParPrix = null,
-    string? triParDate = null
+    string? triParDate = null,
+    string? dateDebut = null,
+    string? dateFin = null,
+    int? nombreVoyageurs = null
 );
     Task<BiensImmobilier?> CreateBienAsync(CreateBienDto bienDto); 
     Task<BiensImmobilier?> GetBienByIdAsync(int id); 
