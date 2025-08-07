@@ -51,4 +51,8 @@ public partial class BiensImmobilier
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
     public virtual ICollection<Disponibilite> Disponibilites { get; set; } = new List<Disponibilite>();
+
+    // Propriétaire
+    public int? ProprietaireId { get; set; }
+    public virtual Proprietaire? Proprietaire { get; set; }
 }

@@ -21,4 +21,8 @@ public class CreateBienDto
     public List<int> AmenagementIds { get; set; } = new(); 
     // On enverra une liste des URLs des images uploadées
     public List<string> ImageUrls { get; set; } = new();
+    
+    // Propriétaire
+    public int? ProprietaireId { get; set; }
+    public CreateProprietaireDto? NouveauProprietaire { get; set; }
 }

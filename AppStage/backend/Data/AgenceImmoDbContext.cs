@@ -29,6 +29,8 @@ public partial class AgenceImmoDbContext : DbContext
 
     public virtual DbSet<Refund> Refunds { get; set; }
 
+    public virtual DbSet<Proprietaire> Proprietaires { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Amenagement>(entity =>
@@ -171,6 +173,19 @@ public partial class AgenceImmoDbContext : DbContext
             entity.HasOne(d => d.Paiement).WithMany()
                 .HasForeignKey(d => d.PaiementId)
                 .HasConstraintName("FK_Refunds_Paiements");
+        });
+
+        modelBuilder.Entity<Proprietaire>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Proprietaires__3214EC07");
+
+            entity.Property(e => e.Nom).HasMaxLength(100);
+            entity.Property(e => e.Prenom).HasMaxLength(100);
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Telephone).HasMaxLength(20);
+            entity.Property(e => e.Adresse).HasMaxLength(500);
+            entity.Property(e => e.DateCreation).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.EstActif).HasDefaultValue(true);
         });
 
         OnModelCreatingPartial(modelBuilder);

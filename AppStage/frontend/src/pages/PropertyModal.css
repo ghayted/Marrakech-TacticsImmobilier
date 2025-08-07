@@ -599,3 +599,40 @@
     padding: 6px 12px;
   }
 }
+
+/* Styles pour la section propriétaire */
+.nouveau-proprietaire-section {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.nouveau-proprietaire-section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 0.5rem;
+}
+
+.nouveau-proprietaire-section .form-grid {
+  gap: 1rem;
+}
+
+.nouveau-proprietaire-section .form-group {
+  margin-bottom: 0;
+}
+
+/* Responsive pour la section propriétaire */
+@media (max-width: 768px) {
+  .nouveau-proprietaire-section {
+    padding: 1rem;
+  }
+  
+  .nouveau-proprietaire-section .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

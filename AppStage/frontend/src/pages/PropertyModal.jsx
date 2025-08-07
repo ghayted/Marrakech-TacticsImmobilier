@@ -170,7 +170,19 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
     prixParNuit: '',
     amenagementIds: [],
     ImageUrls: [],
+    proprietaireId: '',
+    nouveauProprietaire: null,
   })
+
+  const [proprietaires, setProprietaires] = useState([])
+  const [nouveauProprietaire, setNouveauProprietaire] = useState({
+    nom: '',
+    prenom: '',
+    email: '',
+    telephone: '',
+    adresse: '',
+  })
+  const [showNouveauProprietaire, setShowNouveauProprietaire] = useState(false)
 
   const [localImages, setLocalImages] = useState([])
 
@@ -207,6 +219,25 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
     { id: 3, label: "Photos", icon: CameraIcon },
   ]
 
+  // Charger les propriétaires au montage du composant
+  useEffect(() => {
+    const fetchProprietaires = async () => {
+      try {
+        const response = await fetch('/api/proprietaires')
+        if (response.ok) {
+          const data = await response.json()
+          setProprietaires(data)
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des propriétaires:', error)
+      }
+    }
+    
+    if (isOpen) {
+      fetchProprietaires()
+    }
+  }, [isOpen])
+
   // Réinitialiser le formulaire quand le modal s'ouvre/ferme
   useEffect(() => {
     if (isOpen) {
@@ -231,6 +262,8 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
           prixParNuit: property.prixParNuit?.toString() || '',
           amenagementIds: property.amenagements?.map(a => a.id) || [],
           ImageUrls: property.imagesBiens?.map(img => img.urlImage) || [],
+          proprietaireId: property.proprietaireId?.toString() || '',
+          nouveauProprietaire: null,
         })
       } else {
         // Mode ajout - réinitialiser le formulaire
@@ -253,9 +286,19 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
           prixParNuit: '',
           amenagementIds: [],
           ImageUrls: [],
+          proprietaireId: '',
+          nouveauProprietaire: null,
         })
       }
       setActiveTab(0) // Retourner au premier onglet
+      setShowNouveauProprietaire(false)
+      setNouveauProprietaire({
+        nom: '',
+        prenom: '',
+        email: '',
+        telephone: '',
+        adresse: '',
+      })
     }
   }, [isOpen, property])
 
@@ -298,6 +341,21 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
       latitude: lat.toFixed(6),
       longitude: lng.toFixed(6)
     }))
+  }
+
+  const handleProprietaireChange = (e) => {
+    const { name, value } = e.target
+    setNouveauProprietaire(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleProprietaireIdChange = (e) => {
+    const value = e.target.value
+    setFormData(prev => ({ ...prev, proprietaireId: value }))
+    if (value === 'nouveau') {
+      setShowNouveauProprietaire(true)
+    } else {
+      setShowNouveauProprietaire(false)
+    }
   }
 
   const handleImageUpload = async (e) => {
@@ -358,6 +416,8 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
         longitude: formData.longitude ? Number.parseFloat(formData.longitude) : null,
         typeDeBienId: Number.parseInt(formData.typeDeBienId),
         prixParNuit: formData.prixParNuit ? Number.parseFloat(formData.prixParNuit) : null,
+        proprietaireId: formData.proprietaireId ? Number.parseInt(formData.proprietaireId) : null,
+        nouveauProprietaire: showNouveauProprietaire ? nouveauProprietaire : null,
       }
 
       await onSave(submitData)
@@ -385,8 +445,8 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
   if (!isOpen) return null
 
   return (
-    <div className="property-modal-overlay" onClick={onClose}>
-      <div className="property-modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className="property-modal-overlay">
+      <div className="property-modal-content">
         <div className="modal-header">
           <h2>{property ? 'Modifier le bien' : 'Nouveau bien immobilier'}</h2>
           <button className="modal-close" onClick={onClose} disabled={submitting}>
@@ -511,6 +571,97 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
                   placeholder="Description détaillée du bien..."
                 />
               </div>
+
+              {/* Section Propriétaire - affichée seulement si "À Vendre" est sélectionné */}
+              {formData.statutTransaction === 'À Vendre' && (
+                <div className="form-group full-width">
+                  <label>Propriétaire *</label>
+                  <select
+                    name="proprietaireId"
+                    value={formData.proprietaireId}
+                    onChange={handleProprietaireIdChange}
+                    required
+                    disabled={submitting}
+                  >
+                    <option value="">Sélectionner un propriétaire</option>
+                    {proprietaires.map(proprietaire => (
+                      <option key={proprietaire.id} value={proprietaire.id}>
+                        {proprietaire.nom} {proprietaire.prenom}
+                      </option>
+                    ))}
+                    <option value="nouveau">+ Ajouter un nouveau propriétaire</option>
+                  </select>
+                </div>
+              )}
+
+              {/* Formulaire nouveau propriétaire */}
+              {showNouveauProprietaire && (
+                <div className="nouveau-proprietaire-section">
+                  <h4>Nouveau Propriétaire</h4>
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label>Nom *</label>
+                      <input
+                        type="text"
+                        name="nom"
+                        value={nouveauProprietaire.nom}
+                        onChange={handleProprietaireChange}
+                        required
+                        disabled={submitting}
+                        placeholder="Nom du propriétaire"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Prénom *</label>
+                      <input
+                        type="text"
+                        name="prenom"
+                        value={nouveauProprietaire.prenom}
+                        onChange={handleProprietaireChange}
+                        required
+                        disabled={submitting}
+                        placeholder="Prénom du propriétaire"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Email *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={nouveauProprietaire.email}
+                        onChange={handleProprietaireChange}
+                        required
+                        disabled={submitting}
+                        placeholder="email@exemple.com"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Téléphone *</label>
+                      <input
+                        type="tel"
+                        name="telephone"
+                        value={nouveauProprietaire.telephone}
+                        onChange={handleProprietaireChange}
+                        required
+                        disabled={submitting}
+                        placeholder="+212 6 12 34 56 78"
+                      />
+                    </div>
+                    <div className="form-group full-width">
+                      <label>Adresse *</label>
+                      <textarea
+                        name="adresse"
+                        value={nouveauProprietaire.adresse}
+                        onChange={handleProprietaireChange}
+                        required
+                        disabled={submitting}
+                        rows="3"
+                        placeholder="Adresse complète du propriétaire"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

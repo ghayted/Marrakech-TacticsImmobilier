@@ -20,7 +20,8 @@ public interface IBienImmobilierService
     string? triParDate = null,
     string? dateDebut = null,
     string? dateFin = null,
-    int? nombreVoyageurs = null
+    int? nombreVoyageurs = null,
+    int? proprietaireId = null
 );
     Task<BiensImmobilier?> CreateBienAsync(CreateBienDto bienDto); 
     Task<BiensImmobilier?> GetBienByIdAsync(int id); 

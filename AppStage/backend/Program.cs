@@ -24,6 +24,7 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IPaiementService, PaiementService>();
 builder.Services.AddScoped<IDisponibiliteService, DisponibiliteService>();
 builder.Services.AddScoped<IRefundService, RefundService>();
+builder.Services.AddScoped<IProprietaireService, ProprietaireService>();
 // ...
 // ➤ Configurer CORS pour autoriser le frontend React (localhost:5173)
 builder.Services.AddCors(options =>

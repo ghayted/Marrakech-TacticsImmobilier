@@ -25,7 +25,8 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
     string? triParDate = null,
     string? dateDebut = null,
     string? dateFin = null,
-    int? nombreVoyageurs = null)
+    int? nombreVoyageurs = null,
+    int? proprietaireId = null)
 {
     var query = _context.BiensImmobiliers
         .Include(b => b.TypeDeBien)
@@ -54,6 +55,10 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
         query = query.Where(b => b.Prix >= prixMin.Value);
     if (prixMax.HasValue)
         query = query.Where(b => b.Prix <= prixMax.Value);
+
+    // Filtrage par propriétaire
+    if (proprietaireId.HasValue)
+        query = query.Where(b => b.ProprietaireId == proprietaireId.Value);
 
     // Filtrage par disponibilité si des dates sont fournies
     if (!string.IsNullOrEmpty(dateDebut) && !string.IsNullOrEmpty(dateFin))
@@ -163,7 +168,21 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
             }).ToList();
         }
 
-        // 4. Ajoute le tout à la base de données
+        // 4. Gère le propriétaire
+        if (bienDto.NouveauProprietaire != null)
+        {
+            // Créer un nouveau propriétaire
+            var proprietaireService = new ProprietaireService(_context);
+            var nouveauProprietaire = await proprietaireService.CreateProprietaireAsync(bienDto.NouveauProprietaire);
+            nouveauBien.ProprietaireId = nouveauProprietaire.Id;
+        }
+        else if (bienDto.ProprietaireId.HasValue)
+        {
+            // Utiliser un propriétaire existant
+            nouveauBien.ProprietaireId = bienDto.ProprietaireId.Value;
+        }
+
+        // 5. Ajoute le tout à la base de données
         _context.BiensImmobiliers.Add(nouveauBien);
         await _context.SaveChangesAsync();
 
