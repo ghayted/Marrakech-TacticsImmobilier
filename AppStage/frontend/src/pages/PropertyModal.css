@@ -1,5 +1,5 @@
 /* src/components/PropertyModal.css */
-.modal-overlay {
+.property-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,10 +13,10 @@
   backdrop-filter: blur(4px);
 }
 
-.modal-content {
+.property-modal-content {
   background: white;
-  width: 90%;
-  max-width: 900px;
+  width: 95vw;
+  max-width: 1000px;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: slideIn 0.3s ease-out;
@@ -162,6 +162,30 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-group {
@@ -438,9 +462,11 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .modal-content {
-    width: 95%;
+  .property-modal-content {
+    width: 95vw;
+    max-width: 95vw;
     max-height: 95vh;
+    margin: 1rem;
   }
   
   .form-tabs {

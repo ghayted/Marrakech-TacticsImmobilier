@@ -33,12 +33,16 @@ public class ReservationsController : ControllerBase
     }
 
     /// <summary>
-    /// Lister toutes les réservations
+    /// Lister toutes les réservations avec filtres optionnels
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetAllReservations()
+    public async Task<IActionResult> GetAllReservations(
+        [FromQuery] int? reservationId = null,
+        [FromQuery] int? clientId = null,
+        [FromQuery] string? status = null,
+        [FromQuery] string? search = null)
     {
-        var reservations = await _reservationService.GetAllReservationsAsync();
+        var reservations = await _reservationService.GetAllReservationsAsync(reservationId, clientId, status, search);
         return Ok(reservations);
     }
 

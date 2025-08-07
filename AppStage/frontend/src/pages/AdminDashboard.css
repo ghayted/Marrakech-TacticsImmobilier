@@ -589,6 +589,176 @@ body {
   color: var(--text-muted);
 }
 
+/* Styles spécifiques pour les filtres de réservation */
+.reservations-section .filters-section {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.reservations-section .filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.reservations-section .filters-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.reservations-section .filters-indicator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reservations-section .filters-count {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.reservations-section .filters-active {
+  background: var(--warning-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.reservations-section .filters-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.reservations-section .filter-input,
+.reservations-section .filter-select {
+  min-height: 44px;
+}
+
+.reservations-section .btn-secondary {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.reservations-section .btn-secondary:hover {
+  background: #475569;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.reservations-section .filters-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.auto-status-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.info-icon {
+  font-size: 0.875rem;
+}
+
+/* Styles pour le message "aucun résultat" */
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border-color);
+}
+
+.no-results-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.no-results-content .no-results-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-results-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.no-results-content p {
+  margin: 0 0 1rem 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.no-results-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-results h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.no-results p {
+  margin: 0 0 1.5rem 0;
+  color: var(--text-secondary);
+  max-width: 400px;
+  line-height: 1.6;
+}
+
 /* Properties Table */
 .properties-table-container {
   background: var(--surface-color);
@@ -699,6 +869,33 @@ body {
   color: white;
 }
 
+.status-badge.terminee {
+  background: #6b7280;  /* Gris neutre */
+  color: white;
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.expired-indicator {
+  font-size: 0.875rem;
+  color: var(--warning-color);
+  cursor: help;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .status-badge.a-louer {
   background: #68adfd;  /* Bleu pastel */
   color: white;
@@ -807,6 +1004,18 @@ body {
   font-weight: 500;
 }
 
+.reservation-id {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  background: var(--background-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  display: inline-block;
+}
+
 .client-info {
   display: flex;
   flex-direction: column;
@@ -863,6 +1072,57 @@ body {
 
 .paiements-table tr:hover {
   background: var(--background-color);
+}
+
+/* Style pour la référence du bien immobilier dans les paiements */
+.paiements-table td:nth-child(3) {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-family: 'Courier New', monospace;
+}
+
+/* Styles spécifiques pour les filtres de paiements - centrés et compacts */
+.paiements-section .filters-section {
+  padding: 1rem;
+}
+
+.paiements-section .filter-input,
+.paiements-section .filter-select {
+  width: 200px;
+  max-width: 200px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  min-width: 150px;
+}
+
+.paiements-section .filters-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.paiements-section .filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.paiements-section .filter-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.paiements-section .btn-secondary {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  height: fit-content;
 }
 
 /* Analytics Section */
@@ -1099,15 +1359,61 @@ body {
   background: var(--surface-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
-  max-width: 90vw;
+  max-width: 800px;
+  width: 90vw;
   max-height: 90vh;
   overflow: hidden;
   animation: slideIn 0.3s ease-out;
+  position: relative;
 }
 
-.reservation-details-modal {
-  width: 600px;
+/* Specific modal styles for different types */
+.admin-reservation-details-modal {
+  width: 900px;
+  max-width: 95vw;
+  max-height: 90vh;
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+.payment-modal {
+  width: 500px;
   max-width: 90vw;
+  max-height: 80vh;
+}
+
+/* PropertyModal uses its own CSS file with specific classes */
+
+/* Responsive pour les modales */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95vw;
+    max-width: 95vw;
+    margin: 1rem;
+  }
+  
+  .admin-reservation-details-modal {
+    width: 98vw;
+    max-width: 98vw;
+    margin: 1rem;
+  }
+  
+  .payment-modal {
+    width: 95vw;
+    max-width: 95vw;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .detail-item {
+    padding: 1rem;
+    min-height: 60px;
+  }
 }
 
 .modal-header {
@@ -1143,8 +1449,9 @@ body {
 
 .modal-body {
   padding: 1.5rem;
-  max-height: 70vh;
+  max-height: calc(90vh - 140px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .reservation-details {
@@ -1157,6 +1464,8 @@ body {
   background: var(--background-color);
   border-radius: var(--radius-md);
   padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
 }
 
 .detail-section h3 {
@@ -1170,8 +1479,43 @@ body {
 
 .detail-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  min-height: 80px;
+  justify-content: center;
+}
+
+.detail-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.detail-item label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-item span {
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .detail-item {

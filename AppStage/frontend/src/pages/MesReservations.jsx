@@ -83,7 +83,31 @@ const MesReservations = () => {
   };
 
   const handleConfirmCancel = async () => {
-    // ...
+    if (!reservationToCancel) return;
+
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`http://localhost:5257/api/Reservations/${reservationToCancel.id}/annuler`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });   
+
+      if (response.ok) {
+        // Recharger les réservations pour mettre à jour l'affichage
+        window.location.reload();
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Erreur lors de l\'annulation de la réservation');
+      }
+    } catch (err) {
+      setError('Erreur lors de l\'annulation de la réservation');
+    } finally {
+      setShowCancelModal(false);
+      setReservationToCancel(null);
+    }
   };
   
   const today = new Date();
@@ -134,7 +158,8 @@ const MesReservations = () => {
 
       {showCancelModal && (
         <ConfirmationModal
-          message="Êtes-vous sûr de vouloir annuler cette réservation ? Cette action est irréversible."
+          message="Êtes-vous sûr de vouloir annuler cette réservation ?"
+          reservation={reservationToCancel}
           onConfirm={handleConfirmCancel}
           onCancel={() => setShowCancelModal(false)}
         />

@@ -27,6 +27,8 @@ public partial class AgenceImmoDbContext : DbContext
 
     public virtual DbSet<Disponibilite> Disponibilites { get; set; }
 
+    public virtual DbSet<Refund> Refunds { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Amenagement>(entity =>
@@ -148,6 +150,27 @@ public partial class AgenceImmoDbContext : DbContext
             entity.HasOne(d => d.BienImmobilier).WithMany(p => p.Disponibilites)
                 .HasForeignKey(d => d.BienImmobilierId)
                 .HasConstraintName("FK_Disponibilites_BiensImmobiliers");
+        });
+
+        modelBuilder.Entity<Refund>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Refunds__3214EC07");
+
+            entity.Property(e => e.MontantRembourse).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.StatutRemboursement).HasMaxLength(50);
+            entity.Property(e => e.MethodeDeRemboursement).HasMaxLength(50);
+            entity.Property(e => e.TransactionIdRemboursement).HasMaxLength(255);
+            entity.Property(e => e.RaisonRemboursement).HasMaxLength(500);
+            entity.Property(e => e.CheminFactureRemboursement).HasMaxLength(500);
+            entity.Property(e => e.DateDeRemboursement).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Reservation).WithMany()
+                .HasForeignKey(d => d.ReservationId)
+                .HasConstraintName("FK_Refunds_Reservations");
+
+            entity.HasOne(d => d.Paiement).WithMany()
+                .HasForeignKey(d => d.PaiementId)
+                .HasConstraintName("FK_Refunds_Paiements");
         });
 
         OnModelCreatingPartial(modelBuilder);

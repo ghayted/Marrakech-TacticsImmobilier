@@ -8,11 +8,13 @@ public class ReservationService : IReservationService
 {
     private readonly AgenceImmoDbContext _context;
     private readonly IDisponibiliteService _disponibiliteService;
+    private readonly IRefundService _refundService;
 
-    public ReservationService(AgenceImmoDbContext context, IDisponibiliteService disponibiliteService)
+    public ReservationService(AgenceImmoDbContext context, IDisponibiliteService disponibiliteService, IRefundService refundService)
     {
         _context = context;
         _disponibiliteService = disponibiliteService;
+        _refundService = refundService;
     }
 
     public async Task<ReservationDto?> CreateReservationAsync(CreateReservationDto reservationDto)
@@ -60,11 +62,40 @@ public class ReservationService : IReservationService
         return await GetReservationByIdAsync(reservation.Id);
     }
 
-    public async Task<IEnumerable<ReservationDto>> GetAllReservationsAsync()
+    public async Task<IEnumerable<ReservationDto>> GetAllReservationsAsync(int? reservationId = null, int? clientId = null, string? status = null, string? search = null)
     {
-        return await _context.Reservations
+        var query = _context.Reservations
             .Include(r => r.BienImmobilier)
             .Include(r => r.Utilisateur)
+            .AsQueryable();
+
+        // Appliquer les filtres
+        if (reservationId.HasValue)
+        {
+            query = query.Where(r => r.Id == reservationId.Value);
+        }
+
+        if (clientId.HasValue)
+        {
+            query = query.Where(r => r.UtilisateurId == clientId.Value);
+        }
+
+        if (!string.IsNullOrEmpty(status))
+        {
+            query = query.Where(r => r.Statut == status);
+        }
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(r => 
+                r.Utilisateur.NomUtilisateur.Contains(search) ||
+                r.Utilisateur.Email.Contains(search) ||
+                r.Utilisateur.Telephone.Contains(search) ||
+                r.BienImmobilier.Titre.Contains(search)
+            );
+        }
+
+        return await query
             .Select(r => new ReservationDto
             {
                 Id = r.Id,
@@ -174,22 +205,9 @@ public class ReservationService : IReservationService
         var reservation = await _context.Reservations.FindAsync(id);
         if (reservation == null) return false;
 
-        // Marquer la réservation comme annulée
-        reservation.Statut = "Annulée";
-
-        // Libérer les dates (marquer comme disponibles)
-        var disponibilites = await _context.Disponibilites
-            .Where(d => d.BienImmobilierId == reservation.BienImmobilierId 
-                     && d.Date >= reservation.DateDebut 
-                     && d.Date < reservation.DateFin)
-            .ToListAsync();
-
-        foreach (var dispo in disponibilites)
-        {
-            dispo.EstDisponible = true;
-        }
-
-        await _context.SaveChangesAsync();
-        return true;
+        // Utiliser le service de remboursement pour traiter l'annulation complète
+        var success = await _refundService.ProcessRefundForReservationAsync(id, "Annulation client");
+        
+        return success;
     }
 }

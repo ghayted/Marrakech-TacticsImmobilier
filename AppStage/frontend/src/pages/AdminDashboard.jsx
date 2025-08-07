@@ -165,6 +165,7 @@ function AdminDashboard() {
   const [biens, setBiens] = useState([])
   const [reservations, setReservations] = useState([])
   const [paiements, setPaiements] = useState([])
+  const [remboursements, setRemboursements] = useState([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [selectedProperty, setSelectedProperty] = useState(null)
@@ -186,7 +187,16 @@ function AdminDashboard() {
     dateTo: '',
     search: '',
     quartier: '',
-    sortByDate: 'desc' // Par défaut, plus récent en premier
+    sortByDate: 'desc', // Par défaut, plus récent en premier
+    // Filtres pour les réservations
+    reservationId: '',
+    reservationPhone: '',
+    reservationStatus: '',
+    reservationMonth: '',
+    reservationYear: '',
+    // Filtres pour les paiements
+    paiementId: '',
+    paiementReservationId: ''
   })
 
   const token = localStorage.getItem("authToken")
@@ -198,6 +208,7 @@ function AdminDashboard() {
     { id: 'properties', label: 'Propriétés', icon: BuildingIcon },
     { id: 'reservations', label: 'Réservations', icon: CalendarIcon },
     { id: 'paiements', label: 'Paiements', icon: FileTextIcon },
+    { id: 'remboursements', label: 'Remboursements', icon: FileTextIcon },
     { id: 'analytics', label: 'Analytics', icon: BarChartIcon },
     { id: 'settings', label: 'Paramètres', icon: SettingsIcon }
   ]
@@ -240,6 +251,7 @@ function AdminDashboard() {
       })
       if (response.ok) {
         const data = await response.json()
+        console.log('🔍 [AdminDashboard] Réservations reçues:', data)
         setReservations(data)
       }
     } catch (error) {
@@ -264,17 +276,35 @@ function AdminDashboard() {
     }
   }, [token, backendUrl])
 
+  const fetchRemboursements = useCallback(async () => {
+    try {
+      const response = await fetch(`${backendUrl}/api/Refunds`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setRemboursements(data)
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des remboursements:', error)
+    }
+  }, [token, backendUrl])
+
   useEffect(() => {
     const loadData = async () => {
       setLoading(true)
       await Promise.all([
         fetchReservations(),
-        fetchPaiements()
+        fetchPaiements(),
+        fetchRemboursements()
       ])
       setLoading(false)
     }
     loadData()
-  }, [fetchReservations, fetchPaiements])
+  }, [fetchReservations, fetchPaiements, fetchRemboursements])
 
   // Charger les biens séparément pour permettre le filtrage
   useEffect(() => {
@@ -289,6 +319,8 @@ function AdminDashboard() {
       fetchReservations()
     } else if (sectionId === 'paiements') {
       fetchPaiements()
+    } else if (sectionId === 'remboursements') {
+      fetchRemboursements()
     }
   }
 
@@ -418,14 +450,43 @@ function AdminDashboard() {
     }
   }
 
+  const handleConfirmRefund = async (refundId) => {
+    if (!confirm('Êtes-vous sûr de vouloir confirmer ce remboursement ?')) {
+      return
+    }
+
+    try {
+      const response = await fetch(`${backendUrl}/api/Refunds/${refundId}/confirmer`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        alert('Remboursement confirmé avec succès')
+        fetchRemboursements() // Rafraîchir la liste des remboursements
+      } else {
+        const error = await response.json()
+        alert(`Erreur: ${error.message || 'Erreur lors de la confirmation du remboursement'}`)
+      }
+    } catch (error) {
+      console.error('Erreur:', error)
+      alert('Erreur lors de la confirmation du remboursement')
+    }
+  }
+
   const getStatusBadgeClass = (status) => {
     const statusLower = status?.toLowerCase()
     switch (statusLower) {
       case 'réussi':
       case 'confirmée':
+      case 'confirmé':
         return 'status-badge confirmee'
       case 'en attente':
       case 'en attente de paiement':
+      case 'en cours':
         return 'status-badge en-attente'
       case 'à vendre':
         return 'status-badge a-vendre'
@@ -436,7 +497,11 @@ function AdminDashboard() {
       case 'loué':
         return 'status-badge loue'
       case 'annulé':
+      case 'annulée':
         return 'status-badge annule'
+      case 'terminée':
+      case 'terminé':
+        return 'status-badge terminee'
       default:
         return 'status-badge en-attente'
     }
@@ -458,6 +523,53 @@ function AdminDashboard() {
 
   // Supprimer le filtrage local car maintenant on utilise l'API
   const filteredBiens = biens
+
+  // Filtrer les réservations localement et les trier par ID décroissant (plus récent en premier)
+  const filteredReservations = reservations
+    .filter(reservation => {
+      const matchesId = !filters.reservationId || 
+        reservation.id.toString().includes(filters.reservationId)
+      
+      const matchesPhone = !filters.reservationPhone || 
+        reservation.telephoneUtilisateur?.includes(filters.reservationPhone)
+      
+      const matchesStatus = !filters.reservationStatus || 
+        reservation.statut?.toLowerCase() === filters.reservationStatus.toLowerCase()
+      
+      // Filtrage par mois et année
+      let matchesMonth = true
+      let matchesYear = true
+      
+      if (filters.reservationMonth || filters.reservationYear) {
+        const reservationDate = new Date(reservation.dateDeReservation)
+        const reservationMonth = reservationDate.getMonth() + 1 // getMonth() retourne 0-11
+        const reservationYear = reservationDate.getFullYear()
+        
+        if (filters.reservationMonth) {
+          matchesMonth = reservationMonth === parseInt(filters.reservationMonth)
+        }
+        
+        if (filters.reservationYear) {
+          matchesYear = reservationYear === parseInt(filters.reservationYear)
+        }
+      }
+      
+      return matchesId && matchesPhone && matchesStatus && matchesMonth && matchesYear
+    })
+    .sort((a, b) => b.id - a.id) // Trier par ID décroissant (plus récent en premier)
+
+  // Filtrer les paiements localement et les trier par ID décroissant (plus récent en premier)
+  const filteredPaiements = paiements
+    .filter(paiement => {
+      const matchesPaiementId = !filters.paiementId || 
+        paiement.id.toString().includes(filters.paiementId)
+      
+      const matchesReservationId = !filters.paiementReservationId || 
+        paiement.reservationId.toString().includes(filters.paiementReservationId)
+      
+      return matchesPaiementId && matchesReservationId
+    })
+    .sort((a, b) => b.id - a.id) // Trier par ID décroissant (plus récent en premier)
 
   if (loading) {
     return (
@@ -573,6 +685,18 @@ function AdminDashboard() {
                 <div className="stat-card-content">
                   <h3 className="stat-card-title">Paiements</h3>
                   <p className="stat-card-value">{paiements.length}</p>
+                </div>
+              </div>
+              
+              <div className="stat-card">
+                <div className="stat-card-header">
+                  <div className="stat-card-icon">
+                    <FileTextIcon />
+                  </div>
+                </div>
+                <div className="stat-card-content">
+                  <h3 className="stat-card-title">Remboursements</h3>
+                  <p className="stat-card-value">{remboursements.length}</p>
                 </div>
               </div>
             </div>
@@ -745,9 +869,9 @@ function AdminDashboard() {
                        </td>
                       <td>
                         <div className="property-info">
-                          <div className="property-title">{bien.titre}</div>
+                          <div className="property-id">#{bien.titre}</div>
                           <div className="property-location">{bien.ville}</div>
-                                                     <div className="property-reference">Ref: 5860{bien.id}</div>
+                          <div className="property-reference">Ref: 5860{bien.id}</div>
                         </div>
                       </td>
                                              <td>{getTypeDeBienName(bien.typeDeBienId)}</td>
@@ -804,10 +928,94 @@ function AdminDashboard() {
                 Actualiser
               </button>
             </div>
+
+            {/* Filtres pour les réservations */}
+            <div className="filters-section">
+              <div className="filters-header">
+                <h3>Filtres de recherche</h3>
+                <button 
+                  className="btn-secondary"
+                  onClick={() => setFilters({
+                    ...filters,
+                    reservationId: '',
+                    reservationPhone: '',
+                    reservationStatus: '',
+                    reservationMonth: '',
+                    reservationYear: ''
+                  })}
+                >
+                  Réinitialiser les filtres
+                </button>
+              </div>
+              <div className="filters-grid">
+                <input
+                  type="text"
+                  placeholder="Rechercher par ID réservation..."
+                  className="filter-input"
+                  value={filters.reservationId}
+                  onChange={(e) => setFilters({...filters, reservationId: e.target.value})}
+                />
+                <input
+                  type="text"
+                  placeholder="Rechercher par téléphone..."
+                  className="filter-input"
+                  value={filters.reservationPhone}
+                  onChange={(e) => setFilters({...filters, reservationPhone: e.target.value})}
+                />
+                <select
+                  className="filter-select"
+                  value={filters.reservationStatus}
+                  onChange={(e) => setFilters({...filters, reservationStatus: e.target.value})}
+                >
+                  <option value="">Tous les statuts</option>
+                  <option value="Confirmée">Confirmée</option>
+                  <option value="En attente">En attente</option>
+                  <option value="Annulée">Annulée</option>
+                  <option value="Terminée">Terminée</option>
+                </select>
+                <select
+                  className="filter-select"
+                  value={filters.reservationMonth}
+                  onChange={(e) => setFilters({...filters, reservationMonth: e.target.value})}
+                >
+                  <option value="">Tous les mois</option>
+                  <option value="1">Janvier</option>
+                  <option value="2">Février</option>
+                  <option value="3">Mars</option>
+                  <option value="4">Avril</option>
+                  <option value="5">Mai</option>
+                  <option value="6">Juin</option>
+                  <option value="7">Juillet</option>
+                  <option value="8">Août</option>
+                  <option value="9">Septembre</option>
+                  <option value="10">Octobre</option>
+                  <option value="11">Novembre</option>
+                  <option value="12">Décembre</option>
+                </select>
+                <select
+                  className="filter-select"
+                  value={filters.reservationYear}
+                  onChange={(e) => setFilters({...filters, reservationYear: e.target.value})}
+                >
+                  <option value="">Toutes les années</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                </select>
+              </div>
+              <div className="filters-info">
+                <span>
+                  Affichage de {filteredReservations.length} réservation(s) sur {reservations.length} total
+                </span>
+              </div>
+            </div>
             <div className="reservations-table-container">
               <table className="reservations-table">
                 <thead>
                   <tr>
+                    <th>ID Réservation</th>
                     <th>Propriété</th>
                     <th>Client</th>
                     <th>Email</th>
@@ -817,54 +1025,80 @@ function AdminDashboard() {
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {reservations.map((reservation) => (
-                    <tr key={reservation.id}>
-                                             <td>
-                         <div className="reservation-property-info">
-                           <div className="property-title">{reservation.titreBien || 'N/A'}</div>
-                           <div className="property-reference">Ref: {reservation.bienImmobilierId || 'N/A'}</div>
-                         </div>
-                       </td>
-                       <td>
-                         <div className="client-info">
-                           <div className="client-name">{reservation.nomUtilisateur || 'N/A'}</div>
-                           <div className="client-id">ID: {reservation.utilisateurId || 'N/A'}</div>
-                         </div>
-                       </td>
-                       <td>{reservation.emailUtilisateur || 'N/A'}</td>
-                       <td>{reservation.telephoneUtilisateur || 'N/A'}</td>
-                       <td>
-                         {reservation.dateDeReservation ? 
-                           new Date(reservation.dateDeReservation).toLocaleDateString('fr-FR') : 
-                           'Date invalide'
-                         }
-                       </td>
-                      <td>
-                        <span className={`status-badge ${getStatusBadgeClass(reservation.statut)}`}>
-                          {getStatusText(reservation.statut)}
-                        </span>
-                      </td>
-                      <td>
-                        <div className="action-buttons">
+                                <tbody>
+                  {filteredReservations.length > 0 ? (
+                    filteredReservations.map((reservation) => (
+                      <tr key={reservation.id}>
+                        <td>
+                          <span className="reservation-id">#{reservation.id}</span>
+                        </td>
+                        <td>
+                          <div className="reservation-property-info">
+                            <div className="property-title">{reservation.titreBien || 'N/A'}</div>
+                            <div className="property-reference">Ref: {reservation.bienImmobilierId || 'N/A'}</div>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="client-info">
+                            <div className="client-name">{reservation.nomUtilisateur || 'N/A'}</div>
+                            <div className="client-id">ID: {reservation.utilisateurId || 'N/A'}</div>
+                          </div>
+                        </td>
+                        <td>{reservation.emailUtilisateur || 'N/A'}</td>
+                        <td>{reservation.telephoneUtilisateur || 'N/A'}</td>
+                        <td>
+                          {reservation.dateDeReservation ? 
+                            new Date(reservation.dateDeReservation).toLocaleDateString('fr-FR') : 
+                            'Date invalide'
+                          }
+                        </td>
+                        <td>
+                          <span className={`status-badge ${getStatusBadgeClass(reservation.statut)}`}>
+                            {getStatusText(reservation.statut)}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="action-buttons">
+                            <button 
+                              className="action-btn" 
+                              title="Voir"
+                              onClick={() => handleViewReservation(reservation)}
+                            >
+                              <EyeIcon />
+                            </button>
+                            <button 
+                              className="action-btn" 
+                              title="Modifier"
+                              onClick={() => handleEditReservation(reservation)}
+                            >
+                              <EditIcon />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="8" className="no-results">
+                        <div className="no-results-content">
+                          <div className="no-results-icon">🔍</div>
+                          <h3>Aucune réservation trouvée</h3>
+                          <p>Aucune réservation ne correspond aux critères de recherche.</p>
                           <button 
-                            className="action-btn" 
-                            title="Voir"
-                            onClick={() => handleViewReservation(reservation)}
+                            className="btn-secondary"
+                            onClick={() => setFilters({
+                              ...filters,
+                              reservationId: '',
+                              reservationPhone: '',
+                              reservationStatus: ''
+                            })}
                           >
-                            <EyeIcon />
-                          </button>
-                          <button 
-                            className="action-btn" 
-                            title="Modifier"
-                            onClick={() => handleEditReservation(reservation)}
-                          >
-                            <EditIcon />
+                            Réinitialiser les filtres
                           </button>
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
@@ -877,10 +1111,54 @@ function AdminDashboard() {
             <div className="section-header">
               <h2>Gestion des Paiements</h2>
             </div>
+            
+            {/* Filtres pour les paiements */}
+            <div className="filters-section">
+              <div className="filters-row">
+                <div className="filter-group">
+                  <label>ID Paiement</label>
+                  <input
+                    type="text"
+                    placeholder="ID paiement..."
+                    className="filter-input"
+                    value={filters.paiementId}
+                    onChange={(e) => setFilters({...filters, paiementId: e.target.value})}
+                    maxLength="10"
+                  />
+                </div>
+                <div className="filter-group">
+                  <label>ID Réservation</label>
+                  <input
+                    type="text"
+                    placeholder="ID réservation..."
+                    className="filter-input"
+                    value={filters.paiementReservationId}
+                    onChange={(e) => setFilters({...filters, paiementReservationId: e.target.value})}
+                    maxLength="10"
+                  />
+                </div>
+                <button 
+                  className="btn-secondary"
+                  onClick={() => setFilters({
+                    ...filters,
+                    paiementId: '',
+                    paiementReservationId: ''
+                  })}
+                >
+                  Réinitialiser
+                </button>
+              </div>
+              <div className="filters-info">
+                <span>Affichage de {filteredPaiements.length} paiement(s) sur {paiements.length} total</span>
+              </div>
+            </div>
+            
             <div className="paiements-table-container">
               <table className="paiements-table">
                 <thead>
                   <tr>
+                    <th>ID Paiement</th>
+                    <th>ID Réservation</th>
                     <th>Propriété</th>
                     <th>Client</th>
                     <th>Montant</th>
@@ -890,26 +1168,124 @@ function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {paiements.map((paiement) => (
-                    <tr key={paiement.id}>
-                      <td>Réservation #{paiement.reservationId}</td>
-                      <td>Client #{paiement.reservationId}</td>
-                      <td>€{paiement.montant?.toLocaleString()}</td>
-                      <td>{new Date(paiement.dateDePaiement).toLocaleString('fr-FR')}</td>
+                  {filteredPaiements.length > 0 ? (
+                    filteredPaiements.map((paiement) => (
+                      <tr key={paiement.id}>
+                        <td>
+                          <span className="paiement-id">#{paiement.id}</span>
+                        </td>
+                        <td>
+                          <span className="reservation-id">#{paiement.reservationId}</span>
+                        </td>
+                        <td>REF: {paiement.bienImmobilierId || 'N/A'}</td>
+                        <td>{paiement.clientTelephone || 'N/A'}</td>
+                        <td>€{paiement.montant?.toLocaleString()}</td>
+                        <td>{new Date(paiement.dateDePaiement).toLocaleString('fr-FR')}</td>
+                        <td>
+                          <span className={`status-badge ${getStatusBadgeClass(paiement.statutPaiement)}`}>
+                            {paiement.statutPaiement}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="action-buttons">
+                            {paiement.lienFacture && (
+                              <a 
+                                href={`${backendUrl}/${paiement.lienFacture}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="action-btn"
+                                title="Télécharger la facture"
+                              >
+                                <FileTextIcon />
+                              </a>
+                            )}
+                            <button 
+                              className="action-btn" 
+                              title="Voir les détails"
+                              onClick={() => alert(`ID Transaction: ${paiement.transactionId}`)}
+                            >
+                              <EyeIcon />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="8" className="no-results">
+                        <div className="no-results-content">
+                          <div className="no-results-icon">🔍</div>
+                          <h3>Aucun paiement trouvé</h3>
+                          <p>Aucun paiement ne correspond aux critères de recherche.</p>
+                          <button 
+                            className="btn-secondary"
+                            onClick={() => setFilters({
+                              ...filters,
+                              paiementId: '',
+                              paiementReservationId: ''
+                            })}
+                          >
+                            Réinitialiser les filtres
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Remboursements Section */}
+        {activeSection === 'remboursements' && (
+          <div className="paiements-section">
+            <div className="section-header">
+              <h2>Gestion des Remboursements</h2>
+              <button 
+                className="btn-primary" 
+                onClick={() => fetchRemboursements()}
+                disabled={loading}
+              >
+                <SettingsIcon />
+                Actualiser
+              </button>
+            </div>
+            <div className="paiements-table-container">
+              <table className="paiements-table">
+                <thead>
+                  <tr>
+                    <th>Réservation</th>
+                    <th>Paiement</th>
+                    <th>Montant Remboursé</th>
+                    <th>Date Remboursement</th>
+                    <th>Statut</th>
+                    <th>Raison</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {remboursements.map((remboursement) => (
+                    <tr key={remboursement.id}>
+                      <td>#{remboursement.reservationId}</td>
+                      <td>#{remboursement.paiementId}</td>
+                      <td>€{remboursement.montantRembourse?.toLocaleString()}</td>
+                      <td>{new Date(remboursement.dateDeRemboursement).toLocaleString('fr-FR')}</td>
                       <td>
-                        <span className={`status-badge ${getStatusBadgeClass(paiement.statutPaiement)}`}>
-                          {paiement.statutPaiement}
+                        <span className={`status-badge ${getStatusBadgeClass(remboursement.statutRemboursement)}`}>
+                          {remboursement.statutRemboursement}
                         </span>
                       </td>
+                      <td>{remboursement.raisonRemboursement || 'N/A'}</td>
                       <td>
                         <div className="action-buttons">
-                          {paiement.lienFacture && (
+                          {remboursement.lienFactureRemboursement && (
                             <a 
-                              href={`${backendUrl}/${paiement.lienFacture}`}
+                              href={remboursement.lienFactureRemboursement}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="action-btn"
-                              title="Télécharger la facture"
+                              title="Télécharger la facture de remboursement"
                             >
                               <FileTextIcon />
                             </a>
@@ -917,10 +1293,20 @@ function AdminDashboard() {
                           <button 
                             className="action-btn" 
                             title="Voir les détails"
-                            onClick={() => alert(`ID Transaction: ${paiement.transactionId}`)}
+                            onClick={() => alert(`ID Transaction: ${remboursement.transactionIdRemboursement}`)}
                           >
                             <EyeIcon />
                           </button>
+                          {remboursement.statutRemboursement === 'En cours' && (
+                            <button 
+                              className="action-btn" 
+                              title="Confirmer le remboursement"
+                              onClick={() => handleConfirmRefund(remboursement.id)}
+                              style={{ backgroundColor: '#10b981', color: 'white' }}
+                            >
+                              ✓
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -1186,7 +1572,7 @@ function AdminDashboard() {
       {/* Reservation Details Modal */}
       {showReservationModal && selectedReservation && (
         <div className="modal-overlay">
-          <div className="modal-content reservation-details-modal">
+          <div className="modal-content admin-reservation-details-modal">
             <div className="modal-header">
               <h2>Détails de la Réservation</h2>
               <button 

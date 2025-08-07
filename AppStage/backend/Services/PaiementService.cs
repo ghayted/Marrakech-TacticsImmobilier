@@ -60,6 +60,10 @@ public class PaiementService : IPaiementService
     public async Task<IEnumerable<PaiementDto>> GetAllPaiementsAsync()
     {
         return await _context.Paiements
+            .Include(p => p.Reservation)
+                .ThenInclude(r => r.Utilisateur)
+            .Include(p => p.Reservation)
+                .ThenInclude(r => r.BienImmobilier)
             .Select(p => new PaiementDto
             {
                 Id = p.Id,
@@ -70,7 +74,12 @@ public class PaiementService : IPaiementService
                 StatutPaiement = p.StatutPaiement,
                 TransactionId = p.TransactionId,
                 CheminFacture = p.CheminFacture,
-                LienFacture = !string.IsNullOrEmpty(p.CheminFacture) ? $"/factures/{Path.GetFileName(p.CheminFacture)}" : null
+                LienFacture = !string.IsNullOrEmpty(p.CheminFacture) ? $"/factures/{Path.GetFileName(p.CheminFacture)}" : null,
+                ClientTelephone = p.Reservation.Utilisateur.Telephone,
+                ClientNom = p.Reservation.Utilisateur.NomComplet ?? p.Reservation.Utilisateur.NomUtilisateur,
+                ClientEmail = p.Reservation.Utilisateur.Email,
+                BienTitre = p.Reservation.BienImmobilier.Titre,
+                BienImmobilierId = p.Reservation.BienImmobilier.Id
             })
             .ToListAsync();
     }
@@ -78,6 +87,10 @@ public class PaiementService : IPaiementService
     public async Task<IEnumerable<PaiementDto>> GetPaiementsByReservationAsync(int reservationId)
     {
         return await _context.Paiements
+            .Include(p => p.Reservation)
+                .ThenInclude(r => r.Utilisateur)
+            .Include(p => p.Reservation)
+                .ThenInclude(r => r.BienImmobilier)
             .Where(p => p.ReservationId == reservationId)
             .Select(p => new PaiementDto
             {
@@ -89,7 +102,12 @@ public class PaiementService : IPaiementService
                 StatutPaiement = p.StatutPaiement,
                 TransactionId = p.TransactionId,
                 CheminFacture = p.CheminFacture,
-                LienFacture = !string.IsNullOrEmpty(p.CheminFacture) ? $"/factures/{Path.GetFileName(p.CheminFacture)}" : null
+                LienFacture = !string.IsNullOrEmpty(p.CheminFacture) ? $"/factures/{Path.GetFileName(p.CheminFacture)}" : null,
+                ClientTelephone = p.Reservation.Utilisateur.Telephone,
+                ClientNom = p.Reservation.Utilisateur.NomComplet ?? p.Reservation.Utilisateur.NomUtilisateur,
+                ClientEmail = p.Reservation.Utilisateur.Email,
+                BienTitre = p.Reservation.BienImmobilier.Titre,
+                BienImmobilierId = p.Reservation.BienImmobilier.Id
             })
             .ToListAsync();
     }
@@ -97,6 +115,10 @@ public class PaiementService : IPaiementService
     public async Task<PaiementDto?> GetPaiementByIdAsync(int id)
     {
         return await _context.Paiements
+            .Include(p => p.Reservation)
+                .ThenInclude(r => r.Utilisateur)
+            .Include(p => p.Reservation)
+                .ThenInclude(r => r.BienImmobilier)
             .Where(p => p.Id == id)
             .Select(p => new PaiementDto
             {
@@ -108,7 +130,12 @@ public class PaiementService : IPaiementService
                 StatutPaiement = p.StatutPaiement,
                 TransactionId = p.TransactionId,
                 CheminFacture = p.CheminFacture,
-                LienFacture = !string.IsNullOrEmpty(p.CheminFacture) ? $"/factures/{Path.GetFileName(p.CheminFacture)}" : null
+                LienFacture = !string.IsNullOrEmpty(p.CheminFacture) ? $"/factures/{Path.GetFileName(p.CheminFacture)}" : null,
+                ClientTelephone = p.Reservation.Utilisateur.Telephone,
+                ClientNom = p.Reservation.Utilisateur.NomComplet ?? p.Reservation.Utilisateur.NomUtilisateur,
+                ClientEmail = p.Reservation.Utilisateur.Email,
+                BienTitre = p.Reservation.BienImmobilier.Titre,
+                BienImmobilierId = p.Reservation.BienImmobilier.Id
             })
             .FirstOrDefaultAsync();
     }

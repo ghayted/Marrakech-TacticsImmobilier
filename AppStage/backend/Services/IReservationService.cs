@@ -6,7 +6,7 @@ namespace backend.Services;
 public interface IReservationService
 {
     Task<ReservationDto?> CreateReservationAsync(CreateReservationDto reservationDto);
-    Task<IEnumerable<ReservationDto>> GetAllReservationsAsync();
+    Task<IEnumerable<ReservationDto>> GetAllReservationsAsync(int? reservationId = null, int? clientId = null, string? status = null, string? search = null);
     Task<IEnumerable<ReservationDto>> GetReservationsByUtilisateurAsync(int utilisateurId);
     Task<IEnumerable<ReservationDto>> GetReservationsByBienAsync(int bienId);
     Task<ReservationDto?> GetReservationByIdAsync(int id);

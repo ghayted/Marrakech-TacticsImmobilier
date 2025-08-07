@@ -385,8 +385,8 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
   if (!isOpen) return null
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className="property-modal-overlay" onClick={onClose}>
+      <div className="property-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{property ? 'Modifier le bien' : 'Nouveau bien immobilier'}</h2>
           <button className="modal-close" onClick={onClose} disabled={submitting}>
