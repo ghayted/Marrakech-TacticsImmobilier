@@ -146,11 +146,14 @@ function PropertyDetail() {
 />
 
       {/* Modal de réservation */}
-      <ReservationModal
+      {/* Ouverture de réservation uniquement pour location par nuit */}
+      {bien.statutTransaction === 'À Louer (Nuit)' && (
+        <ReservationModal
         isOpen={showReservationModal}
         onClose={() => setShowReservationModal(false)}
         property={bienAvecQuartier}
-      />
+        />
+      )}
 
       <Footer />
     </div>

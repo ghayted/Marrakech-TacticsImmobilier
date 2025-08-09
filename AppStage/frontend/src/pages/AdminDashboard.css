@@ -854,8 +854,8 @@ body {
   letter-spacing: 0.05em;
 }
 
-.status-completed, .status-badge.reussi, .status-badge.confirmee {
-  background: #34d399;  /* Vert doux */
+.status-completed, .status-badge.reussi, .status-badge.confirmee, .status-badge.confirmed, .status-badge.confirme {
+  background: #10b981;  /* Vert confirmé */
   color: white;
 }
 

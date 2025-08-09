@@ -37,24 +37,88 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
 
     if (!string.IsNullOrEmpty(recherche))
     {
-        query = query.Where(b => b.Titre.Contains(recherche) || b.Ville.Contains(recherche) || b.Adresse.Contains(recherche));
+        // Permettre la recherche par ID (référence) en plus du titre/ville/adresse
+        if (int.TryParse(recherche, out var idRecherche))
+        {
+            query = query.Where(b => b.Id == idRecherche
+                                   || b.Titre.Contains(recherche)
+                                   || b.Ville.Contains(recherche)
+                                   || b.Adresse.Contains(recherche));
+        }
+        else
+        {
+            query = query.Where(b => b.Titre.Contains(recherche)
+                                   || b.Ville.Contains(recherche)
+                                   || b.Adresse.Contains(recherche));
+        }
     }
     if (!string.IsNullOrEmpty(typeDeBienNom))
     {
         query = query.Where(b => b.TypeDeBien.Nom == typeDeBienNom);
     }
+    // Déterminer le type de location demandé (nuit/mois) pour adapter filtres et tri
+    bool isLocationNuit = false;
+    bool isLocationMois = false;
     if (!string.IsNullOrEmpty(statut))
     {
-        query = query.Where(b => b.StatutTransaction == statut);
+        var s = statut.Trim();
+        var sLower = s.ToLowerInvariant();
+
+        // Compat accents + anciennes valeurs
+        if (sLower.Contains("louer") && sLower.Contains("mois"))
+        {
+            isLocationMois = true;
+            query = query.Where(b => b.StatutTransaction == "À Louer (Mois)" || b.StatutTransaction == "A Louer (Mois)");
+        }
+        else if (sLower.Contains("louer"))
+        {
+            isLocationNuit = true;
+            query = query.Where(b => b.StatutTransaction == "À Louer (Nuit)" 
+                                   || b.StatutTransaction == "A Louer (Nuit)"
+                                   || b.StatutTransaction == "À Louer"
+                                   || b.StatutTransaction == "A Louer");
+        }
+        else if (sLower.Contains("vendre"))
+        {
+            query = query.Where(b => b.StatutTransaction == "À Vendre" || b.StatutTransaction == "A Vendre");
+        }
+        else if (sLower.Contains("vendu"))
+        {
+            query = query.Where(b => b.StatutTransaction == "Vendu");
+        }
+        else if (sLower.Contains("loué") || sLower.Contains("loue"))
+        {
+            query = query.Where(b => b.StatutTransaction == "Loué" || b.StatutTransaction == "Loue");
+        }
+        else
+        {
+            query = query.Where(b => b.StatutTransaction == statut);
+        }
+    }
+
+    // En mode location (nuit ou mois), exclure explicitement les biens déjà loués
+    if (isLocationNuit || isLocationMois)
+    {
+        query = query.Where(b => b.StatutTransaction != "Loué" && b.StatutTransaction != "Loue");
     }
     if (!string.IsNullOrEmpty(ville))
         query = query.Where(b => b.Ville == ville);
     if (!string.IsNullOrEmpty(quartier))
         query = query.Where(b => b.Adresse.Contains(quartier)); // Filtre sur l'adresse
     if (prixMin.HasValue)
-        query = query.Where(b => b.Prix >= prixMin.Value);
+    {
+        if (isLocationNuit)
+            query = query.Where(b => b.PrixParNuit.HasValue && b.PrixParNuit.Value >= prixMin.Value);
+        else
+            query = query.Where(b => b.Prix >= prixMin.Value);
+    }
     if (prixMax.HasValue)
-        query = query.Where(b => b.Prix <= prixMax.Value);
+    {
+        if (isLocationNuit)
+            query = query.Where(b => b.PrixParNuit.HasValue && b.PrixParNuit.Value <= prixMax.Value);
+        else
+            query = query.Where(b => b.Prix <= prixMax.Value);
+    }
 
     // Filtrage par propriétaire
     if (proprietaireId.HasValue)
@@ -79,11 +143,15 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
     {
         if (triParPrix.Equals("asc", StringComparison.OrdinalIgnoreCase))
         {
-            query = query.OrderBy(b => b.Prix);
+            query = isLocationNuit
+                ? query.OrderBy(b => b.PrixParNuit)
+                : query.OrderBy(b => b.Prix);
         }
         else if (triParPrix.Equals("desc", StringComparison.OrdinalIgnoreCase))
         {
-            query = query.OrderByDescending(b => b.Prix);
+            query = isLocationNuit
+                ? query.OrderByDescending(b => b.PrixParNuit)
+                : query.OrderByDescending(b => b.Prix);
         }
     }
     
@@ -127,6 +195,15 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
       public async Task<BiensImmobilier?> CreateBienAsync(CreateBienDto bienDto)
     {
         // 1. Crée l'objet principal
+        // Normaliser le statut pour compatibilité base: "À Louer (Nuit)" est stocké comme "À Louer"
+        var statutNormaliseCreation = (bienDto.StatutTransaction ?? string.Empty).Trim();
+        var statutLowerCreation = statutNormaliseCreation.ToLowerInvariant();
+        if (statutLowerCreation.Contains("louer") && (statutLowerCreation.Contains("nuit") || statutLowerCreation == "à louer" || statutLowerCreation == "a louer"))
+        {
+            // Forcer le stockage à "À Louer" pour la location saisonnière
+            statutNormaliseCreation = "À Louer";
+        }
+
         var nouveauBien = new BiensImmobilier
         {
             Titre = bienDto.Titre,
@@ -143,7 +220,7 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
             Latitude = bienDto.Latitude,
             Longitude = bienDto.Longitude,
             TypeDeBienId = bienDto.TypeDeBienId,
-            StatutTransaction = bienDto.StatutTransaction,
+            StatutTransaction = statutNormaliseCreation,
             PrixParNuit = bienDto.PrixParNuit,
             DateDePublication = DateTime.UtcNow,
             EstDisponible = true
@@ -224,7 +301,14 @@ public async Task<IEnumerable<BienListDto>> GetAllBiensAsync(
         bienExistant.Latitude = bienDto.Latitude;
         bienExistant.Longitude = bienDto.Longitude;
         bienExistant.TypeDeBienId = bienDto.TypeDeBienId;
-        bienExistant.StatutTransaction = bienDto.StatutTransaction;
+        // Normaliser le statut pour compatibilité base
+        var statutNormaliseUpdate = (bienDto.StatutTransaction ?? string.Empty).Trim();
+        var statutLowerUpdate = statutNormaliseUpdate.ToLowerInvariant();
+        if (statutLowerUpdate.Contains("louer") && (statutLowerUpdate.Contains("nuit") || statutLowerUpdate == "à louer" || statutLowerUpdate == "a louer"))
+        {
+            statutNormaliseUpdate = "À Louer";
+        }
+        bienExistant.StatutTransaction = statutNormaliseUpdate;
         bienExistant.EstDisponible = bienDto.EstDisponible;
         bienExistant.PrixParNuit = bienDto.PrixParNuit;
 

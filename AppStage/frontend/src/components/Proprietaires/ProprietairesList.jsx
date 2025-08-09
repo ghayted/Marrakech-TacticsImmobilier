@@ -9,7 +9,7 @@ const ProprietairesList = () => {
   const [filters, setFilters] = useState({
     search: '',
     telephone: '',
-    bienId: ''
+    proprietaireId: ''
   });
 
   // États pour les modals
@@ -56,10 +56,10 @@ const ProprietairesList = () => {
     const matchesTelephone = !filters.telephone || 
       proprietaire.telephone.includes(filters.telephone);
     
-    const matchesBienId = !filters.bienId || 
-      proprietaire.biens?.some(bien => bien.id.toString().includes(filters.bienId));
+    const matchesProprietaireId = !filters.proprietaireId || 
+      proprietaire.id?.toString().includes(filters.proprietaireId);
     
-    return matchesSearch && matchesTelephone && matchesBienId;
+    return matchesSearch && matchesTelephone && matchesProprietaireId;
   });
 
   const handleDelete = async (id) => {
@@ -148,13 +148,13 @@ const ProprietairesList = () => {
           </div>
 
           <div className="filter-group">
-            <label>Rechercher par ID du bien</label>
+            <label>Rechercher par ID du propriétaire</label>
             <input
               type="text"
-              name="bienId"
-              value={filters.bienId}
+              name="proprietaireId"
+              value={filters.proprietaireId}
               onChange={handleFilterChange}
-              placeholder="ID du bien"
+              placeholder="ID du propriétaire"
               className="filter-input"
             />
           </div>

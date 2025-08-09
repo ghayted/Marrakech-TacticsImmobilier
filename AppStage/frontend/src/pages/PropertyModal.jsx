@@ -525,7 +525,8 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
                   disabled={submitting}
                 >
                   <option value="À Vendre">À Vendre</option>
-                  <option value="À Louer">À Louer</option>
+                  <option value="À Louer (Nuit)">À Louer (Nuit)</option>
+                  <option value="À Louer (Mois)">À Louer (Mois)</option>
                   <option value="Vendu">Vendu</option>
                   <option value="Loué">Loué</option>
                 </select>
@@ -544,8 +545,8 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
                 />
               </div>
 
-              {/* Prix par nuit - affiché seulement si "À Louer" est sélectionné */}
-              {formData.statutTransaction === 'À Louer' && (
+              {/* Prix par nuit - affiché seulement si "À Louer (Nuit)" est sélectionné */}
+              {formData.statutTransaction === 'À Louer (Nuit)' && (
                 <div className="form-group">
                   <label>Prix par nuit (€) *</label>
                   <input
@@ -572,8 +573,8 @@ const PropertyModal = ({ isOpen, onClose, property = null, onSave }) => {
                 />
               </div>
 
-              {/* Section Propriétaire - affichée seulement si "À Vendre" est sélectionné */}
-              {formData.statutTransaction === 'À Vendre' && (
+              {/* Section Propriétaire - affichée pour Vente et Location mensuelle */}
+              {(formData.statutTransaction === 'À Vendre' || formData.statutTransaction === 'À Louer (Mois)') && (
                 <div className="form-group full-width">
                   <label>Propriétaire *</label>
                   <select

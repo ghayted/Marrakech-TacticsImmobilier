@@ -21,6 +21,18 @@
       "PackagePath": "staticwebassets\\factures\\facture_12_20250807_041435.pdf"
     },
     {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_13_20250807_205049.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_13_20250807_205049.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_14_20250809_033022.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_14_20250809_033022.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_15_20250809_231500.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_15_20250809_231500.pdf"
+    },
+    {
       "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1_20250801_215627.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_1_20250801_215627.pdf"
     },
@@ -87,6 +99,18 @@
     {
       "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_6_20250807_031510.pdf",
       "PackagePath": "staticwebassets\\factures\\remboursement_6_20250807_031510.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_7_20250807_195316.pdf",
+      "PackagePath": "staticwebassets\\factures\\remboursement_7_20250807_195316.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_8_20250809_023115.pdf",
+      "PackagePath": "staticwebassets\\factures\\remboursement_8_20250809_023115.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_9_20250809_221627.pdf",
+      "PackagePath": "staticwebassets\\factures\\remboursement_9_20250809_221627.pdf"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -66,13 +66,15 @@ const BienListGrid = ({ biens, loading }) => {
                 </div>
                 <div className="bienslist-card-price">
                   <span className="price-amount">
-                    {bien.statutTransaction === 'À Louer' 
+                    {bien.statutTransaction?.includes('Louer') && !bien.statutTransaction?.includes('Mois')
                       ? `${bien.prixParNuit?.toLocaleString('fr-FR')} EUR`
-                      : `${bien.prix?.toLocaleString('fr-FR')} EUR`
-                    }
+                      : `${bien.prix?.toLocaleString('fr-FR')} EUR`}
                   </span>
-                  {bien.statutTransaction === 'À Louer' && (
+                  {bien.statutTransaction?.includes('Louer') && !bien.statutTransaction?.includes('Mois') && (
                     <span className="price-unit">/nuit</span>
+                  )}
+                  {bien.statutTransaction === 'À Louer (Mois)' && (
+                    <span className="price-unit">/mois</span>
                   )}
                 </div>
                 <button className="bienslist-card-btn">Voir Le Bien</button>

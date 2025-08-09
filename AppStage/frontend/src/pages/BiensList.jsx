@@ -27,7 +27,8 @@ function BiensList() {
   const [dateFilterApplied, setDateFilterApplied] = useState(false);
   
   // Détecter le mode de transaction depuis l'URL
-  const isLouerMode = statut === 'À Louer';
+  const isLouerModeNuit = statut === 'À Louer (Nuit)';
+  const isLouerModeMois = statut === 'À Louer (Mois)';
 
   // Initialiser les dates depuis l'URL au chargement
   useEffect(() => {
@@ -59,8 +60,8 @@ function BiensList() {
       if (statut) url += `statut=${encodeURIComponent(statut)}&`;
       if (quartier) url += `quartier=${encodeURIComponent(quartier)}&`;
       
-      // Ajouter les paramètres de dates si sélectionnées ET si le mode est "louer"
-      if (selectedDates && dateFilterApplied && isLouerMode) {
+      // Ajouter les paramètres de dates si sélectionnées ET si le mode est location par nuit
+      if (selectedDates && dateFilterApplied && isLouerModeNuit) {
         url += `dateDebut=${encodeURIComponent(selectedDates.dateDebut)}&`;
         url += `dateFin=${encodeURIComponent(selectedDates.dateFin)}&`;
         url += `nombreVoyageurs=${selectedDates.nombreVoyageurs}&`;
@@ -84,7 +85,7 @@ function BiensList() {
     };
     
     fetchBiens();
-  }, [ville, type, budgetMin, budgetMax, search, tri, statut, quartier, selectedDates, dateFilterApplied, isLouerMode]);
+  }, [ville, type, budgetMin, budgetMax, search, tri, statut, quartier, selectedDates, dateFilterApplied, isLouerModeNuit]);
 
   const handleFilter = (e) => {
     e.preventDefault();
@@ -100,7 +101,7 @@ function BiensList() {
     if (statut) newQuery.set('statut', statut);
     
     // Ajouter les dates si elles sont sélectionnées
-    if (selectedDates && dateFilterApplied && isLouerMode) {
+    if (selectedDates && dateFilterApplied && isLouerModeNuit) {
       console.log('🔍 [BiensList] Ajout des dates au filtre:', selectedDates);
       newQuery.set('dateDebut', selectedDates.dateDebut);
       newQuery.set('dateFin', selectedDates.dateFin);
@@ -160,7 +161,7 @@ function BiensList() {
         ville={ville}
         annoncesCount={biens.length}
         handleFilter={handleFilter}
-        isLouerMode={isLouerMode}
+        isLouerMode={isLouerModeNuit}
         onDateSearch={handleDateSearch}
         selectedDates={selectedDates ? [selectedDates.dateDebut, selectedDates.dateFin] : []}
       />

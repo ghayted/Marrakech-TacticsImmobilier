@@ -17,6 +17,7 @@ import {
   LineElement
 } from 'chart.js'
 import { Bar, Pie, Line } from 'react-chartjs-2'
+import ProprietairesList from "../components/Proprietaires/ProprietairesList"
 
 ChartJS.register(
   CategoryScale,
@@ -206,6 +207,7 @@ function AdminDashboard() {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: HomeIcon },
     { id: 'properties', label: 'Propriétés', icon: BuildingIcon },
+    { id: 'owners', label: 'Propriétaires', icon: UsersIcon },
     { id: 'reservations', label: 'Réservations', icon: CalendarIcon },
     { id: 'paiements', label: 'Paiements', icon: FileTextIcon },
     { id: 'remboursements', label: 'Remboursements', icon: FileTextIcon },
@@ -478,37 +480,29 @@ function AdminDashboard() {
   }
 
   const getStatusBadgeClass = (status) => {
-    const statusLower = status?.toLowerCase()
-    switch (statusLower) {
-      case 'réussi':
-      case 'confirmée':
-      case 'confirmé':
-        return 'status-badge confirmee'
-      case 'en attente':
-      case 'en attente de paiement':
-      case 'en cours':
-        return 'status-badge en-attente'
-      case 'à vendre':
-        return 'status-badge a-vendre'
-      case 'à louer':
-        return 'status-badge a-louer'
-      case 'vendu':
-        return 'status-badge vendu'
-      case 'loué':
-        return 'status-badge loue'
-      case 'annulé':
-      case 'annulée':
-        return 'status-badge annule'
-      case 'terminée':
-      case 'terminé':
-        return 'status-badge terminee'
-      default:
-        return 'status-badge en-attente'
-    }
+    const s = (status || '').toLowerCase()
+    const sn = s.normalize('NFD').replace(/[\u0300-\u036f]/g, '') // retire accents
+    if (sn.includes('vendre')) return 'status-badge a-vendre'
+    if (sn.includes('louer')) return 'status-badge a-louer'
+    if (sn.includes('vendu')) return 'status-badge vendu'
+    if (sn.includes('loue')) return 'status-badge loue'
+    if (sn.includes('en attente') || sn.includes('en cours')) return 'status-badge en-attente'
+    if (sn.includes('annule')) return 'status-badge annule'
+    if (sn.includes('termine')) return 'status-badge terminee'
+    if (sn.includes('reussi') || sn.includes('confirme')) return 'status-badge confirmee'
+    return 'status-badge en-attente'
   }
 
   const getStatusText = (status) => {
-    return status || 'En attente'
+    const value = status || 'En attente'
+    const s = value.toLowerCase()
+    // Affichages souhaités côté Admin:
+    // - "À Louer" ou "À Louer (Nuit)" => "Location saisonnière"
+    // - "À Louer (Mois)" => "À Louer"
+    if (s.includes('louer') && s.includes('nuit')) return 'Location saisonnière'
+    if (s === 'à louer' || s === 'a louer') return 'Location saisonnière'
+    if (s.includes('louer') && s.includes('mois')) return 'À Louer'
+    return value
   }
 
   const getTypeDeBienName = (typeId) => {
@@ -792,7 +786,8 @@ function AdminDashboard() {
                 >
                   <option value="">Tous les statuts</option>
                   <option value="À Vendre">À Vendre</option>
-                  <option value="À Louer">À Louer</option>
+                  <option value="À Louer (Nuit)">À Louer (Nuit)</option>
+                  <option value="À Louer (Mois)">À Louer (Mois)</option>
                   <option value="Vendu">Vendu</option>
                   <option value="Loué">Loué</option>
                 </select>
@@ -871,7 +866,7 @@ function AdminDashboard() {
                         <div className="property-info">
                           <div className="property-id">#{bien.titre}</div>
                           <div className="property-location">{bien.ville}</div>
-                          <div className="property-reference">Ref: 5860{bien.id}</div>
+                          <div className="property-reference">Ref: {bien.id}</div>
                         </div>
                       </td>
                                              <td>{getTypeDeBienName(bien.typeDeBienId)}</td>
@@ -911,6 +906,16 @@ function AdminDashboard() {
                 </tbody>
               </table>
             </div>
+          </div>
+        )}
+
+        {/* Owners Section */}
+        {activeSection === 'owners' && (
+          <div className="properties-section">
+            <div className="section-header">
+              <h2>Gestion des Propriétaires</h2>
+            </div>
+            <ProprietairesList />
           </div>
         )}
 
@@ -1363,16 +1368,18 @@ function AdminDashboard() {
                 <div className="analytics-card">
                   <h3>Statut des Biens</h3>
                   <div className="chart-container">
-                    <Bar
+                     <Bar
                       data={{
-                        labels: ['À Vendre', 'À Louer', 'Vendu', 'Loué'],
+                         labels: ['À Vendre', 'À Louer', 'À Louer (Mois)', 'Vendu', 'Loué'],
                         datasets: [{
                           label: 'Nombre de biens',
                           data: [
-                            biens.filter(b => b.statutTransaction === 'À Vendre').length,
-                            biens.filter(b => b.statutTransaction === 'À Louer').length,
-                            biens.filter(b => b.statutTransaction === 'Vendu').length,
-                            biens.filter(b => b.statutTransaction === 'Loué').length,
+                             biens.filter(b => b.statutTransaction === 'À Vendre').length,
+                             // Regrouper toutes les nuits stockées comme "À Louer"
+                             biens.filter(b => (b.statutTransaction === 'À Louer' || b.statutTransaction === 'A Louer')).length,
+                             biens.filter(b => b.statutTransaction === 'À Louer (Mois)').length,
+                             biens.filter(b => b.statutTransaction === 'Vendu').length,
+                             biens.filter(b => b.statutTransaction === 'Loué').length,
                           ],
                           backgroundColor: '#2196F3'
                         }]

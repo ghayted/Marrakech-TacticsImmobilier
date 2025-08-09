@@ -17,7 +17,7 @@ const PropertyCard = ({ property }) => {
     navigate(`/property/${property.id}`);
   };
   
-  const statusClassName = property.statutTransaction?.toLowerCase() === 'vente' ? 'status-badge-sale' : 'status-badge-rent';
+  const statusClassName = property.statutTransaction?.toLowerCase().includes('vendre') ? 'status-badge-sale' : 'status-badge-rent';
 
   return (
     <div className="property-card" onClick={handleCardClick}>

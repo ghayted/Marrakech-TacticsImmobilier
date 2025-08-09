@@ -14,9 +14,9 @@ const Breadcrumb = ({ property }) => {
   // On prépare les différents segments du fil d'Ariane
   const segments = [
     { label: 'ACCUEIL', action: () => navigate('/') },
-    { label: property.statutTransaction?.toUpperCase(), action: () => navigate(`/biens?statut=${property.statutTransaction}`) },
+    { label: property.statutTransaction?.toUpperCase(), action: () => navigate(`/biens?statut=${encodeURIComponent(property.statutTransaction)}`) },
     { label: property.typeDeBien?.nom?.toUpperCase() + ' MARRAKECH', action: () => navigate(`/biens?type=${property.typeDeBien?.nom}`) },
-    { label: `RÉF. ${property.id}`, isCurrent: true }, // Le dernier segment est la page actuelle
+    { label: `RÉF. ${property.id}`, isCurrent: true },
   ];
 
   return (

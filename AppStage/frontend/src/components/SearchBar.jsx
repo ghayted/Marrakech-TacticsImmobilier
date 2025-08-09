@@ -25,7 +25,8 @@ export default function SearchBar({
     if (budgetMax !== "" && !isNaN(Number(budgetMax))) params.append("prixMax", budgetMax);
     if (advancedSearch) params.append("recherche", advancedSearch);
     if (mode === 'acheter') params.append("statut", "À Vendre");
-    if (mode === 'louer') params.append("statut", "À Louer");
+    if (mode === 'louer') params.append("statut", "À Louer (Nuit)");
+    if (mode === 'louer_mois') params.append("statut", "À Louer (Mois)");
     // Appelle la fonction parent si besoin (ex: navigation)
     if (parentOnSearch) {
       parentOnSearch(e, params);
@@ -51,16 +52,15 @@ export default function SearchBar({
           className={`searchbar-switch-btn ${mode === 'louer' ? 'active' : ''}`}
           onClick={() => setMode('louer')}
         >
+          Location saisonnière
+        </button>
+        <button
+          type="button"
+          className={`searchbar-switch-btn ${mode === 'louer_mois' ? 'active' : ''}`}
+          onClick={() => setMode('louer_mois')}
+        >
           Louer
         </button>
-        {/* L'image montre aussi "LOCATION SAISONNIÈRE" */}
-        {/* <button
-          type="button"
-          className={`searchbar-switch-btn ${mode === 'saisonniere' ? 'active' : ''}`}
-          onClick={() => setMode('saisonniere')}
-        >
-          Location Saisonnière
-        </button> */}
       </div>
 
       <div className="searchbar-full">

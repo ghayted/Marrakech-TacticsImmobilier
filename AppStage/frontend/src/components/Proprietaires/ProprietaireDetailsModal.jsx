@@ -84,7 +84,7 @@ const ProprietaireDetailsModal = ({ proprietaire, isOpen, onClose }) => {
                    <div key={bien.id} className="bien-card">
                      <div className="bien-header">
                        <h4>#{bien.id} - {bien.titre}</h4>
-                       <span className={`statut ${bien.statutTransaction.toLowerCase()}`}>
+                      <span className={`statut ${bien.statutTransaction.toLowerCase().replace(/\s+/g,'-')}`}>
                          {bien.statutTransaction}
                        </span>
                      </div>

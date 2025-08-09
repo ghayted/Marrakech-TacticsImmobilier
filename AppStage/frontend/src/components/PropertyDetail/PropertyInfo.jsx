@@ -26,10 +26,11 @@ const PropertyInfo = ({ property }) => {
 
     {/* Le prix reste à droite */}
     <span className="price-ask">
-      {property.statutTransaction === 'À Louer' 
+      {property.statutTransaction?.includes('Louer') && !property.statutTransaction?.includes('Mois)')
         ? `${property.prixParNuit?.toLocaleString('fr-FR')} EUR/nuit`
-        : `${property.prix?.toLocaleString('fr-FR')} EUR`
-      }
+        : property.statutTransaction?.includes('Mois)')
+          ? `${property.prix?.toLocaleString('fr-FR')} EUR/mois`
+          : `${property.prix?.toLocaleString('fr-FR')} EUR`}
     </span>
   </div>
 </header>
@@ -57,10 +58,11 @@ const PropertyInfo = ({ property }) => {
           <div className="detail-item">
             <span>PRIX</span>
             <span>
-              {property.statutTransaction === 'À Louer' 
+              {property.statutTransaction?.includes('Louer') && !property.statutTransaction?.includes('Mois)')
                 ? `${property.prixParNuit?.toLocaleString('fr-FR')} EUR/nuit`
-                : `${property.prix?.toLocaleString('fr-FR')} EUR`
-              }
+                : property.statutTransaction?.includes('Mois)')
+                  ? `${property.prix?.toLocaleString('fr-FR')} EUR/mois`
+                  : `${property.prix?.toLocaleString('fr-FR')} EUR`}
             </span>
           </div>
           <div className="detail-item"><span>OPÉRATION</span><span>{property.statutTransaction}</span></div>

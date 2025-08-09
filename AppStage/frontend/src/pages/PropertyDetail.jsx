@@ -162,7 +162,8 @@ function PropertyDetail() {
   const getStatusBadgeClass = (statut) => {
     switch (statut) {
       case "À Vendre": return "a-vendre";
-      case "À Louer": return "a-louer";
+      case "À Louer (Nuit)": return "a-louer";
+      case "À Louer (Mois)": return "a-louer";
       case "Vendu": return "vendu";
       case "Loué": return "loue";
       default: return "a-vendre";
@@ -259,7 +260,11 @@ function PropertyDetail() {
             
             <div className="property-detail-price-section">
               <div className="property-detail-price-main">
-                {bien.prix?.toLocaleString('fr-FR')} €
+                {bien.statutTransaction?.includes('Louer') && !bien.statutTransaction?.includes('Mois)')
+                  ? `${bien.prixParNuit?.toLocaleString('fr-FR')} €/nuit`
+                  : bien.statutTransaction?.includes('Mois)')
+                    ? `${bien.prix?.toLocaleString('fr-FR')} €/mois`
+                    : `${bien.prix?.toLocaleString('fr-FR')} €`}
               </div>
               <span className={`property-detail-status ${getStatusBadgeClass(bien.statutTransaction)}`}>
                 {bien.statutTransaction}

@@ -107,7 +107,8 @@ function ClientHome() {
     if (budgetMin) params.append("budgetMin", budgetMin);
     if (budgetMax) params.append("budgetMax", budgetMax);
     if (mode === "acheter") params.append("statut", "À Vendre");
-    if (mode === "louer") params.append("statut", "À Louer");
+    if (mode === "louer") params.append("statut", "À Louer (Nuit)");
+    if (mode === "louer_mois") params.append("statut", "À Louer (Mois)");
     navigate(`/biens?${params.toString()}`);
   };
 

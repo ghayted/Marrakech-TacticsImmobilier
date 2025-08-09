@@ -150,9 +150,8 @@ const ContactSidebar = ({ property, dateDebut, dateFin, nombreVoyageurs, onReser
         </div>
         <button className="agent-properties-btn">PLUS DE PROPRIÉTÉS</button>
 
-        {/* Bouton de réservation - s'affiche seulement pour les locations */}
-        {(property.statutTransaction?.toLowerCase().includes('louer') || 
-          property.statutTransaction?.toLowerCase().includes('location')) && onReservationClick && (
+        {/* Bouton de réservation - seulement pour location par nuit */}
+        {property.statutTransaction?.includes('Louer') && !property.statutTransaction?.includes('Mois)') && onReservationClick && (
           <button 
             className="reservation-btn-sidebar" 
             onClick={handleReservationClick}
