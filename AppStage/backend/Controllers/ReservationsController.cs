@@ -107,4 +107,49 @@ public class ReservationsController : ControllerBase
 
         return NoContent();
     }
+
+    /// <summary>
+    /// Mettre à jour automatiquement les réservations terminées
+    /// </summary>
+    [HttpPost("update-terminées")]
+    public async Task<IActionResult> UpdateReservationsTerminees()
+    {
+        await _reservationService.UpdateReservationsTermineesAsync();
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Vérifier et mettre à jour le statut d'une réservation spécifique
+    /// </summary>
+    [HttpPost("{id}/verifier-statut")]
+    public async Task<IActionResult> VerifierStatutReservation(int id)
+    {
+        var updated = await _reservationService.VerifierEtMettreAJourStatutReservationAsync(id);
+        
+        if (!updated)
+            return NotFound();
+
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Libérer manuellement un bien après réservation terminée (pour tests)
+    /// </summary>
+    [HttpPost("{id}/liberer-bien")]
+    public async Task<IActionResult> LibererBienApresReservation(int id)
+    {
+        var reservation = await _reservationService.GetReservationByIdAsync(id);
+        if (reservation == null)
+            return NotFound();
+
+        // Forcer la vérification et mise à jour du statut
+        var updated = await _reservationService.VerifierEtMettreAJourStatutReservationAsync(id);
+        
+        return Ok(new { 
+            ReservationId = id, 
+            Statut = reservation.Statut,
+            DateFin = reservation.DateFin,
+            BienLibere = updated 
+        });
+    }
 }

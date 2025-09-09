@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Home/Header";
 import HeroSection from "../components/Home/HeroSection";
@@ -18,6 +18,16 @@ function ClientHome() {
   const [budgetMax, setBudgetMax] = useState("");
   const [mode, setMode] = useState("acheter");
   const navigate = useNavigate();
+  const backendUrl = "http://localhost:5257";
+
+  useEffect(() => {
+    // Track a site view when the home page loads
+    fetch(`${backendUrl}/api/Analytics/site-view`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: '/' })
+    }).catch(() => {});
+  }, []);
 
   // Filtres prédéfinis
   const predefinedFilters = [

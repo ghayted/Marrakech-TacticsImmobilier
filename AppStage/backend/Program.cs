@@ -3,6 +3,8 @@ using backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+// Ecouter sur toutes les interfaces pour accès depuis Docker/n8n en dev
+builder.WebHost.UseUrls("http://0.0.0.0:5257");
 
 // ➤ Ajouter les services nécessaires
 builder.Services.AddControllers(); // Active les contrôleurs [ApiController]
@@ -25,14 +27,23 @@ builder.Services.AddScoped<IPaiementService, PaiementService>();
 builder.Services.AddScoped<IDisponibiliteService, DisponibiliteService>();
 builder.Services.AddScoped<IRefundService, RefundService>();
 builder.Services.AddScoped<IProprietaireService, ProprietaireService>();
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+// Ajouter le service de tâches en arrière-plan pour les réservations
+builder.Services.AddHostedService<ReservationBackgroundService>();
+
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient();
 // ...
 // ➤ Configurer CORS pour autoriser le frontend React (localhost:5173)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",
+    // Large ouverture pour dev/local (Docker, n8n, Postman, etc.)
+    options.AddPolicy("AllowAll",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173")
+            policy.AllowAnyOrigin()
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -48,13 +59,17 @@ if (app.Environment.IsDevelopment())
 }
 
 // ➤ Middleware
-app.UseHttpsRedirection();
+// En prod, on force HTTPS. En dev, on reste en HTTP pour éviter les soucis de certificat depuis Docker/n8n
+if (app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
 
 // ➤ Servir les fichiers statiques (pour les images uploadées et factures)
 app.UseStaticFiles();
 
 // ➤ Utiliser la politique CORS avant les endpoints
-app.UseCors("AllowReactApp");
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

@@ -1,0 +1,19 @@
+### Créer une réservation avec des dates passées pour tester la libération automatique
+POST http://localhost:5257/api/Reservations
+Content-Type: application/json
+
+{
+  "bienImmobilierId": 1,
+  "utilisateurId": 1,
+  "dateDebut": "2024-01-01",
+  "dateFin": "2024-01-05",
+  "nombreDeVoyageurs": 2
+}
+
+###
+
+### Libérer manuellement un bien après réservation terminée (test)
+POST http://localhost:5257/api/Reservations/1/liberer-bien
+Content-Type: application/json
+
+###

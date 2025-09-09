@@ -10,5 +10,6 @@ public interface IDisponibiliteService
     Task<DisponibiliteDto?> CreateDisponibiliteAsync(CreateDisponibiliteDto disponibiliteDto);
     Task<bool> UpdateDisponibiliteAsync(int id, UpdateDisponibiliteDto disponibiliteDto);
     Task<bool> MarquerIndisponibleAsync(int bienImmobilierId, DateTime dateDebut, DateTime dateFin);
+    Task<bool> LibererDatesReservationAsync(int bienImmobilierId, DateTime dateDebut, DateTime dateFin);
     Task<decimal> CalculerPrixTotalAsync(int bienImmobilierId, DateTime dateDebut, DateTime dateFin);
 }

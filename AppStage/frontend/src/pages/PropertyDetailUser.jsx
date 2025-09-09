@@ -42,13 +42,14 @@ function PropertyDetail() {
   const [showFullscreen, setShowFullscreen] = useState(false); // Gardé pour une future utilisation
   const [showReservationModal, setShowReservationModal] = useState(false);
   const token = localStorage.getItem('authToken');
+  const backendUrl = 'http://localhost:5257';
 
   // La logique pour récupérer les données reste ici, dans le composant parent
   useEffect(() => {
     const fetchBien = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5257/api/BiensImmobiliers/${id}`, {
+            const response = await fetch(`${backendUrl}/api/BiensImmobiliers/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
@@ -56,6 +57,18 @@ function PropertyDetail() {
                 console.log('Données du bien reçues:', data);
                 console.log('Coordonnées:', { lat: data.latitude, lng: data.longitude });
                 setBien(data);
+                // Track a view for this bien (debounced 30 minutes per browser)
+                const lsKey = `view_bien_${id}`
+                const last = localStorage.getItem(lsKey)
+                const nowTs = Date.now()
+                if (!last || (nowTs - parseInt(last, 10) > 30 * 60 * 1000)) {
+                  fetch(`${backendUrl}/api/Analytics/bien-view/${id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ path: `/property/${id}` })
+                  }).catch(() => {})
+                  localStorage.setItem(lsKey, String(nowTs))
+                }
             }
         } catch (error) {
             console.error('Erreur:', error);

@@ -31,6 +31,8 @@ public partial class AgenceImmoDbContext : DbContext
 
     public virtual DbSet<Proprietaire> Proprietaires { get; set; }
 
+    public virtual DbSet<AnalyticsEvent> AnalyticsEvents { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Amenagement>(entity =>
@@ -186,6 +188,14 @@ public partial class AgenceImmoDbContext : DbContext
             entity.Property(e => e.Adresse).HasMaxLength(500);
             entity.Property(e => e.DateCreation).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.EstActif).HasDefaultValue(true);
+        });
+
+        modelBuilder.Entity<AnalyticsEvent>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__AnalyticsEvents__3214EC07");
+            entity.Property(e => e.EventType).HasMaxLength(50);
+            entity.Property(e => e.Path).HasMaxLength(500);
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getutcdate())");
         });
 
         OnModelCreatingPartial(modelBuilder);

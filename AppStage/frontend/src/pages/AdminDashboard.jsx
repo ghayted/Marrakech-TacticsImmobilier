@@ -203,6 +203,13 @@ function AdminDashboard() {
   const token = localStorage.getItem("authToken")
   const backendUrl = "http://localhost:5257"
 
+  // Analytics state
+  const [siteViewsThisMonth, setSiteViewsThisMonth] = useState(0)
+  const [selectedBienViewsThisMonth, setSelectedBienViewsThisMonth] = useState(0)
+  const [siteViewsByMonth, setSiteViewsByMonth] = useState(Array(12).fill(0))
+  const [analyticsBienId, setAnalyticsBienId] = useState('')
+  const [topBiens, setTopBiens] = useState([])
+
   // Navigation items
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: HomeIcon },
@@ -312,6 +319,50 @@ function AdminDashboard() {
   useEffect(() => {
     fetchBiens()
   }, [fetchBiens])
+
+  // Load analytics when entering analytics section
+  useEffect(() => {
+    if (activeSection === 'analytics') {
+      const now = new Date()
+      const month = now.getMonth() + 1
+      const year = now.getFullYear()
+      // Site count this month
+      fetch(`${backendUrl}/api/Analytics/site/count?month=${month}&year=${year}`)
+        .then(r => r.ok ? r.json() : { count: 0 })
+        .then(d => setSiteViewsThisMonth(d.count || 0))
+        .catch(() => {})
+      // Site monthly series
+      fetch(`${backendUrl}/api/Analytics/site/monthly?year=${year}`)
+        .then(r => r.ok ? r.json() : [])
+        .then(arr => {
+          const series = Array(12).fill(0)
+          arr.forEach(x => { series[(x.month || x.Month) - 1] = x.count || x.Count || 0 })
+          setSiteViewsByMonth(series)
+        })
+        .catch(() => {})
+      // Top biens (this month)
+      fetch(`${backendUrl}/api/Analytics/bien/top?month=${month}&year=${year}&limit=5`)
+        .then(r => r.ok ? r.json() : [])
+        .then(list => setTopBiens(Array.isArray(list) ? list : []))
+        .catch(() => {})
+    }
+  }, [activeSection])
+
+  // Load selected bien KPI when user picks one
+  useEffect(() => {
+    if (activeSection !== 'analytics') return
+    const now = new Date()
+    const month = now.getMonth() + 1
+    const year = now.getFullYear()
+    if (analyticsBienId) {
+      fetch(`${backendUrl}/api/Analytics/bien/${analyticsBienId}/count?month=${month}&year=${year}`)
+        .then(r => r.ok ? r.json() : { count: 0 })
+        .then(d => setSelectedBienViewsThisMonth(d.count || 0))
+        .catch(() => setSelectedBienViewsThisMonth(0))
+    } else {
+      setSelectedBienViewsThisMonth(0)
+    }
+  }, [activeSection, analyticsBienId])
 
   const handleNavClick = (sectionId) => {
     setActiveSection(sectionId)
@@ -1330,6 +1381,42 @@ function AdminDashboard() {
             </div>
             <div className="analytics-content">
               <div className="analytics-grid">
+                {/* KPI cards */}
+                <div className="analytics-card">
+                  <h3>Vues du site (ce mois)</h3>
+                  <div style={{ fontSize: '28px', fontWeight: 700 }}>{siteViewsThisMonth}</div>
+                </div>
+                <div className="analytics-card">
+                  <h3>Vues d'une annonce (ce mois)</h3>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <select className="filter-select" value={analyticsBienId} onChange={(e) => setAnalyticsBienId(e.target.value)}>
+                      <option value="">— Sélectionner une annonce —</option>
+                      {biens.map(b => (
+                        <option key={b.id} value={b.id}>{b.titre || `Bien #${b.id}`}</option>
+                      ))}
+                    </select>
+                    <div style={{ fontSize: '28px', fontWeight: 700 }}>{selectedBienViewsThisMonth}</div>
+                  </div>
+                  <small>Choisissez une annonce pour afficher ses vues</small>
+                </div>
+                <div className="analytics-card">
+                  <h3>Top annonces (ce mois)</h3>
+                  <div>
+                    {topBiens.length === 0 ? (
+                      <p>Aucune donnée</p>
+                    ) : (
+                      <ul style={{ margin: 0, paddingLeft: '18px' }}>
+                        {topBiens.map((x, idx) => {
+                          const id = x.bienImmobilierId || x.BienImmobilierId
+                          const count = x.count || x.Count
+                          const local = biens.find(b => b.id === id)
+                          const titre = x.titre || (local ? local.titre : `Bien #${id}`)
+                          return <li key={idx}>{titre} — {count}</li>
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                </div>
                 {/* Graphique des propriétés par type */}
                 <div className="analytics-card">
                   <h3>Répartition des Biens par Type</h3>
@@ -1406,16 +1493,22 @@ function AdminDashboard() {
                     <Line
                       data={{
                         labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
-                        datasets: [{
-                          label: 'Nombre de réservations',
-                          data: Array(12).fill(0).map((_, i) => 
-                            reservations.filter(r => 
-                              new Date(r.dateDeReservation).getMonth() === i
-                            ).length
-                          ),
-                          borderColor: '#4CAF50',
-                          tension: 0.1
-                        }]
+                        datasets: [
+                          {
+                            label: 'Nombre de réservations',
+                            data: Array(12).fill(0).map((_, i) => 
+                              reservations.filter(r => new Date(r.dateDeReservation).getMonth() === i).length
+                            ),
+                            borderColor: '#4CAF50',
+                            tension: 0.1
+                          },
+                          {
+                            label: 'Vues du site',
+                            data: siteViewsByMonth,
+                            borderColor: '#9C27B0',
+                            tension: 0.1
+                          }
+                        ]
                       }}
                       options={{
                         responsive: true,

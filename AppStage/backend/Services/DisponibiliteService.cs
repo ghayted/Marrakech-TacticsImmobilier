@@ -26,10 +26,10 @@ public class DisponibiliteService : IDisponibiliteService
             };
         }
 
-        // Vérifier les réservations existantes
+        // Vérifier les réservations existantes (exclure les annulées et terminées)
         var reservationsConflictuelles = await _context.Reservations
             .Where(r => r.BienImmobilierId == bienImmobilierId
-                     && r.Statut != "Annulée"
+                     && r.Statut != "Annulée" && r.Statut != "Terminée"
                      && ((r.DateDebut <= dateDebut && r.DateFin > dateDebut)
                          || (r.DateDebut < dateFin && r.DateFin >= dateFin)
                          || (r.DateDebut >= dateDebut && r.DateFin <= dateFin)))
@@ -160,22 +160,61 @@ public class DisponibiliteService : IDisponibiliteService
         foreach (var date in dates)
         {
             var disponibilite = await _context.Disponibilites
-                .FirstOrDefaultAsync(d => d.BienImmobilierId == bienImmobilierId && d.Date.Date == date);
+                .FirstOrDefaultAsync(d => d.BienImmobilierId == bienImmobilierId && d.Date.Date == date.Date);
 
-            if (disponibilite == null)
+            if (disponibilite != null)
             {
-                // Créer une nouvelle entrée
-                _context.Disponibilites.Add(new Disponibilite
+                // Mettre à jour l'existante
+                disponibilite.EstDisponible = false;
+            }
+            else
+            {
+                // Créer une nouvelle disponibilité
+                disponibilite = new Disponibilite
                 {
                     BienImmobilierId = bienImmobilierId,
                     Date = date,
                     EstDisponible = false
-                });
+                };
+                _context.Disponibilites.Add(disponibilite);
+            }
+        }
+
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    /// <summary>
+    /// Libère les dates d'une réservation terminée en les marquant comme disponibles
+    /// </summary>
+    public async Task<bool> LibererDatesReservationAsync(int bienImmobilierId, DateTime dateDebut, DateTime dateFin)
+    {
+        var dates = new List<DateTime>();
+        for (var date = dateDebut.Date; date < dateFin.Date; date = date.AddDays(1))
+        {
+            dates.Add(date);
+        }
+
+        foreach (var date in dates)
+        {
+            var disponibilite = await _context.Disponibilites
+                .FirstOrDefaultAsync(d => d.BienImmobilierId == bienImmobilierId && d.Date.Date == date.Date);
+
+            if (disponibilite != null)
+            {
+                // Mettre à jour l'existante - marquer comme disponible
+                disponibilite.EstDisponible = true;
             }
             else
             {
-                // Mettre à jour l'existante
-                disponibilite.EstDisponible = false;
+                // Créer une nouvelle disponibilité - marquer comme disponible
+                disponibilite = new Disponibilite
+                {
+                    BienImmobilierId = bienImmobilierId,
+                    Date = date,
+                    EstDisponible = true
+                };
+                _context.Disponibilites.Add(disponibilite);
             }
         }
 

@@ -1,0 +1,146 @@
+@startuml StageMarrakechTactics Architecture
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+title **Architecture Technique - StageMarrakechTactics**
+
+package "**Couche de Présentation**" as Presentation {
+    component "React 19.1.0\n(SPA)" as React
+    component "React Router\n(Navigation)" as Router
+    component "Tailwind CSS\n(Styling)" as Tailwind
+    component "Vite\n(Build Tool)" as Vite
+    
+    component "Components\n(Réutilisables)" as Components
+    component "Pages\n(Vues)" as Pages
+    
+    React --> Router
+    React --> Tailwind
+    Vite --> React
+    Components --> Pages
+}
+
+package "**Couche Métier**" as Business {
+    component "ASP.NET Core 8.0" as AspNetCore
+    component "API REST\n(Endpoints)" as API
+    component "Controllers\n(HTTP)" as Controllers
+    component "Services\n(Business Logic)" as Services
+    component "DTOs\n(Transfer)" as DTOs
+    component "Validation\n(Data)" as Validation
+    
+    AspNetCore --> API
+    API --> Controllers
+    Controllers --> Services
+    Services --> DTOs
+    Services --> Validation
+}
+
+package "**Couche d'Accès aux Données**" as Data {
+    database "SQL Server\n(Database)" as SQLServer
+    component "Entity Framework\nCore 9.0.7" as EF
+    component "Migrations\n(Schema)" as Migrations
+    
+    entity "Biens\nImmobiliers" as Biens
+    entity "Réservations" as Reservations
+    entity "Paiements" as Paiements
+    entity "Utilisateurs" as Users
+    
+    EF --> SQLServer
+    Migrations --> EF
+    Biens --> EF
+    Reservations --> EF
+    Paiements --> EF
+    Users --> EF
+}
+
+package "**Intégrations Externes**" as External {
+    component "Stripe\n(Paiements)" as Stripe
+    component "SMTP Gmail\n(Emails)" as SMTP
+    component "Google Gemini\n(AI)" as Gemini
+    component "iTextSharp\n(PDF)" as PDF
+}
+
+package "**Sécurité & Performance**" as Security {
+    component "JWT\n(Authentication)" as JWT
+    component "BCrypt\n(Hashing)" as BCrypt
+    component "CORS\n(Cross-Origin)" as CORS
+    component "HTTPS\n(Encryption)" as HTTPS
+    component "Validation\n(Data)" as DataValidation
+    component "Caching\n(Performance)" as Caching
+}
+
+' Flux de données
+Presentation --> Business : HTTP/HTTPS + JSON\nJWT Authentication
+Business --> Data : Entity Framework Core\nLINQ Queries
+Business --> External : API Calls
+Business --> Security : Security Checks
+
+' Relations entre composants
+React --> Components
+React --> Pages
+Controllers --> Services
+Services --> EF
+Stripe --> Paiements
+SMTP --> Services
+Gemini --> Services
+PDF --> Services
+
+' Styling
+skinparam component {
+    BackgroundColor #E8F4FD
+    BorderColor #2E86AB
+    FontColor #2E86AB
+}
+
+skinparam package {
+    BackgroundColor #F8F9FA
+    BorderColor #6C757D
+    FontColor #495057
+}
+
+skinparam database {
+    BackgroundColor #FFF3CD
+    BorderColor #FFC107
+    FontColor #856404
+}
+
+skinparam entity {
+    BackgroundColor #D1ECF1
+    BorderColor #17A2B8
+    FontColor #0C5460
+}
+
+note right of Presentation
+  **Frontend**
+  - Single Page Application
+  - Interface utilisateur moderne
+  - Navigation fluide
+  - Design responsive
+end note
+
+note right of Business
+  **Backend**
+  - API REST complète
+  - Logique métier centralisée
+  - Injection de dépendances
+  - Documentation Swagger
+end note
+
+note right of Data
+  **Base de Données**
+  - Modèle relationnel
+  - Migrations automatiques
+  - Requêtes optimisées
+  - Intégrité des données
+end note
+
+note right of External
+  **Services Externes**
+  - Paiements sécurisés
+  - Communication email
+  - Intelligence artificielle
+  - Génération de documents
+end note
+
+@enduml

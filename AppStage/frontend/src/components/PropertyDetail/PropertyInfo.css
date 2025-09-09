@@ -1,7 +1,8 @@
 .property-info-container {
-    font-family: 'Lato', sans-serif;
-    color: #333;
-  }
+  font-family: 'Lato', sans-serif;
+  color: #333;
+  padding: 1.5rem 0;
+}
   .property-info-header h1 {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
@@ -9,19 +10,22 @@
     margin: 0 0 1rem 0;
     color: #1a202c;
   }
-  .property-key-features {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-    color: #718096;
-  }
-  .price-ask {
-    font-weight: bold;
-    color: #b08d57;
-  }
+.property-key-features {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  color: #718096;
+  flex-wrap: wrap;
+}
+.price-ask {
+  font-weight: 800;
+  color: #b08d57;
+  font-size: 1.35rem;
+}
   .property-description {
     line-height: 1.7;
     color: #4a5568;
@@ -50,27 +54,33 @@
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 0.5rem;
   }
-  .details-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    background-color: #f8f9fa;
-    padding: 1.5rem;
-  }
-  .detail-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e9ecef;
-  }
-  .detail-item span:first-child {
-    font-weight: bold;
-    color: #718096;
-    font-size: 0.8rem;
-  }
-  .detail-item span:last-child {
-    font-weight: 500;
-  }
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.detail-item span:first-child {
+  font-weight: 700;
+  color: #6b7280;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.detail-item span:last-child {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #111827;
+}
   .amenities-list {
     list-style: none;
     padding: 0;
@@ -87,11 +97,12 @@
   .amenities-list li svg {
     color: #b08d57;
   }
-  .features-group {
-    display: flex;
-    align-items: center;
-    gap: 24px; /* Crée un espace entre "chambres", "salles de bain" et "surface" */
-  }
+.features-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
   
   /* Vous devriez déjà avoir cette classe, assurez-vous qu'elle utilise flexbox */
   .property-key-features {
@@ -105,8 +116,18 @@
   }
   
   /* Assurez-vous que chaque icône est bien alignée avec son texte */
-  .features-group span {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-  }
+.features-group span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  border-radius: 999px;
+  color: #334155;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .price-ask { font-size: 1.15rem; }
+}

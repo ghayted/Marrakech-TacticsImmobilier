@@ -68,6 +68,7 @@ public class RefundService : IRefundService
     {
         var refunds = await _context.Refunds
             .Where(r => r.ReservationId == reservationId)
+            .OrderByDescending(r => r.DateDeRemboursement)
             .ToListAsync();
         
         return refunds.Select(MapToDto);
@@ -75,7 +76,9 @@ public class RefundService : IRefundService
 
     public async Task<IEnumerable<RefundDto>> GetAllRefundsAsync()
     {
-        var refunds = await _context.Refunds.ToListAsync();
+        var refunds = await _context.Refunds
+            .OrderByDescending(r => r.DateDeRemboursement)
+            .ToListAsync();
         return refunds.Select(MapToDto);
     }
 

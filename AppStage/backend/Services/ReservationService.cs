@@ -9,12 +9,14 @@ public class ReservationService : IReservationService
     private readonly AgenceImmoDbContext _context;
     private readonly IDisponibiliteService _disponibiliteService;
     private readonly IRefundService _refundService;
+    private readonly IEmailService _emailService;
 
-    public ReservationService(AgenceImmoDbContext context, IDisponibiliteService disponibiliteService, IRefundService refundService)
+    public ReservationService(AgenceImmoDbContext context, IDisponibiliteService disponibiliteService, IRefundService refundService, IEmailService emailService)
     {
         _context = context;
         _disponibiliteService = disponibiliteService;
         _refundService = refundService;
+        _emailService = emailService;
     }
 
     public async Task<ReservationDto?> CreateReservationAsync(CreateReservationDto reservationDto)
@@ -58,12 +60,35 @@ public class ReservationService : IReservationService
             reservationDto.DateDebut, 
             reservationDto.DateFin);
 
-        // 5. Retourner le DTO
+        // 5. Envoyer email de confirmation
+        try
+        {
+            var reservationLoaded = await _context.Reservations
+                .Include(r => r.Utilisateur)
+                .Include(r => r.BienImmobilier)
+                .FirstOrDefaultAsync(r => r.Id == reservation.Id);
+
+            if (reservationLoaded?.Utilisateur?.Email is string email && !string.IsNullOrWhiteSpace(email))
+            {
+                var subject = $"Confirmation de réservation – {reservationLoaded.BienImmobilier?.Titre}";
+                var body = $"Bonjour {reservationLoaded.Utilisateur.NomComplet ?? reservationLoaded.Utilisateur.NomUtilisateur},\n\n" +
+                           $"Votre réservation est confirmée du {reservation.DateDebut:dd/MM/yyyy} au {reservation.DateFin:dd/MM/yyyy} pour {reservation.NombreDeVoyageurs} voyageur(s).\n" +
+                           $"Montant total: {reservation.PrixTotal:F2} €\n\n" +
+                           "Merci pour votre confiance.";
+                await _emailService.SendEmailAsync(email, subject, body);
+            }
+        }
+        catch { /* ne bloque pas le flux si l'email échoue */ }
+
+        // 6. Retourner le DTO
         return await GetReservationByIdAsync(reservation.Id);
     }
 
     public async Task<IEnumerable<ReservationDto>> GetAllReservationsAsync(int? reservationId = null, int? clientId = null, string? status = null, string? search = null)
     {
+        // Mettre à jour automatiquement les réservations terminées avant de récupérer les données
+        await UpdateReservationsTermineesAsync();
+
         var query = _context.Reservations
             .Include(r => r.BienImmobilier)
             .Include(r => r.Utilisateur)
@@ -117,6 +142,9 @@ public class ReservationService : IReservationService
 
     public async Task<IEnumerable<ReservationDto>> GetReservationsByUtilisateurAsync(int utilisateurId)
     {
+        // Mettre à jour automatiquement les réservations terminées avant de récupérer les données
+        await UpdateReservationsTermineesAsync();
+
         return await _context.Reservations
             .Include(r => r.BienImmobilier)
             .Include(r => r.Utilisateur)
@@ -167,6 +195,9 @@ public class ReservationService : IReservationService
 
     public async Task<ReservationDto?> GetReservationByIdAsync(int id)
     {
+        // Vérifier et mettre à jour le statut de cette réservation spécifique
+        await VerifierEtMettreAJourStatutReservationAsync(id);
+
         return await _context.Reservations
             .Include(r => r.BienImmobilier)
             .Include(r => r.Utilisateur)
@@ -207,7 +238,101 @@ public class ReservationService : IReservationService
 
         // Utiliser le service de remboursement pour traiter l'annulation complète
         var success = await _refundService.ProcessRefundForReservationAsync(id, "Annulation client");
-        
+
+        if (success)
+        {
+            try
+            {
+                var reservationLoaded = await _context.Reservations
+                    .Include(r => r.Utilisateur)
+                    .Include(r => r.BienImmobilier)
+                    .FirstOrDefaultAsync(r => r.Id == id);
+
+                if (reservationLoaded?.Utilisateur?.Email is string email && !string.IsNullOrWhiteSpace(email))
+                {
+                    var subject = $"Annulation de réservation – {reservationLoaded.BienImmobilier?.Titre}";
+                    var body = $"Bonjour {reservationLoaded.Utilisateur.NomComplet ?? reservationLoaded.Utilisateur.NomUtilisateur},\n\n" +
+                               $"Votre réservation du {reservationLoaded.DateDebut:dd/MM/yyyy} au {reservationLoaded.DateFin:dd/MM/yyyy} a été annulée.\n" +
+                               "Le remboursement applicable sera traité selon la politique d'annulation.\n\n" +
+                               "Cordialement.";
+                    await _emailService.SendEmailAsync(email, subject, body);
+                }
+            }
+            catch { }
+        }
+
         return success;
+    }
+
+    /// <summary>
+    /// Met à jour automatiquement le statut des réservations terminées
+    /// </summary>
+    public async Task UpdateReservationsTermineesAsync()
+    {
+        var aujourdhui = DateTime.UtcNow.Date;
+        
+        // Récupérer toutes les réservations confirmées dont la date de fin est passée
+        var reservationsTerminees = await _context.Reservations
+            .Where(r => r.Statut == "Confirmée" && r.DateFin.Date < aujourdhui)
+            .ToListAsync();
+
+        foreach (var reservation in reservationsTerminees)
+        {
+            reservation.Statut = "Terminée";
+            
+            // Libérer le bien immobilier en marquant les dates comme disponibles
+            await LibererBienApresReservationAsync(reservation);
+        }
+
+        if (reservationsTerminees.Any())
+        {
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    /// <summary>
+    /// Vérifie et met à jour le statut d'une réservation spécifique
+    /// </summary>
+    public async Task<bool> VerifierEtMettreAJourStatutReservationAsync(int reservationId)
+    {
+        var reservation = await _context.Reservations.FindAsync(reservationId);
+        if (reservation == null) return false;
+
+        var aujourdhui = DateTime.UtcNow.Date;
+        
+        // Si la réservation est confirmée et que la date de fin est passée
+        if (reservation.Statut == "Confirmée" && reservation.DateFin.Date < aujourdhui)
+        {
+            reservation.Statut = "Terminée";
+            
+            // Libérer le bien immobilier en marquant les dates comme disponibles
+            await LibererBienApresReservationAsync(reservation);
+            
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Libère le bien immobilier après la fin d'une réservation
+    /// </summary>
+    private async Task LibererBienApresReservationAsync(Reservation reservation)
+    {
+        try
+        {
+            // Marquer les dates comme disponibles dans la table Disponibilite
+            await _disponibiliteService.LibererDatesReservationAsync(
+                reservation.BienImmobilierId, 
+                reservation.DateDebut, 
+                reservation.DateFin);
+        }
+        catch (Exception ex)
+        {
+            // Log l'erreur mais ne pas faire échouer la mise à jour du statut
+            // On pourrait ajouter un logger ici si nécessaire
+            Console.WriteLine($"Erreur lors de la libération du bien {reservation.BienImmobilierId}: {ex.Message}");
+        }
     }
 }

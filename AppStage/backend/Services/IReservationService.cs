@@ -12,4 +12,6 @@ public interface IReservationService
     Task<ReservationDto?> GetReservationByIdAsync(int id);
     Task<bool> UpdateReservationStatutAsync(int id, string statut);
     Task<bool> AnnulerReservationAsync(int id);
+    Task UpdateReservationsTermineesAsync();
+    Task<bool> VerifierEtMettreAJourStatutReservationAsync(int reservationId);
 }

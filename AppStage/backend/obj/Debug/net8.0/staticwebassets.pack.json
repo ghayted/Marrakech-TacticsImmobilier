@@ -33,6 +33,22 @@
       "PackagePath": "staticwebassets\\factures\\facture_15_20250809_231500.pdf"
     },
     {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_16_20250819_181620.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_16_20250819_181620.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_17_20250826_175317.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_17_20250826_175317.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_18_20250828_053039.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_18_20250828_053039.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_19_20250828_055119.pdf",
+      "PackagePath": "staticwebassets\\factures\\facture_19_20250828_055119.pdf"
+    },
+    {
       "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_1_20250801_215627.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_1_20250801_215627.pdf"
     },
@@ -75,6 +91,18 @@
     {
       "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\facture_9_20250805_184652.pdf",
       "PackagePath": "staticwebassets\\factures\\facture_9_20250805_184652.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_10_20250819_171841.pdf",
+      "PackagePath": "staticwebassets\\factures\\remboursement_10_20250819_171841.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_11_20250826_165503.pdf",
+      "PackagePath": "staticwebassets\\factures\\remboursement_11_20250826_165503.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_12_20250828_043523.pdf",
+      "PackagePath": "staticwebassets\\factures\\remboursement_12_20250828_043523.pdf"
     },
     {
       "Id": "C:\\Users\\dafal\\Documents\\GitHub\\StageMarrakechTactics\\AppStage\\backend\\wwwroot\\factures\\remboursement_1_20250806_200700.pdf",

@@ -52,7 +52,18 @@ const BarnesFooter = () => {
           <div className="footer-middle">
             <h3>TACTICS IMMOBILIER DE LUXE - Les plus belles demeures et appartements de prestige</h3>
             <p>
-              Poussez la porte d’une de nos <span className="highlight">agences immobilières</span> parmi nos 75 destinations et confiez-nous vos projets d’investissement. <span className="highlight">Groupe immobilier de prestige</span> spécialisé dans les propriétés d’exception au Maroc depuis plus de 4 ans, nous vous proposons des appartements de luxe, des chalets sur les pistes, des villas en bord de mer ou encore des <span className="highlight">châteaux</span> à la campagne avec ou sans <span className="highlight">domaine de chasse</span>. Nous offrons également à nos clients des services complémentaires de conciergerie, de <span className="highlight">gestion des propriétés</span>, de <span className="highlight">financement</span>, ou encore de <span className="highlight">rénovation</span>.
+            À Marrakech, nous mettons à votre disposition notre expertise pour concrétiser vos projets d’investissement. 
+<span className="highlight">Spécialisés dans les propriétés d’exception</span> depuis plus de 4 ans, 
+nous proposons une sélection de biens de prestige : 
+<span className="highlight">appartements haut de gamme</span>, 
+<span className="highlight">villas de luxe</span>, 
+<span className="highlight">riads authentiques</span> 
+ou encore <span className="highlight">demeures d’exception</span> en périphérie de la ville. 
+Nous offrons également à nos clients des services complémentaires tels que la 
+<span className="highlight">conciergerie</span>, 
+la <span className="highlight">gestion des propriétés</span>, 
+le <span className="highlight">financement</span> 
+ou encore la <span className="highlight">rénovation</span>.
             </p>
           </div>
           
