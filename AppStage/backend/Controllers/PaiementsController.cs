@@ -1,11 +1,13 @@
 using backend.Dtos;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize] // Protection par authentification JWT
 public class PaiementsController : ControllerBase
 {
     private readonly IPaiementService _paiementService;

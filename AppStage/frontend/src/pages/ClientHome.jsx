@@ -10,6 +10,7 @@ import ContactUs from "../components/Home/ContactUs";
 import StatsBlock from "../components/Home/StatsBlock";
 import Footer from "../components/Home/Footer";
 import SearchBar from "../components/SearchBar";
+import AdminAccessLink from "../components/AdminAccessLink";
 
 function ClientHome() {
   const [ville, setVille] = useState("");
@@ -153,6 +154,7 @@ function ClientHome() {
       <ServicesBlock />
       <ContactUs testimonials={testimonials} />
       <Footer />
+      <AdminAccessLink />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ClientHome from './pages/ClientHome';
 import BiensList from './pages/BiensList';
 import MesReservations from './pages/MesReservations';
+import HiddenAdminAccess from './components/HiddenAdminAccess';
 
 function PropertyDetailUserWrapper() {
   const { id } = useParams();
@@ -28,12 +29,14 @@ function App() {
         {/* Page Mes Réservations */}
         <Route path="/mes-reservations" element={<MesReservations />} />
         {/* Routes admin protégées */}
-        
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-secret" element={<HiddenAdminAccess />} />
+        <Route path="/admin/login" element={<LoginPage />} />
+        <Route path="/admin" element={<ProtectedRoute />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
           {/* Si tu veux garder la page admin detail, mets-la sur une autre URL */}
-          {/* <Route path="/admin/property/:id" element={<PropertyDetail />} /> */}
-        
+          {/* <Route path="property/:id" element={<PropertyDetail />} /> */}
+        </Route>
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

@@ -871,3 +871,4 @@ C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\obj\Debug
 C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\obj\Debug\net8.0\backend.pdb
 C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\obj\Debug\net8.0\ref\backend.dll
+C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

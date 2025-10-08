@@ -4,9 +4,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 const ProtectedRoute = () => {
   const token = localStorage.getItem('authToken');
 
-  // Si pas de token, on redirige vers la page de connexion
+  // Si pas de token, on redirige vers la page de connexion admin
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/admin/login" />;
   }
 
   // Si un token existe, on affiche la page demandée (qui sera un enfant de cette route)

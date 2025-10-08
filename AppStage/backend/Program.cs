@@ -1,6 +1,9 @@
 using backend.Data;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // Ecouter sur toutes les interfaces pour accès depuis Docker/n8n en dev
@@ -18,6 +21,23 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
+// ➤ Configuration JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "votre_super_cle_secrete_personnelle_doit_etre_longue")),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 // ➤ Injection des services personnalisés
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IBienImmobilierService, BienImmobilierService>();
@@ -71,6 +91,8 @@ app.UseStaticFiles();
 // ➤ Utiliser la politique CORS avant les endpoints
 app.UseCors("AllowAll");
 
+// ➤ Middleware d'authentification et d'autorisation
+app.UseAuthentication();
 app.UseAuthorization();
 
 // ➤ Mapper les contrôleurs
