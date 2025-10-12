@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaTimes, FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 import './ClientLoginModal.css';
+import { apiRequest } from '../../config/api';
 
 const ClientLoginModal = ({ isOpen, onClose, onLoginSuccess, onRegisterSuccess }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -30,15 +31,12 @@ const ClientLoginModal = ({ isOpen, onClose, onLoginSuccess, onRegisterSuccess }
     setError('');
 
     try {
-      const response = await fetch('http://144.24.30.248:5257/api/Auth/client-login', {
+      const response = await apiRequest('/api/Auth/client-login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        body: {
           email: formData.email,
           password: formData.password
-        })
+        }
       });
 
       if (response.ok) {
@@ -63,18 +61,15 @@ const ClientLoginModal = ({ isOpen, onClose, onLoginSuccess, onRegisterSuccess }
     setError('');
 
     try {
-      const response = await fetch('http://144.24.30.248:5257/api/Auth/client-register', {
+      const response = await apiRequest('/api/Auth/client-register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        body: {
           email: formData.email,
           password: formData.password,
           nom: formData.nom,
           prenom: formData.prenom,
           telephone: formData.telephone
-        })
+        }
       });
 
       if (response.ok) {

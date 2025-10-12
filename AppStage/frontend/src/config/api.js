@@ -1,10 +1,10 @@
 // Configuration centralisée pour l'API backend
 export const API_CONFIG = {
-  // URL du backend en production - HTTPS pour éviter Mixed Content
-  BASE_URL: 'https://144.24.30.248:5258',
+  // URL du backend en production - HTTP temporairement (HTTPS sera configuré plus tard)
+  BASE_URL: 'http://144.24.30.248:5257',
   
-  // URL de fallback HTTP (pour le développement)
-  FALLBACK_URL: 'http://144.24.30.248:5257',
+  // URL de fallback HTTPS (pour le futur)
+  FALLBACK_URL: 'https://144.24.30.248:5258',
   
   // URL pour le développement local (optionnel)
   LOCAL_URL: 'http://localhost:5257',
@@ -19,8 +19,8 @@ export const API_CONFIG = {
   
   // Configuration CORS
   CORS_CONFIG: {
-    mode: 'cors',
-    credentials: 'include'
+    mode: 'cors'
+    // Pas de credentials pour éviter les conflits CORS
   }
 };
 
@@ -51,14 +51,14 @@ export const apiRequest = async (endpoint, options = {}) => {
   }
   
   try {
-    // Essayer d'abord avec HTTPS
-    const httpsUrl = `${API_CONFIG.BASE_URL}${endpoint}`;
-    return await fetch(httpsUrl, config);
+    // Utiliser l'URL principale
+    const url = `${API_CONFIG.BASE_URL}${endpoint}`;
+    return await fetch(url, config);
   } catch (error) {
-    console.warn('HTTPS failed, trying HTTP fallback:', error);
+    console.warn('Primary URL failed, trying fallback:', error);
     
-    // Si HTTPS échoue, essayer HTTP (pour le développement)
-    const httpUrl = `${API_CONFIG.FALLBACK_URL}${endpoint}`;
-    return await fetch(httpUrl, config);
+    // Si l'URL principale échoue, essayer le fallback
+    const fallbackUrl = `${API_CONFIG.FALLBACK_URL}${endpoint}`;
+    return await fetch(fallbackUrl, config);
   }
 };

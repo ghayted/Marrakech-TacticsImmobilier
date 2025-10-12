@@ -41,14 +41,41 @@ public class AuthController : ControllerBase
     [HttpPost("client-register")]
     public async Task<IActionResult> ClientRegister([FromBody] ClientRegisterRequest request)
     {
-        var result = await _authService.ClientRegisterAsync(request.Email, request.Password, request.Prenom, request.Nom, request.Telephone);
-
-        if (result == null)
+        try
         {
-            return BadRequest(new { message = "Email déjà utilisé" });
-        }
+            // Validation des données d'entrée
+            if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+            {
+                return BadRequest(new { message = "Email et mot de passe requis" });
+            }
 
-        return Ok(new { Token = result.Token, User = result.User });
+            if (string.IsNullOrEmpty(request.Prenom) || string.IsNullOrEmpty(request.Nom))
+            {
+                return BadRequest(new { message = "Prénom et nom requis" });
+            }
+
+            // Log pour débogage
+            Console.WriteLine($"Tentative d'inscription pour: {request.Email}");
+            Console.WriteLine($"Données reçues: Email={request.Email}, Prenom={request.Prenom}, Nom={request.Nom}");
+
+            var result = await _authService.ClientRegisterAsync(request.Email, request.Password, request.Prenom, request.Nom, request.Telephone);
+
+            if (result == null)
+            {
+                return BadRequest(new { message = "Email déjà utilisé" });
+            }
+
+            Console.WriteLine($"Inscription réussie pour: {request.Email}");
+            return Ok(new { Token = result.Token, User = result.User });
+        }
+        catch (Exception ex)
+        {
+            // Log l'erreur pour le débogage
+            Console.WriteLine($"Erreur lors de l'inscription: {ex.Message}");
+            Console.WriteLine($"Stack trace: {ex.StackTrace}");
+            
+            return StatusCode(500, new { message = "Erreur interne du serveur", details = ex.Message });
+        }
     }
 
     [HttpGet("verify")]

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './ContactSidebar.css';
 import { FaPhone, FaEnvelope } from 'react-icons/fa';
 import ClientLoginModal from '../Auth/ClientLoginModal';
+import { apiRequest } from '../../config/api';
 
 const ContactSidebar = ({ property, dateDebut, dateFin, nombreVoyageurs, onReservationClick }) => {
   const navigate = useNavigate();
@@ -105,19 +106,15 @@ const ContactSidebar = ({ property, dateDebut, dateFin, nombreVoyageurs, onReser
 
     try {
       // 2. On envoie à la bonne URL de votre API principale
-      const response = await fetch('http://144.24.30.248:5257/api/Contact', {
+      const response = await apiRequest('/api/Contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // 3. On envoie le corps de la requête avec les bons champs
-        body: JSON.stringify({
+        body: {
           nom: nom,
           prenom: prenom,
           email: formData.email,
           tel: formData.tel,
           message: formData.message,
-        }),
+        }
       });
 
       if (response.ok) {

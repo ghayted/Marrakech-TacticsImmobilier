@@ -11,6 +11,7 @@ import StatsBlock from "../components/Home/StatsBlock";
 import Footer from "../components/Home/Footer";
 import SearchBar from "../components/SearchBar";
 import AdminAccessLink from "../components/AdminAccessLink";
+import { apiRequest } from "../config/api";
 
 function ClientHome() {
   const [ville, setVille] = useState("");
@@ -19,14 +20,12 @@ function ClientHome() {
   const [budgetMax, setBudgetMax] = useState("");
   const [mode, setMode] = useState("acheter");
   const navigate = useNavigate();
-  const backendUrl = "http://144.24.30.248:5257";
 
   useEffect(() => {
     // Track a site view when the home page loads
-    fetch(`${backendUrl}/api/Analytics/site-view`, {
+    apiRequest('/api/Analytics/site-view', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: '/' })
+      body: { path: '/' }
     }).catch(() => {});
   }, []);
 

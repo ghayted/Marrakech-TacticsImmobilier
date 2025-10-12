@@ -110,8 +110,19 @@ app.UseStaticFiles();
 app.Use(async (context, next) =>
 {
     // Ajouter des headers CORS supplémentaires pour s'assurer de la compatibilité
-    context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
-    context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+    // Déterminer l'origine de la requête
+    var origin = context.Request.Headers.Origin.FirstOrDefault();
+    var allowedOrigins = new[] { "https://immotactics.live", "http://localhost:5173", "http://localhost:3000" };
+    
+    if (allowedOrigins.Contains(origin))
+    {
+        context.Response.Headers.Append("Access-Control-Allow-Origin", origin);
+        context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
+    }
+    else
+    {
+        context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+    }
     context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin");
     context.Response.Headers.Append("Access-Control-Max-Age", "3600");

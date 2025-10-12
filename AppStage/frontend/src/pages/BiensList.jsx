@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Home/Header';
 import Footer from '../components/Home/Footer';
 import { BienListHero, BienListGrid, BienListFilter } from '../components/BienList';
+import { apiRequest } from '../config/api';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -50,7 +51,7 @@ function BiensList() {
   useEffect(() => {
     const fetchBiens = async () => {
       setLoading(true);
-      let url = 'http://144.24.30.248:5257/api/BiensImmobiliers?';
+      let url = '/api/BiensImmobiliers?';
       if (ville) url += `ville=${encodeURIComponent(ville)}&`;
       if (type) url += `typeDeBienNom=${encodeURIComponent(type)}&`;
       if (budgetMin !== '' && !isNaN(Number(budgetMin))) url += `prixMin=${encodeURIComponent(budgetMin)}&`;
@@ -68,7 +69,7 @@ function BiensList() {
       }
       
       try {
-        const res = await fetch(url);
+        const res = await apiRequest(url);
         if (res.ok) {
           const data = await res.json();
           setBiens(data);

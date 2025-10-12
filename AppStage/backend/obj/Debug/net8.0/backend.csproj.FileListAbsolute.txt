@@ -875,3 +875,8 @@ C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\obj\Debug\net8
 C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\web.config
+C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\backend.deps.json
+C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\backend.runtimeconfig.json
