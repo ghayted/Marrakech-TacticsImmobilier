@@ -56,16 +56,28 @@ builder.Services.AddHostedService<ReservationBackgroundService>();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient();
 // ...
-// ➤ Configurer CORS pour autoriser le frontend React (localhost:5173)
+// ➤ Configurer CORS pour autoriser toutes les requêtes du frontend
 builder.Services.AddCors(options =>
 {
-    // Large ouverture pour dev/local (Docker, n8n, Postman, etc.)
+    // Configuration permissive pour accepter toutes les requêtes
     options.AddPolicy("AllowAll",
         policy =>
         {
             policy.AllowAnyOrigin()
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .SetPreflightMaxAge(TimeSpan.FromSeconds(3600)); // Cache preflight pour 1h
+        });
+    
+    // Configuration spécifique pour votre frontend en production
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("https://immotactics.live", "http://localhost:5173", "http://localhost:3000")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials()
+                  .SetPreflightMaxAge(TimeSpan.FromSeconds(3600));
         });
 });
 
@@ -85,10 +97,22 @@ if (app.Environment.IsProduction())
     app.UseHttpsRedirection();
 }
 
+// Ajouter des headers de sécurité et de compatibilité
+app.Use(async (context, next) =>
+{
+    // Ajouter des headers CORS supplémentaires pour s'assurer de la compatibilité
+    context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+    
+    await next();
+});
+
 // ➤ Servir les fichiers statiques (pour les images uploadées et factures)
 app.UseStaticFiles();
 
 // ➤ Utiliser la politique CORS avant les endpoints
+// Utilise AllowAll en production pour accepter toutes les requêtes
 app.UseCors("AllowAll");
 
 // ➤ Middleware d'authentification et d'autorisation
