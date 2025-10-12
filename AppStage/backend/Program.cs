@@ -7,7 +7,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // Ecouter sur toutes les interfaces pour accès depuis Docker/n8n en dev
-builder.WebHost.UseUrls("http://0.0.0.0:5257");
+// Configuration pour HTTPS en production
+builder.WebHost.UseUrls("http://0.0.0.0:5257", "https://0.0.0.0:5258");
 
 // ➤ Ajouter les services nécessaires
 builder.Services.AddControllers(); // Active les contrôleurs [ApiController]
@@ -91,9 +92,14 @@ if (app.Environment.IsDevelopment())
 }
 
 // ➤ Middleware
-// En prod, on force HTTPS. En dev, on reste en HTTP pour éviter les soucis de certificat depuis Docker/n8n
+// Forcer HTTPS en production pour éviter les erreurs Mixed Content
 if (app.Environment.IsProduction())
 {
+    app.UseHttpsRedirection();
+}
+else
+{
+    // En développement, permettre HTTP mais préférer HTTPS
     app.UseHttpsRedirection();
 }
 

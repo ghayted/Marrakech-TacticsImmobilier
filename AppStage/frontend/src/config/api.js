@@ -1,7 +1,10 @@
 // Configuration centralisée pour l'API backend
 export const API_CONFIG = {
-  // URL du backend en production
-  BASE_URL: 'http://144.24.30.248:5257',
+  // URL du backend en production - HTTPS pour éviter Mixed Content
+  BASE_URL: 'https://144.24.30.248:5258',
+  
+  // URL de fallback HTTP (pour le développement)
+  FALLBACK_URL: 'http://144.24.30.248:5257',
   
   // URL pour le développement local (optionnel)
   LOCAL_URL: 'http://localhost:5257',
@@ -32,9 +35,8 @@ export const createAuthHeaders = (token = null) => {
   return headers;
 };
 
-// Fonction utilitaire pour créer une requête fetch complète
+// Fonction utilitaire pour créer une requête fetch complète avec fallback
 export const apiRequest = async (endpoint, options = {}) => {
-  const url = `${API_CONFIG.BASE_URL}${endpoint}`;
   const token = localStorage.getItem('authToken');
   
   const config = {
@@ -48,5 +50,15 @@ export const apiRequest = async (endpoint, options = {}) => {
     config.body = JSON.stringify(config.body);
   }
   
-  return fetch(url, config);
+  try {
+    // Essayer d'abord avec HTTPS
+    const httpsUrl = `${API_CONFIG.BASE_URL}${endpoint}`;
+    return await fetch(httpsUrl, config);
+  } catch (error) {
+    console.warn('HTTPS failed, trying HTTP fallback:', error);
+    
+    // Si HTTPS échoue, essayer HTTP (pour le développement)
+    const httpUrl = `${API_CONFIG.FALLBACK_URL}${endpoint}`;
+    return await fetch(httpUrl, config);
+  }
 };
