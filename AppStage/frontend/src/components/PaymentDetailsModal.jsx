@@ -5,7 +5,7 @@ import { FaTimes, FaDownload, FaCheckCircle, FaExclamationTriangle, FaTimesCircl
 const PaymentDetailsModal = ({ isOpen, onClose, payment }) => {
   const [loading, setLoading] = useState(false);
   const [reservationDetails, setReservationDetails] = useState(null);
-  const backendUrl = 'http://localhost:5257';
+  const backendUrl = 'http://144.24.30.248:5257';
 
   useEffect(() => {
     if (isOpen && payment) {

@@ -15,7 +15,7 @@ L'erreur "Failed to fetch" a été résolue en installant le package JWT Bearer 
 
 ### **Étape 1 : Vérifier que le Backend Fonctionne**
 1. Ouvrez votre navigateur
-2. Allez sur : `http://localhost:5257/swagger`
+2. Allez sur : `http://144.24.30.248:5257/swagger`
 3. Vous devriez voir l'interface Swagger de l'API
 
 ### **Étape 2 : Démarrer le Frontend**
@@ -49,9 +49,9 @@ npm start
 ## 🔍 **Vérifications de Fonctionnement**
 
 ### **✅ Backend Fonctionnel**
-- [ ] Swagger accessible sur `http://localhost:5257/swagger`
+- [ ] Swagger accessible sur `http://144.24.30.248:5257/swagger`
 - [ ] Pas d'erreurs dans le terminal du backend
-- [ ] Message "Now listening on: http://localhost:5257"
+- [ ] Message "Now listening on: http://144.24.30.248:5257"
 
 ### **✅ Frontend Fonctionnel**
 - [ ] Site accessible sur `http://localhost:3000`
@@ -69,8 +69,8 @@ npm start
 ## 🎯 **URLs de Test**
 
 ### **Backend**
-- **Swagger** : `http://localhost:5257/swagger`
-- **API Auth** : `http://localhost:5257/api/Auth/login`
+- **Swagger** : `http://144.24.30.248:5257/swagger`
+- **API Auth** : `http://144.24.30.248:5257/api/Auth/login`
 
 ### **Frontend**
 - **Site Principal** : `http://localhost:3000`

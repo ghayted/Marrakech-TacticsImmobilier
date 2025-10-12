@@ -19,7 +19,7 @@ function ClientHome() {
   const [budgetMax, setBudgetMax] = useState("");
   const [mode, setMode] = useState("acheter");
   const navigate = useNavigate();
-  const backendUrl = "http://localhost:5257";
+  const backendUrl = "http://144.24.30.248:5257";
 
   useEffect(() => {
     // Track a site view when the home page loads

@@ -20,7 +20,7 @@ const SimilarProperties = ({ currentPropertyId, propertyStatus, propertyType }) 
   
       const fetchSimilar = async () => {
         try {
-          const response = await fetch(`http://localhost:5257/api/BiensImmobiliers`);
+          const response = await fetch(`http://144.24.30.248:5257/api/BiensImmobiliers`);
           if (!response.ok) return;
           
           const allProperties = await response.json();

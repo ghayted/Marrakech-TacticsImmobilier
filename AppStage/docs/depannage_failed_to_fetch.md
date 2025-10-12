@@ -40,7 +40,7 @@ dotnet run
 Vous devriez voir :
 ```
 info: Microsoft.Hosting.Lifetime[14]
-      Now listening on: http://localhost:5257
+      Now listening on: http://144.24.30.248:5257
 info: Microsoft.Hosting.Lifetime[0]
       Application started. Press Ctrl+C to shut down.
 ```
@@ -48,7 +48,7 @@ info: Microsoft.Hosting.Lifetime[0]
 #### **Étape 3 : Tester l'API directement**
 Ouvrez votre navigateur et allez sur :
 ```
-http://localhost:5257/swagger
+http://144.24.30.248:5257/swagger
 ```
 
 Si vous voyez l'interface Swagger, le backend fonctionne !
@@ -64,7 +64,7 @@ builder.WebHost.UseUrls("http://0.0.0.0:5257");
 #### **Frontend (LoginPage.jsx)**
 Le frontend essaie de se connecter à :
 ```javascript
-const response = await fetch('http://localhost:5257/api/Auth/login', {
+const response = await fetch('http://144.24.30.248:5257/api/Auth/login', {
 ```
 
 **✅ Cette configuration est correcte !**
@@ -168,7 +168,7 @@ builder.Services.AddCors(options =>
 #### **Vérifier dans LoginPage.jsx**
 ```javascript
 // Assurez-vous que l'URL est correcte :
-const response = await fetch('http://localhost:5257/api/Auth/login', {
+const response = await fetch('http://144.24.30.248:5257/api/Auth/login', {
 ```
 
 ---
@@ -176,7 +176,7 @@ const response = await fetch('http://localhost:5257/api/Auth/login', {
 ## 📋 **Checklist de Vérification**
 
 - [ ] Backend démarré (`dotnet run` dans le dossier backend)
-- [ ] Backend accessible sur `http://localhost:5257/swagger`
+- [ ] Backend accessible sur `http://144.24.30.248:5257/swagger`
 - [ ] Frontend démarré (`npm start` dans le dossier frontend)
 - [ ] Frontend accessible sur `http://localhost:3000`
 - [ ] Pas d'erreurs dans la console du navigateur
@@ -212,7 +212,7 @@ npm start
 
 #### **3. Tester avec Postman**
 ```
-POST http://localhost:5257/api/Auth/login
+POST http://144.24.30.248:5257/api/Auth/login
 Content-Type: application/json
 
 {
@@ -226,7 +226,7 @@ Content-Type: application/json
 ## 📞 **Informations de Debug**
 
 ### **URLs à Tester**
-- Backend Swagger : `http://localhost:5257/swagger`
+- Backend Swagger : `http://144.24.30.248:5257/swagger`
 - Frontend : `http://localhost:3000`
 - Accès Admin : `http://localhost:3000/admin-secret`
 

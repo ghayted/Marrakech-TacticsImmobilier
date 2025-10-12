@@ -105,7 +105,7 @@ const ContactSidebar = ({ property, dateDebut, dateFin, nombreVoyageurs, onReser
 
     try {
       // 2. On envoie à la bonne URL de votre API principale
-      const response = await fetch('http://localhost:5257/api/Contact', {
+      const response = await fetch('http://144.24.30.248:5257/api/Contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -28,7 +28,7 @@ const MesReservations = () => {
       setError('');
       try {
         // Étape 1 : Récupérer la liste de base des réservations
-        const reservationsResponse = await fetch(`http://localhost:5257/api/Reservations/utilisateur/${userData.id}`, {
+        const reservationsResponse = await fetch(`http://144.24.30.248:5257/api/Reservations/utilisateur/${userData.id}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!reservationsResponse.ok) throw new Error('Erreur lors de la récupération des réservations');
@@ -42,7 +42,7 @@ const MesReservations = () => {
 
         // Étape 2 : Pour chaque réservation, préparer un appel pour récupérer les détails du bien
         const detailFetchPromises = baseReservations.map(res =>
-          fetch(`http://localhost:5257/api/BiensImmobiliers/${res.bienImmobilierId}`, {
+          fetch(`http://144.24.30.248:5257/api/BiensImmobiliers/${res.bienImmobilierId}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           }).then(response => response.json())
         );
@@ -87,7 +87,7 @@ const MesReservations = () => {
 
     try {
       const token = localStorage.getItem('authToken');
-      const response = await fetch(`http://localhost:5257/api/Reservations/${reservationToCancel.id}/annuler`, {
+      const response = await fetch(`http://144.24.30.248:5257/api/Reservations/${reservationToCancel.id}/annuler`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

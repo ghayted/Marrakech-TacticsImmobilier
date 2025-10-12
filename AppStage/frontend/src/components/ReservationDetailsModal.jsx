@@ -12,7 +12,7 @@ const ReservationDetailsModal = ({ isOpen, onClose, reservation, onCancel, onSta
     setLoading(true);
     try {
       const token = localStorage.getItem('authToken');
-      const response = await fetch(`http://localhost:5257/api/Reservations/${reservation.id}/annuler`, {
+      const response = await fetch(`http://144.24.30.248:5257/api/Reservations/${reservation.id}/annuler`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -39,7 +39,7 @@ const ReservationDetailsModal = ({ isOpen, onClose, reservation, onCancel, onSta
     setLoading(true);
     try {
       const token = localStorage.getItem('authToken');
-      const response = await fetch(`http://localhost:5257/api/Reservations/${reservation.id}/statut`, {
+      const response = await fetch(`http://144.24.30.248:5257/api/Reservations/${reservation.id}/statut`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -338,7 +338,7 @@ public async Task<bool> ConfirmerRemboursementAsync(int id)
             RaisonRemboursement = refund.RaisonRemboursement,
             CheminFactureRemboursement = refund.CheminFactureRemboursement,
             LienFactureRemboursement = !string.IsNullOrEmpty(refund.CheminFactureRemboursement) 
-                ? $"http://localhost:5257/factures/{refund.CheminFactureRemboursement}" 
+                ? $"http://144.24.30.248:5257/factures/{refund.CheminFactureRemboursement}" 
                 : null
         };
     }

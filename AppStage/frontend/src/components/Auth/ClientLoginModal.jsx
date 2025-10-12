@@ -30,7 +30,7 @@ const ClientLoginModal = ({ isOpen, onClose, onLoginSuccess, onRegisterSuccess }
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5257/api/Auth/client-login', {
+      const response = await fetch('http://144.24.30.248:5257/api/Auth/client-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ const ClientLoginModal = ({ isOpen, onClose, onLoginSuccess, onRegisterSuccess }
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5257/api/Auth/client-register', {
+      const response = await fetch('http://144.24.30.248:5257/api/Auth/client-register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

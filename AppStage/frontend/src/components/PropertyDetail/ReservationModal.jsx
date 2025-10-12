@@ -54,7 +54,7 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
 
     try {
       const token = localStorage.getItem('authToken');
-      const response = await fetch(`http://localhost:5257/api/Disponibilites/verifier?bienImmobilierId=${property.id}&dateDebut=${formData.dateDebut}&dateFin=${formData.dateFin}`, {
+      const response = await fetch(`http://144.24.30.248:5257/api/Disponibilites/verifier?bienImmobilierId=${property.id}&dateDebut=${formData.dateDebut}&dateFin=${formData.dateFin}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
         
         if (data.estDisponible) {
           // Get total price
-          const priceResponse = await fetch(`http://localhost:5257/api/Disponibilites/prix?bienImmobilierId=${property.id}&dateDebut=${formData.dateDebut}&dateFin=${formData.dateFin}`, {
+          const priceResponse = await fetch(`http://144.24.30.248:5257/api/Disponibilites/prix?bienImmobilierId=${property.id}&dateDebut=${formData.dateDebut}&dateFin=${formData.dateFin}`, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
@@ -157,7 +157,7 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
       const token = localStorage.getItem('authToken');
       
       // 1. Créer ou trouver l'utilisateur
-      const userResponse = await fetch('http://localhost:5257/api/Auth/create-or-find-user', {
+      const userResponse = await fetch('http://144.24.30.248:5257/api/Auth/create-or-find-user', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -179,7 +179,7 @@ const ReservationModal = ({ isOpen, onClose, property }) => {
       const userId = userData.userId;
 
       // 2. Créer la réservation
-      const reservationResponse = await fetch('http://localhost:5257/api/Reservations', {
+      const reservationResponse = await fetch('http://144.24.30.248:5257/api/Reservations', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

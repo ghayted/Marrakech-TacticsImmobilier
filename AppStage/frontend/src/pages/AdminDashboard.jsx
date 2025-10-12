@@ -201,7 +201,7 @@ function AdminDashboard() {
   })
 
   const token = localStorage.getItem("authToken")
-  const backendUrl = "http://localhost:5257"
+  const backendUrl = "http://144.24.30.248:5257"
 
   // Analytics state
   const [siteViewsThisMonth, setSiteViewsThisMonth] = useState(0)

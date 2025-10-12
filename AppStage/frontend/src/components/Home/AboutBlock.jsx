@@ -54,7 +54,7 @@ function AboutBlock() {
   useEffect(() => {
     const fetchBiensMarrakech = async () => {
       try {
-        const response = await fetch('http://localhost:5257/api/BiensImmobiliers?ville=Marrakech');
+        const response = await fetch('http://144.24.30.248:5257/api/BiensImmobiliers?ville=Marrakech');
         const data = await response.json();
         // Filter to only villas
         const villas = data.filter(bien => bien.typeDeBien === 'Villa');

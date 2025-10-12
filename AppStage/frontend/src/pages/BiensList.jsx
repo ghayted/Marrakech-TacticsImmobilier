@@ -50,7 +50,7 @@ function BiensList() {
   useEffect(() => {
     const fetchBiens = async () => {
       setLoading(true);
-      let url = 'http://localhost:5257/api/BiensImmobiliers?';
+      let url = 'http://144.24.30.248:5257/api/BiensImmobiliers?';
       if (ville) url += `ville=${encodeURIComponent(ville)}&`;
       if (type) url += `typeDeBienNom=${encodeURIComponent(type)}&`;
       if (budgetMin !== '' && !isNaN(Number(budgetMin))) url += `prixMin=${encodeURIComponent(budgetMin)}&`;

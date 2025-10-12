@@ -20,7 +20,7 @@ echo ========================================
 echo    SERVEURS DEMARRES !
 echo ========================================
 echo.
-echo Backend: http://localhost:5257
+echo Backend: http://144.24.30.248:5257
 echo Frontend: http://localhost:3000
 echo Admin: http://localhost:3000/admin-secret
 echo.
