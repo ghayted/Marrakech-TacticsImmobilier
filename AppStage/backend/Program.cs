@@ -56,16 +56,28 @@ builder.Services.AddHostedService<ReservationBackgroundService>();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient();
 // ...
-// ➤ Configurer CORS pour autoriser le frontend React (localhost:5173)
+// ➤ Configurer CORS pour autoriser toutes les requêtes du frontend
 builder.Services.AddCors(options =>
 {
-    // Large ouverture pour dev/local (Docker, n8n, Postman, etc.)
+    // Configuration permissive pour accepter toutes les requêtes
     options.AddPolicy("AllowAll",
         policy =>
         {
             policy.AllowAnyOrigin()
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .SetPreflightMaxAge(TimeSpan.FromSeconds(3600)); // Cache preflight pour 1h
+        });
+    
+    // Configuration spécifique pour votre frontend en production
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("https://immotactics.live", "http://localhost:5173", "http://localhost:3000")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials()
+                  .SetPreflightMaxAge(TimeSpan.FromSeconds(3600));
         });
 });
 
@@ -88,7 +100,31 @@ if (app.Environment.IsProduction())
 // ➤ Servir les fichiers statiques (pour les images uploadées et factures)
 app.UseStaticFiles();
 
+// ➤ Ajouter des headers de sécurité et de compatibilité
+app.Use(async (context, next) =>
+{
+    // Ajouter des headers CORS supplémentaires pour s'assurer de la compatibilité
+    context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
+    context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+    context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin");
+    context.Response.Headers.Append("Access-Control-Max-Age", "3600");
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Append("X-Frame-Options", "SAMEORIGIN");
+    
+    // Gérer les requêtes OPTIONS (preflight)
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.StatusCode = 200;
+        await context.Response.WriteAsync("");
+        return;
+    }
+    
+    await next();
+});
+
 // ➤ Utiliser la politique CORS avant les endpoints
+// Utilise AllowAll en production pour accepter toutes les requêtes
 app.UseCors("AllowAll");
 
 // ➤ Middleware d'authentification et d'autorisation

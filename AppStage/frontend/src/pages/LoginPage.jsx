@@ -1,6 +1,7 @@
 // src/pages/LoginPage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiRequest } from '../config/api';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -16,10 +17,9 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://144.24.30.248:5257/api/Auth/login', {
+      const response = await apiRequest('/api/Auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: { username, password }
       });
 
       if (!response.ok) {
