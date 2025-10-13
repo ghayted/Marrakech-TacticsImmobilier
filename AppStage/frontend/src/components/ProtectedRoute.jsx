@@ -1,16 +1,21 @@
-// src/components/ProtectedRoute.jsx
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const ProtectedRoute = () => {
-  const token = localStorage.getItem('authToken');
+  const { isAuthenticated, loading } = useAuth();
 
-  // Si pas de token, on redirige vers la page de connexion admin
-  if (!token) {
-    return <Navigate to="/admin/login" />;
+  // Si les données sont en cours de chargement, afficher un indicateur de chargement
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  // Si un token existe, on affiche la page demandée (qui sera un enfant de cette route)
+  // Si pas authentifié, rediriger vers la page de connexion admin
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  // Si authentifié, afficher la page demandée
   return <Outlet />;
 };
 
-export default ProtectedRoute; // <-- C'est cette ligne qui manquait probablement
+export default ProtectedRoute;

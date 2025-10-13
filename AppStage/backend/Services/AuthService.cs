@@ -24,6 +24,35 @@ public class AuthService : IAuthService
     Console.WriteLine("--- Début de la tentative de connexion ---");
     Console.WriteLine($"Recherche de l'utilisateur : '{username}'");
 
+    // Vérification hardcoded pour l'administrateur
+    if (username == "admin" && password == "admin123")
+    {
+        Console.WriteLine("SUCCÈS : Connexion administrateur validée (hardcoded). Génération du jeton...");
+
+        var adminTokenHandler = new JwtSecurityTokenHandler();
+        var adminKey = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? "votre_super_cle_secrete_personnelle_doit_etre_longue");
+        
+        // Ajouter l'information admin aux claims
+        var claims = new List<Claim>
+        {
+            new Claim("id", "0"), // ID fictif pour l'admin
+            new Claim("isAdmin", "true"),
+            new Claim("username", username)
+        };
+        
+        var adminTokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddHours(1),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(adminKey), SecurityAlgorithms.HmacSha256Signature)
+        };
+        var adminToken = adminTokenHandler.CreateToken(adminTokenDescriptor);
+
+        Console.WriteLine("--- Fin de la tentative (Jeton créé) ---");
+        return adminTokenHandler.WriteToken(adminToken);
+    }
+
+    // Pour les utilisateurs non-admin, vérifier dans la base de données
     var user = await _context.Utilisateurs.SingleOrDefaultAsync(u => u.NomUtilisateur == username);
 
     if (user == null)
@@ -51,18 +80,18 @@ public class AuthService : IAuthService
     Console.WriteLine("SUCCÈS : Le mot de passe est correct. Génération du jeton...");
 
     // ... le reste de votre code pour générer le jeton reste inchangé ...
-    var tokenHandler = new JwtSecurityTokenHandler();
-    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? "votre_super_cle_secrete_personnelle_doit_etre_longue");
-    var tokenDescriptor = new SecurityTokenDescriptor
+    var userTokenHandler = new JwtSecurityTokenHandler();
+    var userKey = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? "votre_super_cle_secrete_personnelle_doit_etre_longue");
+    var userTokenDescriptor = new SecurityTokenDescriptor
     {
         Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
         Expires = DateTime.UtcNow.AddHours(1),
-        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(userKey), SecurityAlgorithms.HmacSha256Signature)
     };
-    var token = tokenHandler.CreateToken(tokenDescriptor);
+    var userToken = userTokenHandler.CreateToken(userTokenDescriptor);
 
     Console.WriteLine("--- Fin de la tentative (Jeton créé) ---");
-    return tokenHandler.WriteToken(token);
+    return userTokenHandler.WriteToken(userToken);
 }
 
     /// <summary>

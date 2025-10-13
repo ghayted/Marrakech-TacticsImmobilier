@@ -1,10 +1,11 @@
 // src/pages/LoginPage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiRequest } from '../config/api';
+import { useAuth } from '../hooks/useAuth'; // Import useAuth hook
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { login } = useAuth(); // Use the login function from useAuth hook
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,22 +18,17 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await apiRequest('/api/Auth/login', {
-        method: 'POST',
-        body: { username, password }
-      });
-
-      if (!response.ok) {
-        throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
+      // Use the login function from useAuth hook
+      const result = await login(username, password);
+      
+      if (result.success) {
+        // Rediriger vers le dashboard admin après une connexion réussie
+        navigate('/admin/dashboard');
+      } else {
+        setError(result.error);
       }
-
-      const data = await response.json();
-      localStorage.setItem('authToken', data.token);
-
-      navigate('/admin/dashboard');
-
     } catch (err) {
-      setError(err.message);
+      setError('Erreur de connexion');
     } finally {
       setLoading(false);
     }
