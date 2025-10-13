@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://144.24.30.248:5257",
+      "applicationUrl": "https://api.immotactics.live",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -24,7 +24,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7123;http://144.24.30.248:5257",
+      "applicationUrl": "https://localhost:7123;https://api.immotactics.live",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

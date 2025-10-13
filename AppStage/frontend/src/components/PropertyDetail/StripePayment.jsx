@@ -23,7 +23,7 @@ const StripePayment = ({ amount, currency = 'eur', onSuccess, onError, customerI
     if (paymentMethod === 'card') {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch('http://144.24.30.248:5257/api/Payments/create-payment-intent', {
+        const response = await fetch('https://api.immotactics.live/api/Payments/create-payment-intent', {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({

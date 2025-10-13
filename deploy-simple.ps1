@@ -23,7 +23,7 @@ Write-Host "`n   e) Redémarrez le service:" -ForegroundColor White
 Write-Host "      sudo systemctl start backend" -ForegroundColor Gray
 
 Write-Host "`n4. 🔧 Configuration actuelle:" -ForegroundColor Yellow
-Write-Host "   - Backend: http://144.24.30.248:5257" -ForegroundColor White
+Write-Host "   - Backend: https://api.immotactics.live" -ForegroundColor White
 Write-Host "   - Frontend: https://immotactics.live" -ForegroundColor White
 Write-Host "   - CORS configuré pour les deux domaines" -ForegroundColor White
 

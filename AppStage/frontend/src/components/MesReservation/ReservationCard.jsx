@@ -18,7 +18,7 @@ const ReservationCard = ({ reservation, onCancel }) => {
         setLoadingRefunds(true);
         try {
           const token = localStorage.getItem('authToken');
-          const response = await fetch(`http://144.24.30.248:5257/api/Refunds/reservation/${reservation.id}`, {
+          const response = await fetch(`https://api.immotactics.live/api/Refunds/reservation/${reservation.id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           if (response.ok) {

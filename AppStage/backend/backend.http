@@ -1,4 +1,4 @@
-@backend_HostAddress = http://144.24.30.248:5257
+@backend_HostAddress = https://api.immotactics.live
 
 GET {{backend_HostAddress}}/weatherforecast/
 Accept: application/json

@@ -14,7 +14,7 @@ const ProprietaireDetailsModal = ({ proprietaire, isOpen, onClose }) => {
   const fetchBiens = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://144.24.30.248:5257/api/biensimmobiliers?proprietaireId=${proprietaire.id}`);
+      const response = await fetch(`https://api.immotactics.live/api/biensimmobiliers?proprietaireId=${proprietaire.id}`);
       if (response.ok) {
         const data = await response.json();
         setBiens(data);

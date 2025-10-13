@@ -36,7 +36,7 @@ const ProprietaireEditModal = ({ proprietaire, isOpen, onClose, onUpdate }) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://144.24.30.248:5257/api/proprietaires/${proprietaire.id}`, {
+      const response = await fetch(`https://api.immotactics.live/api/proprietaires/${proprietaire.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

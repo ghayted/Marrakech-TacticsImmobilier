@@ -42,7 +42,7 @@ function PropertyDetail() {
   const [showFullscreen, setShowFullscreen] = useState(false); // Gardé pour une future utilisation
   const [showReservationModal, setShowReservationModal] = useState(false);
   const token = localStorage.getItem('authToken');
-  const backendUrl = 'http://144.24.30.248:5257';
+  const backendUrl = 'https://api.immotactics.live';
 
   // La logique pour récupérer les données reste ici, dans le composant parent
   useEffect(() => {

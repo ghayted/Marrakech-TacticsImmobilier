@@ -57,7 +57,7 @@ const ReservationPage = () => {
     // Récupérer les données de la propriété
     const fetchProperty = async () => {
       try {
-        const response = await fetch(`http://144.24.30.248:5257/api/BiensImmobiliers/${id}`);
+        const response = await fetch(`https://api.immotactics.live/api/BiensImmobiliers/${id}`);
         if (response.ok) {
           const data = await response.json();
           setProperty(data);
@@ -155,7 +155,7 @@ const ReservationPage = () => {
 
     try {
       // 1. Créer la réservation
-      const reservationResponse = await fetch('http://144.24.30.248:5257/api/Reservations', {
+      const reservationResponse = await fetch('https://api.immotactics.live/api/Reservations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ const ReservationPage = () => {
         const reservationResult = await reservationResponse.json();
         
         // 2. Créer le paiement avec l'ID de réservation
-        const paymentResponse = await fetch('http://144.24.30.248:5257/api/Payments/confirm-payment', {
+        const paymentResponse = await fetch('https://api.immotactics.live/api/Payments/confirm-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

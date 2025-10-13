@@ -17,7 +17,7 @@ export const useAuth = () => {
 
   const verifyToken = async (token) => {
     try {
-      const response = await fetch('http://144.24.30.248:5257/api/Auth/verify', {
+      const response = await fetch('https://api.immotactics.live/api/Auth/verify', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -47,7 +47,7 @@ export const useAuth = () => {
 
   const login = async (username, password) => {
     try {
-      const response = await fetch('http://144.24.30.248:5257/api/Auth/login', {
+      const response = await fetch('https://api.immotactics.live/api/Auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

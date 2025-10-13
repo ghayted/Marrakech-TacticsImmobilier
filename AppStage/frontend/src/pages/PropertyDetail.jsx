@@ -125,7 +125,7 @@ function PropertyDetail() {
   useEffect(() => {
     const fetchBien = async () => {
       try {
-        const response = await fetch(`http://144.24.30.248:5257/api/BiensImmobiliers/${id}`, {
+        const response = await fetch(`https://api.immotactics.live/api/BiensImmobiliers/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
                

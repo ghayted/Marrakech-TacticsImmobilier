@@ -1,7 +1,7 @@
 // Configuration centralisée pour l'API backend
 export const API_CONFIG = {
   // URL du backend en production - HTTP temporairement (HTTPS sera configuré plus tard)
-  BASE_URL: 'http://144.24.30.248:5257',
+  BASE_URL: 'https://api.immotactics.live',
   
   // URL de fallback HTTPS (pour le futur)
   FALLBACK_URL: 'https://144.24.30.248:5258',

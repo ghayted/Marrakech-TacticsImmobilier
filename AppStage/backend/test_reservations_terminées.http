@@ -1,5 +1,5 @@
 ### Créer une réservation avec des dates passées pour tester la libération automatique
-POST http://144.24.30.248:5257/api/Reservations
+POST https://api.immotactics.live/api/Reservations
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 ###
 
 ### Libérer manuellement un bien après réservation terminée (test)
-POST http://144.24.30.248:5257/api/Reservations/1/liberer-bien
+POST https://api.immotactics.live/api/Reservations/1/liberer-bien
 Content-Type: application/json
 
 ###

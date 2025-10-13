@@ -25,7 +25,7 @@ function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://144.24.30.248:5257/api/contact', {
+      const response = await fetch('https://api.immotactics.live/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
