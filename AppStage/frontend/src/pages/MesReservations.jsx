@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/Home/Header';
 import Footer from '../components/Home/Footer';
 import ReservationCard from '../components/MesReservation/ReservationCard';
@@ -12,25 +11,14 @@ const MesReservations = () => {
   const [error, setError] = useState('');
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [reservationToCancel, setReservationToCancel] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    const token = localStorage.getItem('authToken');
-    if (!userData || !token) {
-      navigate('/login');
-      return;
-    }
-
-    // --- 👇 LA LOGIQUE DE FETCH EST MAINTENANT EN PLUSIEURS ÉTAPES 👇 ---
     const fetchReservations = async () => {
       setLoading(true);
       setError('');
       try {
-        // Étape 1 : Récupérer la liste de base des réservations
-        const reservationsResponse = await fetch(`https://api.immotactics.live/api/Reservations/utilisateur/${userData.id}`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
+        // Récupérer toutes les réservations (accès public)
+        const reservationsResponse = await fetch(`https://api.immotactics.live/api/Reservations`);
         if (!reservationsResponse.ok) throw new Error('Erreur lors de la récupération des réservations');
         
         const baseReservations = await reservationsResponse.json();
@@ -40,17 +28,16 @@ const MesReservations = () => {
           return;
         }
 
-        // Étape 2 : Pour chaque réservation, préparer un appel pour récupérer les détails du bien
+        // Pour chaque réservation, récupérer les détails du bien
         const detailFetchPromises = baseReservations.map(res =>
-          fetch(`https://api.immotactics.live/api/BiensImmobiliers/${res.bienImmobilierId}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-          }).then(response => response.json())
+          fetch(`https://api.immotactics.live/api/BiensImmobiliers/${res.bienImmobilierId}`)
+            .then(response => response.json())
         );
 
-        // Étape 3 : Lancer tous les appels en parallèle et attendre qu'ils soient tous terminés
+        // Lancer tous les appels en parallèle et attendre qu'ils soient tous terminés
         const propertiesDetails = await Promise.all(detailFetchPromises);
 
-        // Étape 4 : Combiner les données des réservations avec les détails des biens
+        // Combiner les données des réservations avec les détails des biens
         const enrichedReservations = baseReservations.map((reservation, index) => {
           const details = propertiesDetails[index];
           return {
@@ -61,7 +48,7 @@ const MesReservations = () => {
           };
         });
 
-        // Étape 5 : Mettre à jour l'état avec les données complètes
+        // Mettre à jour l'état avec les données complètes
         enrichedReservations.sort((a, b) => new Date(b.dateDebut) - new Date(a.dateDebut));
         setReservations(enrichedReservations);
 
@@ -73,7 +60,7 @@ const MesReservations = () => {
     };
 
     fetchReservations();
-  }, [navigate]);
+  }, []);
 
   // Le reste du composant (handleCancel, JSX, etc.) ne change pas.
   
@@ -86,11 +73,9 @@ const MesReservations = () => {
     if (!reservationToCancel) return;
 
     try {
-      const token = localStorage.getItem('authToken');
       const response = await fetch(`https://api.immotactics.live/api/Reservations/${reservationToCancel.id}/annuler`, {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });   

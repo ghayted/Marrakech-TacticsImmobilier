@@ -41,7 +41,6 @@ function PropertyDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullscreen, setShowFullscreen] = useState(false); // Gardé pour une future utilisation
   const [showReservationModal, setShowReservationModal] = useState(false);
-  const token = localStorage.getItem('authToken');
   const backendUrl = 'https://api.immotactics.live';
 
   // La logique pour récupérer les données reste ici, dans le composant parent
@@ -49,9 +48,8 @@ function PropertyDetail() {
     const fetchBien = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${backendUrl}/api/BiensImmobiliers/${id}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            // Récupérer les détails du bien sans authentification (accès public)
+            const response = await fetch(`${backendUrl}/api/BiensImmobiliers/${id}`);
             if (response.ok) {
                 const data = await response.json();
                 console.log('Données du bien reçues:', data);
@@ -77,7 +75,7 @@ function PropertyDetail() {
         }
     };
     fetchBien();
-  }, [id, token]);
+  }, [id]);
   
   // Fonctions pour la galerie, passées en props
   const nextImage = () => {
