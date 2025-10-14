@@ -1,0 +1,28 @@
+/* ClientHome - Styles responsive UNIQUEMENT pour mobile */
+
+/* Desktop - pas de changements */
+.client-home {
+  width: 100%;
+}
+
+/* SEULEMENT Mobile (< 768px) */
+@media (max-width: 768px) {
+  .client-home {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  .client-home > * {
+    max-width: 100vw !important;
+  }
+}
+
+/* SEULEMENT Petit mobile (< 480px) */
+@media (max-width: 480px) {
+  .client-home {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+

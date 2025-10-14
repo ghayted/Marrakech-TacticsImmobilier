@@ -316,99 +316,192 @@
   }
 }
 
+/* =============================================
+   RESPONSIVE TABLETTE/MOBILE - STYLE BARNES
+   ============================================= */
 @media (max-width: 768px) {
+  /* STRUCTURE MOBILE - COULEURS ORIGINALES CONSERVÉES */
   .client-header-top {
-    padding: 15px 15px;
+    padding: 14px 18px !important;
+    height: 68px !important;
   }
   
+  /* LOGO - GARDER COULEURS ORIGINALES */
   .client-logo-main {
-    font-size: 24px;
+    font-size: 17px !important;
+    /* Garder la couleur originale */
   }
   
   .client-logo-sub {
-    font-size: 24px;
+    font-size: 17px !important;
+    /* Garder la couleur originale */
+  }
+  
+  .client-logo-line {
+    width: 2px !important;
+    height: 20px !important;
+    /* Garder la couleur originale */
   }
   
   .client-logo-tagline {
-    font-size: 10px;
+    display: none !important;
   }
   
+  /* BURGER MENU */
+  .client-burger-menu {
+    font-size: 20px !important;
+    /* Garder la couleur originale */
+  }
+  
+  /* UTILITAIRES */
   .client-header-utils {
-    gap: 15px;
+    gap: 12px !important;
   }
   
+  /* MASQUER DEVISE/LANGUE SUR TABLETTE */
+  .client-currency-selector,
+  .client-language-selector {
+    display: none !important;
+  }
+  
+  /* FAVORIS - GARDER COULEURS ORIGINALES */
+  .client-favorites svg {
+    font-size: 22px !important;
+    /* Garder la couleur originale */
+  }
+  
+  .client-favorite-count {
+    /* Garder les couleurs originales */
+    font-weight: 700 !important;
+  }
+  
+  /* MASQUER NAVIGATION */
   .client-nav {
-    gap: 20px;
+    display: none !important;
   }
   
-  .client-nav a {
-    font-size: 12px;
+  /* BARRE INFÉRIEURE */
+  .client-navbar-row {
+    justify-content: flex-end !important;
+    padding: 12px 18px !important;
+    /* Garder le fond original */
   }
   
   .client-header-bottom-action {
-    font-size: 13px;
+    font-size: 13px !important;
   }
   
   .client-estimation-btn {
-    padding: 10px 20px;
-    font-size: 12px;
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    /* Garder les couleurs originales */
+    font-weight: 600 !important;
+  }
+  
+  .client-login-btn {
+    padding: 10px 20px !important;
+    font-size: 12px !important;
+    /* Garder les couleurs originales */
+    font-weight: 600 !important;
+  }
+  
+  .client-logout-btn {
+    padding: 8px 16px !important;
+    font-size: 12px !important;
+    /* Garder les couleurs originales */
+    font-weight: 600 !important;
   }
 }
 
+/* =============================================
+   RESPONSIVE PETITS MOBILES - STYLE BARNES
+   ============================================= */
 @media (max-width: 480px) {
+  /* HEADER COMPACT */
   .client-header-top {
-    padding: 10px 10px;
-    height: 60px;
+    padding: 12px 14px !important;
+    height: 62px !important;
   }
   
+  /* LOGO COMPACT - GARDER COULEURS */
   .client-logo-container {
-    gap: 10px;
+    gap: 6px !important;
   }
   
+  .client-logo-main {
+    font-size: 14px !important;
+    /* Garder la couleur originale */
+  }
+  
+  .client-logo-sub {
+    font-size: 14px !important;
+    /* Garder la couleur originale */
+  }
+  
+  .client-logo-line {
+    height: 16px !important;
+    width: 2px !important;
+    margin: 0 4px !important;
+    /* Garder la couleur originale */
+  }
+  
+  /* BURGER MENU */
   .client-burger-menu {
-    padding-left: 20px;
+    padding-left: 0 !important;
+    font-size: 18px !important;
   }
   
+  /* UTILITAIRES COMPACTS */
   .client-header-utils {
-    gap: 10px;
+    gap: 10px !important;
   }
   
+  /* MASQUER DEVISE/LANGUE */
+  .client-currency-selector,
+  .client-language-selector {
+    display: none !important;
+  }
+  
+  /* FAVORIS */
+  .client-favorites svg {
+    font-size: 19px !important;
+  }
+  
+  .client-favorite-count {
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 9px !important;
+  }
+  
+  /* NAVIGATION MASQUÉE */
   .client-nav {
-    gap: 15px;
+    display: none !important;
   }
   
-  .client-nav a {
-    font-size: 11px;
+  /* BARRE INFÉRIEURE */
+  .client-navbar-row {
+    padding: 10px 14px !important;
+    min-height: 48px !important;
   }
   
-  @media (max-width: 900px) {
-    .client-navbar-row {
-      flex-direction: column;
-      height: auto;
-      padding: 15px 20px;
-    }
-    
-    .client-navbar-left,
-    .client-navbar-right {
-      display: none;
-    }
-    
-    .client-nav {
-      flex-direction: column;
-      gap: 15px;
-      width: 100%;
-    }
-    
-    .client-nav a {
-      padding: 10px 0;
-      border-bottom: 1px solid #e0e0e0;
-      width: 100%;
-      text-align: center;
-    }
-    
-    .client-nav a:last-child {
-      border-bottom: none;
-    }
+  .client-login-btn {
+    padding: 9px 16px !important;
+    font-size: 11px !important;
+    min-width: auto !important;
+  }
+  
+  .client-auth-section {
+    gap: 8px !important;
+    min-width: auto !important;
+  }
+  
+  .client-user-info {
+    font-size: 12px !important;
+  }
+  
+  .client-logout-btn {
+    padding: 7px 12px !important;
+    font-size: 10px !important;
   }
 }
 

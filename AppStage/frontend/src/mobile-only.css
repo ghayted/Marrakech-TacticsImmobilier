@@ -1,0 +1,63 @@
+/* 
+ * STYLES MOBILE UNIQUEMENT
+ * N'affecte PAS le desktop (> 768px)
+ */
+
+/* Forcer tout à rester dans l'écran sur mobile */
+@media (max-width: 768px) {
+  * {
+    max-width: 100vw !important;
+  }
+  
+  body, html {
+    width: 100% !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+  
+  /* Tous les conteneurs principaux */
+  .client-home,
+  .about-block-section,
+  .quartiers-section,
+  .content-block-container,
+  .contact-section,
+  .barnes-footer {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Images */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Sliders */
+  .slick-slider,
+  .slick-list,
+  .slick-track {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Très petit mobile (< 480px) */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px !important;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.3rem !important;
+  }
+  
+  h3 {
+    font-size: 1.1rem !important;
+  }
+}
+

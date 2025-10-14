@@ -3,24 +3,26 @@
 
 .searchbar-wrapper {
   width: 100%;
-  position: realative;
+  max-width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
 .searchbar-switch {
   display: flex;
-  margin-bottom: 8px; /* Petit espace entre les boutons et la barre */
+  margin-bottom: 8px;
   position: static;
   z-index: 1;
 }
 
 .searchbar-switch-btn {
-  background-color: #555; /* Couleur de fond par défaut pour les boutons inactifs */
+  background-color: #555;
   color: white;
   border: none;
-  padding: 12px 25px; /* Ajustez le padding pour la hauteur et la largeur */
+  padding: 12px 25px;
   font-size: 0.9em;
   font-weight: 500;
   cursor: pointer;
@@ -29,19 +31,19 @@
 }
 
 .searchbar-switch-btn.active {
-  background-color: #8B4513; /* Couleur rouge vif pour le bouton actif */
+  background-color: #8B4513;
 }
 
 .searchbar-switch-btn:hover:not(.active) {
-  background-color: #777; /* Un peu plus foncé au survol pour les inactifs */
+  background-color: #777;
 }
 
 .searchbar-full {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 100%;
   padding: 0;
   margin-bottom: 18px;
 }
@@ -67,6 +69,20 @@
   margin: 0 auto;
 }
 
+/* MOBILE RESPONSIVE - DESIGN VERTICAL POUR MOBILE */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column !important;
+    height: auto !important;
+    min-width: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    gap: 10px !important;
+    border-radius: 8px !important;
+  }
+}
+
 .search-bar select,
 .search-bar .budget-group,
 .search-bar .advanced-search-placeholder {
@@ -85,67 +101,45 @@
 
 .search-bar select,
 .search-bar input[type="number"],
-.search-bar .advanced-search-placeholder { /* Nouvelle classe pour le placeholder */
+.search-bar .advanced-search-placeholder {
   border: none;
   outline: none;
-  padding: 0 15px; /* Padding latéral pour le texte */
+  padding: 0 15px;
   font-size: 0.95em;
   color: #333;
-  -webkit-appearance: none; /* Supprime le style par défaut des selects sur Webkit */
-  -moz-appearance: none; /* Supprime le style par défaut des selects sur Mozilla */
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  background-color: transparent; /* Fond transparent pour les inputs/selects */
-  height: 100%; /* Occupe toute la hauteur de la barre */
-  display: flex; /* Pour centrer le texte verticalement */
+  background-color: transparent;
+  height: 100%;
+  display: flex;
   align-items: center;
-  cursor: pointer; /* Indique que ce sont des éléments interactifs */
-  position: relative; /* Pour les flèches déroulantes personnalisées */
-  min-width: 150px; /* Largeur minimale pour les selects/inputs */
+  cursor: pointer;
+  position: relative;
+  min-width: 150px;
 }
 
-/* Styles pour les flèches déroulantes personnalisées (pour les selects) */
 .search-bar select {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2C197.9c-3.2%2C3.2-7.5%2C4.7-11.7%2C4.7c-4.3%2C0-8.5-1.5-11.7-4.7L146.2%2C74.3L30.9%2C197.9c-6.4%2C6.4-16.7%2C6.4-23.1%2C0c-6.4-6.4-6.4-16.7%2C0-23.1L134.5%2C40.6c3.2-3.2%2C7.5-4.7%2C11.7-4.7c4.3%2C0%2C8.5%2C1.5%2C11.7%2C4.7l126.7%2C134.2C293.4%2C181.2%2C293.4%2C191.5%2C287%2C197.9z%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 10px center;
-  background-size: 10px; /* Taille de la flèche */
-  padding-right: 30px; /* Pour éviter que le texte ne chevauche la flèche */
+  background-size: 10px;
+  padding-right: 30px;
 }
 
-/* Séparateurs entre les champs */
-.search-bar select + select::before,
-.search-bar select + input::before,
-.search-bar input + input::before,
-.search-bar input + .advanced-search-placeholder::before,
-.search-bar .advanced-search-placeholder + .search-btn::before {
-  content: '';
-  width: 1px;
-  height: 60%; /* Hauteur de la ligne séparatrice */
-   /* Couleur de la ligne */
-  margin: 0; /* Pas de marge pour la ligne */
-  display: block;
-  align-self: center; /* Aligner verticalement au centre */
-}
-
-/* Cacher les inputs de budget pour les afficher comme un seul champ visuellement */
-/* Je vais styliser les deux inputs de budget pour qu'ils se superposent
- ou soient côte à côte mais ressemblent à un seul champ "Budget" */
-.search-bar input[type="number"]:nth-of-type(1) { /* Budget min */
-  border-right: 1px solid #ddd; /* Séparateur entre min et max si côte à côte */
+.search-bar input[type="number"]:nth-of-type(1) {
+  border-right: 1px solid #ddd;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.search-bar input[type="number"]:nth-of-type(2) { /* Budget max */
-  border-left: none; /* Pas de bordure gauche si côte à côte */
+.search-bar input[type="number"]:nth-of-type(2) {
+  border-left: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  padding-left: 5px; /* Moins de padding pour coller au min */
+  padding-left: 5px;
 }
 
-/* Si vous voulez qu'ils ressemblent à un seul champ "Budget", vous devrez peut-être masquer l'un d'eux
- ou utiliser une approche JavaScript pour mettre à jour la valeur affichée */
-/* Pour le design, nous allons les traiter visuellement comme un seul bloc "Budget" */
 .search-bar input[type="number"] {
   min-width: 100px;
   margin-right: 8px;
@@ -154,27 +148,13 @@
   margin-right: 0;
 }
 
-.search-bar input[type="number"]::after { /* Pour simuler la flèche */
-  content: '';
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
-  border: solid #666;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-  pointer-events: none; /* Permet le clic sur l'input */
-}
-
-/* Placeholder pour "Recherche avancée" (car il n'est pas un input dans votre HTML) */
 .search-bar .advanced-search-placeholder {
   color: #666;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Pour l'icône + */
-  padding-right: 15px; /* Espace pour l'icône */
-  min-width: 160px; /* Largeur pour ce champ */
+  justify-content: space-between;
+  padding-right: 15px;
+  min-width: 160px;
 }
 
 .advanced-search-placeholder {
@@ -196,35 +176,32 @@
 }
 
 .search-bar .advanced-search-placeholder::after {
-
   font-size: 1.2em;
   margin-left: 10px;
-  color: #888; /* Gris sobre */
+  color: #888;
   font-weight: bold;
 }
 
-
 .search-btn {
-  background-color: #8B4513; /* Couleur rouge du bouton de recherche */
+  background-color: #8B4513;
   color: white;
   border: none;
   outline: none;
-  width: 60px; /* Largeur fixe pour le bouton de recherche */
+  width: 60px;
   height: 100%;
   cursor: pointer;
-  font-size: 1.5em; /* Taille de la loupe */
+  font-size: 1.5em;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0 5px 5px 0; /* Coins arrondis à droite */
+  border-radius: 0 5px 5px 0;
   transition: background-color 0.3s ease;
 }
 
 .search-btn:hover {
-  background-color: 8B4513; /* Rouge un peu plus foncé au survol */
+  background-color: #8B4513;
 }
 
-/* Bouton "Estimer votre bien" */
 .estimate-button-container {
   display: flex;
   justify-content: center;
@@ -273,64 +250,222 @@
   user-select: none;
 }
 
-/* Media Queries pour la Responsivité */
+/* ============================================
+   RESPONSIVE - SEULEMENT POUR MOBILE
+   N'affecte PAS le desktop
+   ============================================ */
+
+/* Tablette et moins (992px et moins) */
 @media (max-width: 992px) {
+  .searchbar-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 5px !important;
+  }
+  
   .searchbar-full {
-      padding-top: 80px;
-      padding-bottom: 40px;
+    width: 100% !important;
+    max-width: 100% !important;
   }
-
+  
   .search-bar {
-      flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
-      height: auto; /* Hauteur adaptative */
-      width: 90%; /* Occupe plus de largeur sur les écrans moyens */
-  }
-
-  .search-bar select,
-  .search-bar input[type="number"],
-  .search-bar .advanced-search-placeholder {
-      width: 100%; /* Chaque champ prend toute la largeur */
-      margin-bottom: 10px; /* Espacement entre les champs */
-      border-bottom: 1px solid #ddd; /* Séparateur horizontal */
-      padding: 10px 15px; /* Plus de padding vertical */
-      height: auto;
-  }
-
-  .search-bar input[type="number"]:last-of-type {
-      border-bottom: none; /* Pas de bordure pour le dernier input */
-  }
-
-  .search-btn {
-      width: 100%;
-      border-radius: 0 0 5px 5px; /* Coins arrondis en bas */
-      height: 50px;
+    min-width: 280px !important;
+    max-width: 95% !important;
+    width: 95% !important;
+    margin: 0 auto !important;
   }
 }
 
+/* DESIGN PROFESSIONNEL MOBILE - Tablette portrait et mobile (768px et moins) */
 @media (max-width: 768px) {
-  .searchbar-switch {
-      position: relative; /* Les boutons switch peuvent rester en haut mais dans le flux */
-      top: auto;
-      left: auto;
-      width: 100%;
-      justify-content: center;
-      border-radius: 0;
+  .searchbar-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
+  
+  .searchbar-switch {
+    flex-wrap: nowrap !important;
+    width: 95% !important;
+    max-width: 95% !important;
+    justify-content: center !important;
+    margin: 0 auto 20px !important;
+    gap: 0 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+  }
+  
   .searchbar-switch-btn {
-      flex: 1; /* Chaque bouton prend la moitié de la largeur */
-      text-align: center;
+    flex: 1 !important;
+    padding: 14px 18px !important;
+    font-size: 0.8em !important;
+    min-width: auto !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
   }
 
   .searchbar-full {
-      padding-top: 20px; /* Moins d'espace si les boutons sont en haut */
-      padding-bottom: 20px;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 10px !important;
+    margin: 0 !important;
   }
 
-  .estimate-button-container {
-      position: static; /* Le bouton d'estimation reste dans le flux normal */
-      transform: none;
-      margin-top: 20px; /* Espace au-dessus du bouton */
-      display: flex;
-      justify-content: center;
+  .search-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    height: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 18px !important;
+    min-width: auto !important;
+    margin: 0 auto !important;
+    gap: 0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25) !important;
+  }
+
+  .search-bar select,
+  .search-bar .advanced-search-placeholder {
+    width: 100% !important;
+    flex: none !important;
+    margin: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid #e8e8e8 !important;
+    padding: 16px 14px !important;
+    height: auto !important;
+    min-width: auto !important;
+    font-size: 0.95em !important;
+    background-color: white !important;
+    color: #333 !important;
+    font-weight: 500 !important;
+    transition: background-color 0.2s ease !important;
+  }
+  
+  .search-bar select:focus,
+  .search-bar .advanced-search-placeholder:focus {
+    background-color: #f8f8f8 !important;
+    outline: none !important;
+  }
+
+  .budget-group {
+    width: 100% !important;
+    flex: none !important;
+    margin: 0 !important;
+    padding: 16px 14px !important;
+    border-bottom: 1px solid #e8e8e8 !important;
+    gap: 10px !important;
+    background-color: white !important;
+  }
+
+  .budget-group input[type="number"] {
+    padding: 10px !important;
+    min-width: 0 !important;
+    flex: 1 !important;
+    font-size: 0.95em !important;
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+  }
+  
+  .budget-separator {
+    color: #8B4513 !important;
+    font-weight: 600 !important;
+  }
+
+  .search-bar .advanced-search-placeholder {
+    border-bottom: none !important;
+  }
+
+  .search-btn {
+    width: 100% !important;
+    border-radius: 8px !important;
+    height: 52px !important;
+    margin-top: 10px !important;
+    flex: none !important;
+    font-size: 1.3em !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3) !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .search-btn:active {
+    transform: scale(0.98) !important;
+  }
+
+  .estimate-button {
+    padding: 14px 24px !important;
+    font-size: 0.9em !important;
+    width: 90% !important;
+    margin: 15px auto !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.25) !important;
+  }
+}
+
+/* DESIGN PROFESSIONNEL MOBILE - Mobile petit (480px et moins) */
+@media (max-width: 480px) {
+  .searchbar-wrapper {
+    width: 100% !important;
+    padding: 0 8px !important;
+  }
+  
+  .searchbar-switch {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 18px !important;
+    border-radius: 10px !important;
+  }
+  
+  .searchbar-switch-btn {
+    padding: 13px 12px !important;
+    font-size: 0.75em !important;
+    font-weight: 600 !important;
+  }
+
+  .searchbar-full {
+    width: 100% !important;
+    padding: 0 8px !important;
+  }
+
+  .search-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px !important;
+    border-radius: 10px !important;
+  }
+
+  .search-bar select,
+  .search-bar .advanced-search-placeholder {
+    padding: 15px 12px !important;
+    font-size: 0.9em !important;
+  }
+
+  .budget-group {
+    padding: 15px 12px !important;
+  }
+
+  .budget-group input[type="number"] {
+    padding: 9px !important;
+    font-size: 0.9em !important;
+  }
+
+  .search-btn {
+    height: 50px !important;
+    font-size: 1.2em !important;
+    margin-top: 12px !important;
+  }
+
+  .estimate-button {
+    padding: 13px 20px !important;
+    font-size: 0.85em !important;
+    width: 95% !important;
+    margin: 12px auto !important;
   }
 }

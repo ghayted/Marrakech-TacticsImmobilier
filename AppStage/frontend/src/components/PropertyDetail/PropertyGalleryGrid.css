@@ -132,3 +132,119 @@
     gap: 8px;
   }
   .gallery-photos-btn:hover { background-color: rgba(0, 0, 0, 0.8); }
+
+/* ======================================
+   RESPONSIVE MOBILE - STRUCTURE VERTICALE
+   ====================================== */
+
+@media (max-width: 768px) {
+  /* CONTAINER - EMPILER VERTICALEMENT */
+  .gallery-grid-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    max-height: none !important;
+    border-radius: 0 !important;
+  }
+  
+  .gallery-grid-container.image-count-1,
+  .gallery-grid-container.image-count-2,
+  .gallery-grid-container.image-count-3 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* IMAGE PRINCIPALE - PLEINE LARGEUR EN HAUT */
+  .gallery-large-image {
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 300px !important;
+    position: relative !important;
+    order: 1 !important;
+  }
+  
+  .gallery-large-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  /* PETITES IMAGES - DEUX EN DESSOUS CÔTE À CÔTE */
+  .gallery-small-images {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 8px !important;
+    width: 100% !important;
+    order: 2 !important;
+    grid-template-rows: none !important;
+  }
+  
+  .gallery-small-image-item {
+    flex: 1 !important;
+    height: 150px !important;
+    width: auto !important;
+  }
+  
+  .gallery-small-image-item img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  /* AFFICHER LA COLONNE DE DROITE MÊME AVEC UNE SEULE IMAGE */
+  .gallery-grid-container.image-count-1 .gallery-small-images {
+    display: flex !important;
+  }
+  
+  /* BADGES ET BOUTONS - AJUSTER POUR MOBILE */
+  .gallery-status-badge {
+    top: 10px !important;
+    left: 10px !important;
+    padding: 5px 12px !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .gallery-favorite-btn {
+    top: 10px !important;
+    right: 10px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+  
+  .gallery-bottom-controls {
+    bottom: 10px !important;
+    left: 10px !important;
+  }
+  
+  .gallery-photos-btn {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* AJUSTEMENTS POUR PETITS MOBILES */
+  .gallery-large-image {
+    height: 250px !important;
+    min-height: 250px !important;
+  }
+  
+  .gallery-small-image-item {
+    height: 120px !important;
+  }
+  
+  .gallery-status-badge {
+    font-size: 0.65rem !important;
+    padding: 4px 10px !important;
+  }
+  
+  .gallery-favorite-btn {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .gallery-photos-btn {
+    padding: 5px 10px !important;
+    font-size: 0.75rem !important;
+  }
+}

@@ -136,18 +136,204 @@
     line-height: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+    .quartiers-container {
+        padding: 0 15px;
+    }
+    
+    .quartiers-header h2 {
+        font-size: 2rem;
+    }
+    
     .quartiers-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto;
+        gap: 0.75rem;
     }
+    
     .quartier-card.item-1,
     .quartier-card.item-2,
     .quartier-card.item-3,
     .quartier-card.item-4,
-    .quartier-card.item-5 {
+    .quartier-card.item-5,
+    .quartier-card.item-6,
+    .quartier-card.item-7,
+    .quartier-card.item-8,
+    .quartier-card.item-9 {
         grid-column: auto;
         grid-row: auto;
-        height: 250px;
+        height: 200px;
     }
+    
+    .quartier-name {
+        font-size: 1.2rem;
+        bottom: 15px;
+        left: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* ==========================================
+       DESIGN SLIDER HORIZONTAL - IMAGE 2
+       ========================================== */
+    
+    .quartiers-section {
+        padding: 2.5rem 0 !important;
+        background: #fff !important;
+    }
+    
+    .quartiers-container {
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .quartiers-header {
+        margin-bottom: 2rem !important;
+        text-align: center !important;
+        padding: 0 1rem !important;
+    }
+    
+    .quartiers-header h2 {
+        font-size: 1.7rem !important;
+        margin-bottom: 0.8rem !important;
+        font-weight: 400 !important;
+    }
+    
+    .quartiers-header p {
+        font-size: 0.9rem !important;
+        color: #666 !important;
+    }
+    
+    /* SLIDER HORIZONTAL */
+    .quartiers-grid {
+        display: block !important;
+        position: relative !important;
+        overflow: visible !important;
+        padding: 0 50px !important;
+        grid-template-columns: none !important;
+        grid-template-rows: none !important;
+    }
+    
+    /* WRAPPER POUR SLIDER */
+    .quartiers-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px !important;
+        padding: 0 20px 20px 20px !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+    }
+    
+    .quartiers-grid::-webkit-scrollbar {
+        display: none !important;
+    }
+    
+    /* TOUTES LES CARTES EN LIGNE */
+    .quartier-card {
+        flex: 0 0 85% !important;
+        width: 85% !important;
+        height: 250px !important;
+        scroll-snap-align: center !important;
+        position: relative !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+    
+    .quartier-card.item-1,
+    .quartier-card.item-2,
+    .quartier-card.item-3,
+    .quartier-card.item-4,
+    .quartier-card.item-5,
+    .quartier-card.item-6,
+    .quartier-card.item-7,
+    .quartier-card.item-8,
+    .quartier-card.item-9 {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        flex: 0 0 85% !important;
+        width: 85% !important;
+        height: 250px !important;
+    }
+    
+    /* IMAGE - REMPLIR TOUT LE CADRE */
+    .quartier-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        filter: brightness(0.7) !important;
+    }
+    
+    /* OVERLAY */
+    .quartier-overlay {
+        display: block !important;
+    }
+    
+    /* TEXTE CENTRÉ */
+    .quartier-name {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.8) !important;
+        bottom: auto !important;
+        z-index: 2 !important;
+    }
+    
+    /* PAS DE HOVER CONTENT */
+    .quartier-hover-content {
+        display: none !important;
+    }
+    
+    /* PAS D'ANIMATION */
+    .quartier-card:hover .quartier-name {
+        transform: translate(-50%, -50%) !important;
+    }
+}
+
+@media (max-width: 480px) {
+  .quartiers-section {
+    padding: 2rem 0.5rem;
+  }
+  
+  .quartiers-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .quartiers-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .quartiers-header p {
+    font-size: 0.85rem;
+  }
+  
+  .quartiers-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .quartier-card {
+    height: 200px;
+    width: 100%;
+  }
+  
+  .quartier-name {
+    font-size: 1rem;
+    bottom: 10px;
+    left: 10px;
+  }
+  
+  .quartier-hover-content {
+    bottom: 10px;
+    left: 10px;
+  }
+  
+  .quartier-hover-content span {
+    font-size: 0.85rem;
+  }
 }

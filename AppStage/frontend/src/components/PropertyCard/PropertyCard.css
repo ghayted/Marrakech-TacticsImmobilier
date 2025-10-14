@@ -96,3 +96,79 @@
   .card-arrow {
     color: #b08d57;
   }
+  
+  /* Media Queries pour PropertyCard */
+  @media (max-width: 768px) {
+    .card-image-container {
+      height: 200px;
+    }
+    
+    .card-info {
+      padding: 0.85rem;
+    }
+    
+    .card-title {
+      font-size: 1.1rem;
+    }
+    
+    .card-location {
+      font-size: 0.85rem;
+    }
+    
+    .card-features {
+      font-size: 0.75rem;
+      gap: 0.75rem;
+    }
+    
+    .card-price {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card-image-container {
+      height: 180px;
+    }
+    
+    .card-info {
+      padding: 0.75rem;
+    }
+    
+    .card-title {
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    
+    .card-location {
+      font-size: 0.8rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .card-features {
+      font-size: 0.7rem;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    
+    .card-footer {
+      padding-top: 0.75rem;
+    }
+    
+    .card-price {
+      font-size: 0.95rem;
+    }
+    
+    .card-status-badge {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      top: 10px;
+      left: 10px;
+    }
+    
+    .card-favorite-btn {
+      width: 28px;
+      height: 28px;
+      top: 10px;
+      right: 10px;
+    }
+  }

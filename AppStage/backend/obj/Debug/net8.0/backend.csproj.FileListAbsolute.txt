@@ -880,3 +880,8 @@ C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug
 C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\appsettings.json
 C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\backend.deps.json
 C:\Users\dafal\Documents\GitHub\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\backend.runtimeconfig.json
+C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\web.config
+C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\backend.deps.json
+C:\Users\Microsoft\Desktop\StageMarrakechTactics\AppStage\backend\bin\Debug\net8.0\publish\backend.runtimeconfig.json

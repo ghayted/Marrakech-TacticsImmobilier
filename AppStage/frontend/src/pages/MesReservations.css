@@ -325,3 +325,161 @@
 }
 .btn-secondary { background: #e2e8f0; color: #4a5568; }
 .btn-danger { background: #e53e3e; color: white; }
+
+/* Media Queries pour MesReservations */
+@media (max-width: 768px) {
+  .mes-reservations-page .page-container {
+    max-width: 100%;
+    margin: 1rem auto;
+    padding: 0.75rem;
+  }
+  
+  .mes-reservations-page h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .reservations-list {
+    gap: 1rem;
+  }
+  
+  .reservation-card {
+    flex-direction: column;
+  }
+  
+  .reservation-card-image {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .reservation-card-details {
+    padding: 1rem;
+  }
+  
+  .reservation-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .reservation-card-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .status-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+  }
+  
+  .reservation-card .location {
+    font-size: 0.85rem;
+  }
+  
+  .reservation-card .info-line {
+    font-size: 0.85rem;
+    gap: 0.5rem;
+  }
+  
+  .reservation-card-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  
+  .reservation-card-footer .price {
+    font-size: 1rem;
+  }
+  
+  .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .modal-content {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .modal-actions button {
+    width: 100%;
+  }
+  
+  .refund-policy-details {
+    font-size: 0.85rem;
+  }
+  
+  .policy-item span {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mes-reservations-page .page-container {
+    padding: 0.5rem;
+    margin: 0.5rem auto;
+  }
+  
+  .mes-reservations-page h1 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .reservation-card-image {
+    height: 180px;
+  }
+  
+  .reservation-card-details {
+    padding: 0.85rem;
+  }
+  
+  .reservation-card-header h3 {
+    font-size: 1rem;
+  }
+  
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+  
+  .reservation-card .location {
+    font-size: 0.8rem;
+  }
+  
+  .reservation-card .info-line {
+    font-size: 0.8rem;
+  }
+  
+  .reservation-card-footer .price {
+    font-size: 0.95rem;
+  }
+  
+  .cancel-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.9rem;
+  }
+  
+  .modal-content {
+    padding: 1rem;
+  }
+  
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .modal-body p {
+    font-size: 0.9rem;
+  }
+  
+  .refund-info {
+    padding: 0.6rem;
+  }
+  
+  .refund-amount {
+    font-size: 0.95rem;
+  }
+}

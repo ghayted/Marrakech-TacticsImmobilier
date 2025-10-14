@@ -74,7 +74,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("https://immotactics.live", "http://localhost:5173", "http://localhost:3000")
+            policy.WithOrigins(
+                      "https://immotactics.live", 
+                      "https://immotactics.netlify.app",
+                      "http://localhost:5173", 
+                      "http://localhost:3000")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials()
@@ -112,7 +116,12 @@ app.Use(async (context, next) =>
     // Ajouter des headers CORS supplémentaires pour s'assurer de la compatibilité
     // Déterminer l'origine de la requête
     var origin = context.Request.Headers.Origin.FirstOrDefault();
-    var allowedOrigins = new[] { "https://immotactics.live", "http://localhost:5173", "http://localhost:3000" };
+    var allowedOrigins = new[] { 
+        "https://immotactics.live", 
+        "https://immotactics.netlify.app",
+        "http://localhost:5173", 
+        "http://localhost:3000" 
+    };
     
     if (allowedOrigins.Contains(origin))
     {

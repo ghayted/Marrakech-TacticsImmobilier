@@ -2,6 +2,8 @@
 .about-block-section {
     padding: 4rem 2rem;
     background-color: #f0f0f0;
+    width: 100%;
+    overflow: hidden;
   }
   
   .about-block-container {
@@ -11,6 +13,7 @@
     grid-template-columns: 1fr 2fr;
     gap: 3rem;
     align-items: center;
+    width: 100%;
   }
   
   .about-text-content {
@@ -54,13 +57,16 @@
     gap: 1.5rem;
   }
   
-  .property-card-about {
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+.property-card-about {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  max-width: 420px;
+  margin: 0 auto;
+  width: 100%;
+}
   
   .property-card-about:hover {
     transform: translateY(-5px);
@@ -141,42 +147,480 @@
     gap: 1rem;
   }
   
-  @media (max-width: 1024px) {
-    .about-block-container {
-      grid-template-columns: 1fr;
-      text-align: center;
-    }
-    .about-text-content {
-      padding-right: 0;
-    }
+@media (max-width: 1024px) {
+  .about-block-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .about-text-content {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  /* ==========================================
+     SECTION NOTRE SÉLECTION - DESIGN BARNES
+     ========================================== */
+  
+  .about-block-section {
+    padding: 2rem 0 !important;
+    background: #fff !important;
   }
   
-  @media (max-width: 640px) {
-    .about-properties-list {
-      grid-template-columns: 1fr;
-    }
+  .about-block-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    padding: 0 !important;
   }
+  
+  .about-text-content {
+    padding: 0 1rem !important;
+    text-align: center !important;
+  }
+  
+  .about-text-content h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 0.8rem !important;
+    color: #2c2c2c !important;
+    font-weight: 400 !important;
+  }
+  
+  .about-text-content p {
+    font-size: 0.9rem !important;
+    margin-bottom: 1.2rem !important;
+    color: #666 !important;
+    line-height: 1.5 !important;
+  }
+  
+  .btn-view-all {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+  }
+  
+  /* SLIDER HORIZONTAL - UNE SEULE GRANDE CARTE PROFESSIONNELLE */
   .about-properties-list-slider {
-    width: 100%;
-    max-width: 900px; /* ou 880px, à ajuster selon ton design */
-    margin: 0 auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 2rem auto !important;
+    position: relative !important;
+    overflow: hidden !important;
   }
   
-  .slick-slide > div {
-    display: flex;
-    justify-content: center;
+  .about-properties-list-slider .slick-slider {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: relative !important;
+  }
+  
+  .about-properties-list-slider .slick-list {
+    overflow: hidden !important;
+    padding: 20px 55px 55px 55px !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  .about-properties-list-slider .slick-track {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0 !important;
+    align-items: center !important;
+  }
+  
+  .about-properties-list-slider .slick-slide {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  .about-properties-list-slider .slick-slide > div {
+    width: 100% !important;
+    max-width: 90% !important;
+    height: 100% !important;
+    display: flex !important;
+    margin: 0 auto !important;
+  }
+  
+  /* CARTE STYLE BARNES - UNE SEULE GRANDE CARTE PROFESSIONNELLE */
+  .about-properties-list-slider .property-card-about {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 550px !important;
+    min-height: 550px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.18) !important;
+    margin: 0 auto !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  }
+  
+  .about-properties-list-slider .property-card-about:active {
+    transform: scale(0.98) !important;
+  }
+  
+  /* IMAGE EN HAUT - GRANDE IMAGE PROFESSIONNELLE */
+  .about-properties-list-slider .card-image-container {
+    width: 100% !important;
+    height: 320px !important;
+    min-height: 320px !important;
+    max-height: 320px !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%) !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
+  
+  .about-properties-list-slider .card-image-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    transition: transform 0.3s ease !important;
+  }
+  
+  .about-properties-list-slider .property-card-about:active .card-image-container img {
+    transform: scale(1.05) !important;
+  }
+  
+  .about-properties-list-slider .card-image-overlay {
+    display: none !important;
+  }
+  
+  /* CONTENU EN DESSOUS - PROFESSIONNEL */
+  .about-properties-list-slider .card-content {
+    padding: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    background: #ffffff !important;
+    height: 230px !important;
+    min-height: 230px !important;
+    max-height: 230px !important;
+  }
+  
+  .about-properties-list-slider .property-type {
+    font-size: 0.8rem !important;
+    color: #888 !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 0.6rem !important;
+  }
+  
+  .about-properties-list-slider .property-title-about {
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+    color: #2c2c2c !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.4 !important;
+    height: 3.2em !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+  }
+  
+  .about-properties-list-slider .property-features-about {
+    font-size: 0.9rem !important;
+    color: #666 !important;
+    margin-bottom: 1.2rem !important;
+    display: flex !important;
+    gap: 1.2rem !important;
+    flex-wrap: wrap !important;
+  }
+  
+  .about-properties-list-slider .property-bottom-about {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-top: 0.8rem !important;
+    margin-top: auto !important;
+    border-top: 1px solid #eee !important;
+  }
+  
+  .about-properties-list-slider .property-ref-about {
+    font-size: 0.75rem !important;
+    color: #999 !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  
+  .about-properties-list-slider .property-price-about {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    color: #d32f2f !important;
+    letter-spacing: -0.5px !important;
+  }
+  
+  /* FLÈCHES DE NAVIGATION - PROFESSIONNELLES */
+  .about-properties-list-slider .slick-prev,
+  .about-properties-list-slider .slick-next {
+    width: 48px !important;
+    height: 48px !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    top: 40% !important;
+    transform: translateY(-50%) !important;
+  }
+  
+  .about-properties-list-slider .slick-prev:hover,
+  .about-properties-list-slider .slick-next:hover {
+    background: #8B4513 !important;
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.4) !important;
+    transform: translateY(-50%) scale(1.1) !important;
+  }
+  
+  .about-properties-list-slider .slick-prev {
+    left: 10px !important;
+  }
+  
+  .about-properties-list-slider .slick-next {
+    right: 10px !important;
+  }
+  
+  .about-properties-list-slider .slick-prev:before,
+  .about-properties-list-slider .slick-next:before {
+    display: none !important;
+  }
+  
+  /* DOTS DE NAVIGATION - PROFESSIONNELS */
+  .about-properties-list-slider .slick-dots {
+    bottom: 15px !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    z-index: 100 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .about-properties-list-slider .slick-dots li {
+    width: 8px !important;
+    height: 8px !important;
+    margin: 0 !important;
+  }
+  
+  .about-properties-list-slider .slick-dots li button {
+    width: 8px !important;
+    height: 8px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: rgba(139, 69, 19, 0.3) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: none !important;
+  }
+  
+  .about-properties-list-slider .slick-dots li button:before {
+    display: none !important;
+  }
+  
+  .about-properties-list-slider .slick-dots li.slick-active button {
+    background: #8B4513 !important;
+    width: 32px !important;
+    border-radius: 4px !important;
+    transform: scale(1.2) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-properties-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-block-section {
+    padding: 1.5rem 0.5rem !important;
+    min-height: 480px !important;
+  }
+  
+  .about-block-container {
+    gap: 1rem !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    min-height: 400px !important;
+  }
+  
+  .about-text-content {
+    padding: 0 0.75rem !important;
+  }
+  
+  .about-text-content h2 {
+    font-size: 1.4rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .about-text-content p {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .btn-view-all {
+    padding: 0.7rem 1.2rem !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .about-properties-list-slider {
+    padding: 0 35px !important;
+    margin: 1rem 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+    visibility: visible !important;
+    min-height: 320px !important;
+  }
+  
+  .slick-slider {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 320px !important;
   }
   
   .slick-list {
-    margin: 0 -10px;
+    width: 100% !important;
+    overflow: hidden !important;
+    min-height: 320px !important;
+  }
+  
+  .slick-track {
+    min-height: 320px !important;
+  }
+  
+  .slick-slide {
+    padding: 0 8px !important;
+    height: auto !important;
+    min-height: 320px !important;
+  }
+  
+  .slick-slide > div {
+    height: 100% !important;
+    min-height: 320px !important;
   }
   
   .property-card-about {
-    max-width: 420px;
-    min-width: 320px;
-    width: 100%;
-    margin: 0 auto;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    min-height: 300px !important;
+    background: white !important;
   }
+  
+  .card-image-container {
+    height: 170px !important;
+    width: 100% !important;
+    display: block !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background-color: #ddd !important;
+  }
+  
+  .card-image-container img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  .card-content {
+    padding: 0.75rem !important;
+    display: block !important;
+    background: white !important;
+  }
+  
+  .property-type {
+    font-size: 0.7rem !important;
+    display: block !important;
+  }
+  
+  .property-title-about {
+    font-size: 0.9rem !important;
+    min-height: auto !important;
+    margin-bottom: 0.5rem !important;
+    display: block !important;
+  }
+  
+  .property-features-about {
+    font-size: 0.75rem !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+    display: flex !important;
+  }
+  
+  .property-price-about {
+    font-size: 0.9rem !important;
+    display: block !important;
+  }
+  
+  .property-ref-about {
+    font-size: 0.75rem !important;
+    padding: 3px 8px !important;
+    display: inline-block !important;
+  }
+  
+  .property-bottom-about {
+    gap: 0.5rem !important;
+    display: flex !important;
+  }
+  
+  .slick-prev,
+  .slick-next {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .slick-prev {
+    left: 3px !important;
+  }
+  
+  .slick-next {
+    right: 3px !important;
+  }
+}
+.about-properties-list-slider {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 10px;
+  display: block;
+  visibility: visible;
+}
+  
+.slick-slide > div {
+  display: flex;
+  justify-content: center;
+  padding: 0 5px;
+}
+  
+.slick-list {
+  margin: 0 -10px;
+}
 
 .slick-arrow {
   width: 48px !important;
@@ -198,6 +642,27 @@
 }
 .slick-next {
   right: -24px !important;
+}
+
+@media (max-width: 768px) {
+  .slick-prev {
+    left: 5px !important;
+    z-index: 100 !important;
+  }
+  .slick-next {
+    right: 5px !important;
+    z-index: 100 !important;
+  }
+  
+  .slick-arrow {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .slick-arrow svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
 }
 
 .slick-arrow svg {

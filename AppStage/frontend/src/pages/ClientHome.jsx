@@ -12,6 +12,7 @@ import Footer from "../components/Home/Footer";
 import SearchBar from "../components/SearchBar";
 import AdminAccessLink from "../components/AdminAccessLink";
 import { apiRequest } from "../config/api";
+import "./ClientHome.css";
 
 function ClientHome() {
   const [ville, setVille] = useState("");

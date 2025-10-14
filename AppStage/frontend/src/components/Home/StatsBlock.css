@@ -2,13 +2,12 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap'); */
 
 .content-block-container {
-    max-width: 1200px; /* Largeur maximale du bloc comme sur l'image */
-    margin: 50px auto; /* Centre le bloc horizontalement et donne de la marge verticale */
-    padding: 20px; /* Padding interne pour éviter que le contenu ne touche les bords */
- 
-    color: #333; /* Couleur de texte générale */
-    font-family: 'Roboto', sans-serif; /* Exemple de police */
-    line-height: 1.6; /* Hauteur de ligne pour une meilleure lisibilité */
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
 }
 
 .content-block-title {
@@ -29,19 +28,20 @@
 }
 
 .content-block-main {
-    display: flex; /* Utilisation de Flexbox pour le texte et l'image */
-    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne sur petits écrans */
-    justify-content: space-between; /* Espacement entre le texte et l'image */
-    align-items: flex-start; /* Alignement en haut */
-    width: 1300px;
-    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .content-block-text {
-    flex: 1; /* Le texte prend l'espace restant */
-    min-width: 500px; /* Largeur minimale pour éviter que le texte ne devienne trop étroit */
-    padding-right: 30px; /* Espacement entre le texte et l'image */
-    text-align: justify; /* Justifier le texte comme sur l'image */
+    flex: 1;
+    min-width: 300px;
+    padding-right: 30px;
+    text-align: justify;
     color: #666;
     max-height: 350px;
     overflow-y: auto;
@@ -132,34 +132,82 @@
 /* --- Media Queries pour la Responsivité --- */
 @media (max-width: 992px) {
     .content-block-main {
-        flex-direction: column; /* Empile les éléments verticalement */
-        align-items: center; /* Centre les éléments */
+        flex-direction: column;
+        align-items: center;
     }
 
     .content-block-text {
-        min-width: unset; /* Supprime la largeur minimale */
-        padding-right: 0; /* Pas de padding latéral */
-        margin-bottom: 30px; /* Espace sous le texte quand l'image est en dessous */
+        min-width: unset;
+        padding-right: 0;
+        margin-bottom: 30px;
+        width: 100%;
     }
 
     .content-block-image-wrapper {
-        width: 100%; /* L'image prend toute la largeur disponible */
-        max-width: 500px; /* Mais avec une largeur max pour ne pas être trop grande */
-        margin-left: 0; /* Pas de marge latérale */
+        width: 100%;
+        max-width: 500px;
+        margin-left: 0;
     }
 }
 
 @media (max-width: 768px) {
+    .content-block-container {
+        padding: 15px;
+        margin: 30px auto;
+    }
+    
     .content-block-title {
-        font-size: 1.8em;
+        font-size: 2em;
     }
 
     .content-block-subtitle {
-        font-size: 0.85em;
-        margin-bottom: 25px;
+        font-size: 1.1em;
+        margin-bottom: 40px;
     }
+    
+    .content-block-text {
+        max-height: 300px;
+    }
+}
 
-    .content-block-container {
-        padding: 15px;
-    }
+@media (max-width: 480px) {
+  .content-block-container {
+    padding: 10px;
+    margin: 20px auto;
+  }
+  
+  .content-block-title {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+  }
+
+  .content-block-subtitle {
+    font-size: 0.95em;
+    margin-bottom: 30px;
+  }
+  
+  .content-block-main {
+    width: 100%;
+  }
+  
+  .content-block-text {
+    max-height: 250px;
+    font-size: 0.9em;
+    width: 100%;
+  }
+  
+  .content-block-text h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+  
+  .content-block-image-wrapper {
+    padding: 10px;
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .content-block-image {
+    width: 100%;
+  }
 }

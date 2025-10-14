@@ -113,4 +113,100 @@
   color: #888;
   font-size: 1.1rem;
   padding: 2rem 0;
+}
+
+/* Media Queries pour BiensList */
+@media (max-width: 992px) {
+  .bienslist-section {
+    padding: 1.5rem 1rem;
+  }
+  
+  .bienslist-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bienslist-section {
+    padding: 1rem 0.75rem;
+  }
+  
+  .bienslist-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 500px;
+  }
+  
+  .bienslist-card-content {
+    padding: 1rem 1.2rem 1.2rem 1.2rem;
+  }
+  
+  .bienslist-card-content h3 {
+    font-size: 1rem;
+  }
+  
+  .bienslist-card-desc {
+    font-size: 0.9rem;
+  }
+  
+  .bienslist-card-meta {
+    font-size: 0.85rem;
+    gap: 1rem;
+  }
+  
+  .bienslist-card-price {
+    font-size: 1.05rem;
+  }
+  
+  .bienslist-card-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bienslist-section {
+    padding: 1rem 0.5rem;
+  }
+  
+  .bienslist-grid {
+    gap: 1rem;
+  }
+  
+  .bienslist-img-container {
+    height: 200px;
+  }
+  
+  .bienslist-card-content {
+    padding: 0.85rem 1rem 1rem 1rem;
+  }
+  
+  .bienslist-card-content h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bienslist-card-desc {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bienslist-card-meta {
+    font-size: 0.8rem;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  
+  .bienslist-card-price {
+    font-size: 1rem;
+    margin-bottom: 0.85rem;
+  }
+  
+  .bienslist-card-btn {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
 } 

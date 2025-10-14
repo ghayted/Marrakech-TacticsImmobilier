@@ -1,5 +1,4 @@
-// src/components/AboutBlock.jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -21,22 +20,53 @@ function NextArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "flex", right: -30, zIndex: 2 }}
+      style={{ 
+        ...style, 
+        display: "flex", 
+        alignItems: "center",
+        justifyContent: "center",
+        right: 10, 
+        zIndex: 100,
+        width: "44px",
+        height: "44px",
+        background: "white",
+        borderRadius: "50%",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.15)",
+        transition: "all 0.3s ease"
+      }}
       onClick={onClick}
     >
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={MARRON} strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={MARRON} strokeWidth="2.5">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
     </div>
   );
 }
+
 function PrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
       className={className}
-      style={{ ...style, display: "flex", left: -30, zIndex: 2 }}
+      style={{ 
+        ...style, 
+        display: "flex", 
+        alignItems: "center",
+        justifyContent: "center",
+        left: 10, 
+        zIndex: 100,
+        width: "44px",
+        height: "44px",
+        background: "white",
+        borderRadius: "50%",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.15)",
+        transition: "all 0.3s ease"
+      }}
       onClick={onClick}
     >
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={MARRON} strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={MARRON} strokeWidth="2.5">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
     </div>
   );
 }
@@ -49,7 +79,9 @@ function PropertyDetailUserWrapper() {
 function AboutBlock() {
   const [biens, setBiens] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const navigate = useNavigate();
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const fetchBiensMarrakech = async () => {
@@ -68,6 +100,19 @@ function AboutBlock() {
     fetchBiensMarrakech();
   }, []);
 
+  // Forcer le slider à se recalculer après le chargement des images
+  useEffect(() => {
+    if (!loading && biens.length > 0 && !imagesLoaded) {
+      const timer = setTimeout(() => {
+        if (sliderRef.current) {
+          sliderRef.current.slickGoTo(0);
+        }
+        setImagesLoaded(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [loading, biens, imagesLoaded]);
+
   const sliderSettings = {
     infinite: true,
     slidesToShow: 2,
@@ -75,20 +120,70 @@ function AboutBlock() {
     arrows: true,
     dots: false,
     autoplay: false,
+    lazyLoad: 'progressive',
+    adaptiveHeight: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 900,
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 1
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          arrows: true,
+          adaptiveHeight: true
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: true,
+          dots: true,
+          centerMode: false,
+          adaptiveHeight: true,
+          lazyLoad: 'progressive'
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: true,
+          dots: true,
+          centerMode: false,
+          adaptiveHeight: true,
+          lazyLoad: 'progressive'
         }
       }
     ]
   };
 
   if (loading) {
-    return <div>Chargement de notre sélection...</div>;
+    return (
+      <section className="about-block-section">
+        <div className="about-block-container">
+          <div style={{ textAlign: 'center', padding: '2rem' }}>
+            Chargement de notre sélection...
+          </div>
+        </div>
+      </section>
+    );
+  }
+  
+  if (biens.length === 0) {
+    return (
+      <section className="about-block-section">
+        <div className="about-block-container">
+          <div className="about-text-content">
+            <h2>Notre sélection de biens d'exceptions</h2>
+            <p>Aucun bien disponible pour le moment.</p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -105,12 +200,24 @@ function AboutBlock() {
         </div>
 
         <div className="about-properties-list-slider">
-          <Slider {...sliderSettings}>
+          <Slider ref={sliderRef} {...sliderSettings}>
             {biens.map(bien => (
               <div key={bien.id}>
                 <div className="property-card-about" style={{cursor: 'pointer'}} onClick={() => navigate(`/property/${bien.id}`)}>
                   <div className="card-image-container">
-                    <img src={bien.imagePrincipale || 'placeholder.jpg'} alt={bien.titre} />
+                    <img 
+                      src={bien.imagePrincipale || 'placeholder.jpg'} 
+                      alt={bien.titre}
+                      onLoad={() => {
+                        // Forcer le slider à recalculer après chaque image chargée
+                        if (sliderRef.current) {
+                          sliderRef.current.slickGoTo(sliderRef.current.innerSlider.state.currentSlide);
+                        }
+                      }}
+                      onError={(e) => {
+                        e.target.style.backgroundColor = '#ddd';
+                      }}
+                    />
                     <div className="card-image-overlay"></div>
                   </div>
                   <div className="card-content">

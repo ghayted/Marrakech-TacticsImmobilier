@@ -132,5 +132,57 @@
   @media (max-width: 900px) {
     .contact-container {
       grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .contact-section {
+      padding: 3rem 1.5rem;
+    }
+    
+    .contact-container {
+      gap: 2rem;
+    }
+    
+    .contact-info-block h3, 
+    .contact-form-block h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .form-group {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .contact-section {
+      padding: 2rem 1rem;
+    }
+    
+    .contact-info-block h3, 
+    .contact-form-block h2 {
+      font-size: 1.3rem;
+    }
+    
+    .contact-item {
+      font-size: 0.9rem;
+    }
+    
+    .form-group input, 
+    .form-group textarea {
+      font-size: 0.9rem;
+      padding: 0.6rem 0;
+    }
+    
+    .btn-submit2 {
+      width: 100%;
+      text-align: center;
     }
   }
