@@ -132,7 +132,7 @@ const MesReservations = () => {
                 <h2>Passées et annulées</h2>
                 <div className="reservations-list">
                   {pastReservations.map(res => (
-                    <ReservationCard key={res.id} reservation={res} />
+                    <ReservationCard key={res.id} reservation={res} /> 
                   ))}
                 </div>
               </section>
