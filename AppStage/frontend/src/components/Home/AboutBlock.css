@@ -52,9 +52,7 @@
   }
   
   .about-properties-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    display: none; /* Masquer cette grille car on utilise le slider */
   }
   
 .property-card-about {
@@ -206,7 +204,7 @@
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 !important;
-    margin: 2rem auto !important;
+    margin: 0 !important; /* Supprimer les marges pour pleine largeur */
     position: relative !important;
     overflow: hidden !important;
   }
@@ -221,7 +219,7 @@
   
   .about-properties-list-slider .slick-list {
     overflow: hidden !important;
-    padding: 20px 55px 55px 55px !important;
+    padding: 0 !important; /* Supprimer le padding pour pleine largeur */
     width: 100% !important;
     margin: 0 !important;
   }
@@ -244,27 +242,38 @@
     align-items: center !important;
   }
   
+  /* FORCER UN SEUL SLIDE SUR MOBILE */
+  .about-properties-list-slider .slick-slide:not(.slick-active) {
+    display: none !important;
+  }
+  
+  .about-properties-list-slider .slick-slide.slick-active {
+    display: flex !important;
+    width: 100% !important;
+  }
+  
   .about-properties-list-slider .slick-slide > div {
     width: 100% !important;
-    max-width: 90% !important;
+    max-width: 100% !important; /* Pleine largeur */
     height: 100% !important;
     display: flex !important;
-    margin: 0 auto !important;
+    margin: 0 !important; /* Supprimer les marges */
   }
   
   /* CARTE STYLE BARNES - UNE SEULE GRANDE CARTE PROFESSIONNELLE */
   .about-properties-list-slider .property-card-about {
     width: 100% !important;
     max-width: 100% !important;
-    height: 550px !important;
-    min-height: 550px !important;
+    height: 100vw !important; /* Hauteur égale à la largeur de l'écran */
+    min-height: 100vw !important;
+    aspect-ratio: 1 !important; /* RENDRE LA CARTE CARRÉE */
     display: flex !important;
     flex-direction: column !important;
     background: #ffffff !important;
-    border-radius: 20px !important;
+    border-radius: 0 !important; /* Supprimer les coins arrondis pour pleine largeur */
     overflow: hidden !important;
     box-shadow: 0 10px 40px rgba(0,0,0,0.18) !important;
-    margin: 0 auto !important;
+    margin: 0 !important; /* Supprimer les marges */
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   }
   
@@ -275,9 +284,9 @@
   /* IMAGE EN HAUT - GRANDE IMAGE PROFESSIONNELLE */
   .about-properties-list-slider .card-image-container {
     width: 100% !important;
-    height: 320px !important;
-    min-height: 320px !important;
-    max-height: 320px !important;
+    height: 50% !important; /* Image occupe exactement 50% de la carte */
+    min-height: 50% !important;
+    max-height: 50% !important;
     flex-shrink: 0 !important;
     position: relative !important;
     background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%) !important;
@@ -292,6 +301,8 @@
     object-position: center !important;
     display: block !important;
     transition: transform 0.3s ease !important;
+    max-height: 100% !important; /* Empêcher le débordement */
+    overflow: hidden !important;
   }
   
   .about-properties-list-slider .property-card-about:active .card-image-container img {
@@ -309,9 +320,12 @@
     flex-direction: column !important;
     flex: 1 !important;
     background: #ffffff !important;
-    height: 230px !important;
-    min-height: 230px !important;
-    max-height: 230px !important;
+    height: 50% !important; /* Contenu occupe exactement 50% de la carte */
+    min-height: 50% !important;
+    max-height: 50% !important;
+    flex-shrink: 0 !important; /* Empêcher la réduction */
+    position: relative !important;
+    z-index: 2 !important; /* S'assurer que le contenu est au-dessus */
   }
   
   .about-properties-list-slider .property-type {
@@ -321,6 +335,9 @@
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
     margin-bottom: 0.6rem !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .about-properties-list-slider .property-title-about {
@@ -343,6 +360,16 @@
     display: flex !important;
     gap: 1.2rem !important;
     flex-wrap: wrap !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-features-about span {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .about-properties-list-slider .property-bottom-about {
@@ -352,6 +379,8 @@
     padding-top: 0.8rem !important;
     margin-top: auto !important;
     border-top: 1px solid #eee !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .about-properties-list-slider .property-ref-about {
@@ -359,6 +388,10 @@
     color: #999 !important;
     background: transparent !important;
     padding: 0 !important;
+    display: block !important;
+    font-weight: 500 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .about-properties-list-slider .property-price-about {
@@ -366,6 +399,9 @@
     font-weight: 700 !important;
     color: #d32f2f !important;
     letter-spacing: -0.5px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   /* FLÈCHES DE NAVIGATION - PROFESSIONNELLES */

@@ -40,6 +40,263 @@
     width: 100% !important;
     max-width: 100% !important;
   }
+  
+  /* FORCER UN SEUL SLIDE SUR MOBILE - RÈGLES ABSOLUES */
+  .about-properties-list-slider .slick-slide {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .about-properties-list-slider .slick-slide:not(.slick-active) {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  .about-properties-list-slider .slick-slide.slick-active {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+  }
+  
+  .about-properties-list-slider .slick-track {
+    transform: none !important;
+  }
+  
+  /* CARTE PLEINE LARGEUR ET CARRÉE SUR MOBILE */
+  .about-properties-list-slider .slick-slide > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* FORCER LA VISIBILITÉ DE TOUS LES ÉLÉMENTS */
+  .about-properties-list-slider .card-content * {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+  }
+  
+  .about-properties-list-slider .property-features-about,
+  .about-properties-list-slider .property-bottom-about {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* FORCER L'AFFICHAGE DES INFORMATIONS SPÉCIFIQUES */
+  .about-properties-list-slider .card-content {
+    height: 50% !important;
+    min-height: 50% !important;
+    max-height: 50% !important;
+    padding: 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    background: white !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+  
+  .about-properties-list-slider .property-type {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .about-properties-list-slider .property-title-about {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 0.8rem !important;
+  }
+  
+  .about-properties-list-slider .property-features-about {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 1rem !important;
+    gap: 1rem !important;
+  }
+  
+  .about-properties-list-slider .property-features-about span {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+  
+  .about-properties-list-slider .property-bottom-about {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-top: 0.8rem !important;
+    border-top: 1px solid #eee !important;
+  }
+  
+  .about-properties-list-slider .property-ref-about {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+  
+  .about-properties-list-slider .property-price-about {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+  
+  .about-properties-list-slider .property-card-about {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    aspect-ratio: 1 !important; /* RENDRE LA CARTE CARRÉE */
+    height: auto !important;
+    min-height: 100vw !important; /* Hauteur égale à la largeur de l'écran */
+  }
+  
+  .about-properties-list-slider .card-image-container {
+    width: 100% !important;
+    height: 50% !important; /* Image occupe exactement la moitié supérieure */
+    flex-shrink: 0 !important;
+    overflow: hidden !important; /* Empêcher le débordement */
+    position: relative !important;
+  }
+  
+  .about-properties-list-slider .card-image-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    max-height: 100% !important; /* Empêcher le débordement vertical */
+    overflow: hidden !important;
+  }
+  
+  .about-properties-list-slider .card-content {
+    height: 50% !important; /* Contenu occupe exactement la moitié inférieure */
+    padding: 0.8rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    background: white !important;
+    flex-shrink: 0 !important; /* Empêcher la réduction */
+    position: relative !important;
+    z-index: 2 !important; /* S'assurer que le contenu est au-dessus */
+    overflow: visible !important;
+  }
+  
+  /* STYLES POUR LES INFORMATIONS DE LA CARTE - FORCER LA VISIBILITÉ */
+  .about-properties-list-slider .card-content {
+    height: 50% !important;
+    padding: 0.8rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    background: white !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-type {
+    font-size: 0.7rem !important;
+    color: #888 !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 0.4rem !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-title-about {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #2c2c2c !important;
+    margin-bottom: 0.6rem !important;
+    line-height: 1.3 !important;
+    height: 2.6em !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-features-about {
+    font-size: 0.8rem !important;
+    color: #666 !important;
+    margin-bottom: 0.8rem !important;
+    display: flex !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-features-about span {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.3rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-bottom-about {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-top: 0.5rem !important;
+    margin-top: auto !important;
+    border-top: 1px solid #eee !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-ref-about {
+    font-size: 0.7rem !important;
+    color: #999 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    font-weight: 500 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-price-about {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: #d32f2f !important;
+    letter-spacing: -0.5px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 }
 
 /* Très petit mobile (< 480px) */
@@ -58,6 +315,83 @@
   
   h3 {
     font-size: 1.1rem !important;
+  }
+  
+  /* FORCER L'AFFICHAGE DES INFORMATIONS SUR TRÈS PETIT MOBILE */
+  .about-properties-list-slider .card-content {
+    height: 50% !important;
+    padding: 0.8rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    background: white !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+  
+  .about-properties-list-slider .property-type {
+    font-size: 0.7rem !important;
+    color: #888 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 0.4rem !important;
+  }
+  
+  .about-properties-list-slider .property-title-about {
+    font-size: 0.9rem !important;
+    color: #2c2c2c !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 0.6rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .about-properties-list-slider .property-features-about {
+    font-size: 0.75rem !important;
+    color: #666 !important;
+    display: flex !important;
+    gap: 0.8rem !important;
+    margin-bottom: 0.8rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-features-about span {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.3rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-bottom-about {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-top: 0.6rem !important;
+    border-top: 1px solid #eee !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-ref-about {
+    font-size: 0.65rem !important;
+    color: #999 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .about-properties-list-slider .property-price-about {
+    font-size: 1rem !important;
+    color: #d32f2f !important;
+    font-weight: 700 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 
