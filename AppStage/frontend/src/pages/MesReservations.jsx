@@ -4,6 +4,7 @@ import Footer from '../components/Home/Footer';
 import ReservationCard from '../components/MesReservation/ReservationCard';
 import ConfirmationModal from '../components/MesReservation/ConfirmationModal';
 import './MesReservations.css';
+import { apiRequest } from '../config/api';
 
 const MesReservations = () => {
   const [reservations, setReservations] = useState([]);
@@ -17,8 +18,14 @@ const MesReservations = () => {
       setLoading(true);
       setError('');
       try {
-        // Récupérer toutes les réservations (accès public)
-        const reservationsResponse = await fetch(`https://api.immotactics.live/api/Reservations`);
+        // Récupérer les informations de l'utilisateur connecté
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        if (!userData) {
+          throw new Error('Utilisateur non connecté');
+        }
+
+        // Récupérer les réservations de l'utilisateur connecté
+        const reservationsResponse = await apiRequest(`/api/Reservations/utilisateur/${userData.id}`);
         if (!reservationsResponse.ok) throw new Error('Erreur lors de la récupération des réservations');
         
         const baseReservations = await reservationsResponse.json();
@@ -30,7 +37,7 @@ const MesReservations = () => {
 
         // Pour chaque réservation, récupérer les détails du bien
         const detailFetchPromises = baseReservations.map(res =>
-          fetch(`https://api.immotactics.live/api/BiensImmobiliers/${res.bienImmobilierId}`)
+          apiRequest(`/api/BiensImmobiliers/${res.bienImmobilierId}`)
             .then(response => response.json())
         );
 
@@ -73,11 +80,8 @@ const MesReservations = () => {
     if (!reservationToCancel) return;
 
     try {
-      const response = await fetch(`https://api.immotactics.live/api/Reservations/${reservationToCancel.id}/annuler`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      const response = await apiRequest(`/api/Reservations/${reservationToCancel.id}/annuler`, {
+        method: 'PUT'
       });   
 
       if (response.ok) {
