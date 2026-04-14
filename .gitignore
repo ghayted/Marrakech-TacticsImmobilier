@@ -1,0 +1,49 @@
+# === Secrets / Configuration ===
+# Never commit real appsettings files – they contain API keys, DB credentials, etc.
+**/appsettings.json
+**/appsettings.*.json
+# Exception: keep the example/template files so new devs know what to fill in
+!**/appsettings.example.json
+!**/appsettings.template.json
+
+# Environment variable files
+**/.env
+**/.env.*
+!**/.env.example
+
+# === Generated / Data files ===
+# Invoices and refund PDFs generated at runtime
+**/wwwroot/factures/
+
+# === .NET Build Artifacts ===
+**/bin/
+**/obj/
+**/publish/
+
+# Visual Studio / Rider
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.ncrunchproject
+
+# NuGet packages
+**/packages/
+!**/packages/repositories.config
+*.nupkg
+*.snupkg
+
+# Rider / JetBrains
+.idea/
+
+# macOS
+.DS_Store
+
+# Node (frontend / scripts)
+node_modules/
+dist/
+npm-debug.log*
+
+# Logs
+*.log
