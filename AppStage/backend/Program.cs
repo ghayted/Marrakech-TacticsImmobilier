@@ -15,9 +15,9 @@ builder.Services.AddControllers(); // Active les contrôleurs [ApiController]
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ➤ Configurer Entity Framework avec SQL Server
+// ➤ Configurer Entity Framework avec PostgreSQL
 builder.Services.AddDbContext<AgenceImmoDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
@@ -88,6 +88,21 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// ➤ Initialisation de la base de données (Création automatique des tables)
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AgenceImmoDbContext>();
+        context.Database.EnsureCreated();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Une erreur est survenue lors de la création de la base de données.");
+    }
+}
 // ➤ Activer Swagger en environnement de développement
 if (app.Environment.IsDevelopment())
 {
