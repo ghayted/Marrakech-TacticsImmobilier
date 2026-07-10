@@ -6,7 +6,7 @@ import './CategoriesBlock.css';
 // Données des quartiers avec des images de remplacement
 const quartiersData = [
   { nom: 'Palmeraie', image: 'https://www.barnes-marrakech.com/images/localisations/61.jpg' },
-  { nom: 'Hivernage', image: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&q=80&w=1000' },
+  { nom: 'Hivernage', image: 'https://www.locmarrakech.com/tourisme/s/img/wp-content/uploads/2024/08/Hivergnage-marrakech.jpg' },
   { nom: 'Guéliz', image: 'https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
   { nom: 'Agdal', image: 'https://www.barnes-marrakech.com/images/localisations/route_de_ouarzazate,_golf_amelkis.jpg' },
   { nom: 'Médina', image: 'https://media.licdn.com/dms/image/v2/C561BAQGDcAue4IKyIQ/company-background_10000/company-background_10000/0/1606738350994/medina_mall_marrakech_cover?e=2147483647&v=beta&t=-fFokRLTGvkHPB0e6rIf8Zp-fu_HJdVrerWp-_lYX3E' },
