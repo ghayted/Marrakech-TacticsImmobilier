@@ -27,7 +27,7 @@ namespace backend.Data
         [StringLength(500)]
         public string Adresse { get; set; } = null!;
         
-        public DateTime DateCreation { get; set; } = DateTime.Now;
+        public DateTime DateCreation { get; set; } = DateTime.UtcNow;
         public bool EstActif { get; set; } = true;
         
         // Navigation properties

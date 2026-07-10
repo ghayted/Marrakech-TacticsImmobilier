@@ -62,7 +62,7 @@ namespace backend.Services
                 Email = dto.Email,
                 Telephone = dto.Telephone,
                 Adresse = dto.Adresse,
-                DateCreation = DateTime.Now,
+                DateCreation = DateTime.UtcNow,
                 EstActif = true
             };
 
