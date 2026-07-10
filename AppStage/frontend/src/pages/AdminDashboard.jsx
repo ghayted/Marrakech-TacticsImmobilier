@@ -201,7 +201,7 @@ function AdminDashboard() {
   })
 
   const token = localStorage.getItem("authToken")
-  const backendUrl = "https://api.immotactics.live"
+  const backendUrl = "https://marrakech-tacticsimmobilier.onrender.com"
 
   // Analytics state
   const [siteViewsThisMonth, setSiteViewsThisMonth] = useState(0)

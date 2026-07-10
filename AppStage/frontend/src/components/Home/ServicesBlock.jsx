@@ -46,7 +46,7 @@ function ServicesBlock() {
   useEffect(() => {
     const fetchRecentBiens = async () => {
       try {
-        const response = await fetch('https://api.immotactics.live/api/BiensImmobiliers');
+        const response = await fetch('https://marrakech-tacticsimmobilier.onrender.com/api/BiensImmobiliers');
         const data = await response.json();
         // Sort by DateDePublication descending (most recent first)
         const sorted = data.sort((a, b) => new Date(b.dateDePublication) - new Date(a.dateDePublication));

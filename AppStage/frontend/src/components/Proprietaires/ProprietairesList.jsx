@@ -24,7 +24,7 @@ const ProprietairesList = () => {
   const fetchProprietaires = async () => {
     try {
       setLoading(true);
-      const response = await fetch('https://api.immotactics.live/api/proprietaires');
+      const response = await fetch('https://marrakech-tacticsimmobilier.onrender.com/api/proprietaires');
       if (response.ok) {
         const data = await response.json();
         setProprietaires(data);
@@ -65,7 +65,7 @@ const ProprietairesList = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer ce propriétaire ?')) {
       try {
-        const response = await fetch(`https://api.immotactics.live/api/proprietaires/${id}`, {
+        const response = await fetch(`https://marrakech-tacticsimmobilier.onrender.com/api/proprietaires/${id}`, {
           method: 'DELETE'
         });
         if (response.ok) {

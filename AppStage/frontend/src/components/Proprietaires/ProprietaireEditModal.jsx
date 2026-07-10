@@ -36,7 +36,7 @@ const ProprietaireEditModal = ({ proprietaire, isOpen, onClose, onUpdate }) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`https://api.immotactics.live/api/proprietaires/${proprietaire.id}`, {
+      const response = await fetch(`https://marrakech-tacticsimmobilier.onrender.com/api/proprietaires/${proprietaire.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

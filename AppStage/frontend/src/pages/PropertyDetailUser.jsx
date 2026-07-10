@@ -41,7 +41,7 @@ function PropertyDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullscreen, setShowFullscreen] = useState(false); // Gardé pour une future utilisation
   const [showReservationModal, setShowReservationModal] = useState(false);
-  const backendUrl = 'https://api.immotactics.live';
+  const backendUrl = 'https://marrakech-tacticsimmobilier.onrender.com';
 
   // La logique pour récupérer les données reste ici, dans le composant parent
   useEffect(() => {

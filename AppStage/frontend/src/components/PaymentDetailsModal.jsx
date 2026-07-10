@@ -5,7 +5,7 @@ import { FaTimes, FaDownload, FaCheckCircle, FaExclamationTriangle, FaTimesCircl
 const PaymentDetailsModal = ({ isOpen, onClose, payment }) => {
   const [loading, setLoading] = useState(false);
   const [reservationDetails, setReservationDetails] = useState(null);
-  const backendUrl = 'https://api.immotactics.live';
+  const backendUrl = 'https://marrakech-tacticsimmobilier.onrender.com';
 
   useEffect(() => {
     if (isOpen && payment) {

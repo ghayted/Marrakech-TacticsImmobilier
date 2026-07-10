@@ -86,7 +86,7 @@ function AboutBlock() {
   useEffect(() => {
     const fetchBiensMarrakech = async () => {
       try {
-        const response = await fetch('https://api.immotactics.live/api/BiensImmobiliers?ville=Marrakech');
+        const response = await fetch('https://marrakech-tacticsimmobilier.onrender.com/api/BiensImmobiliers?ville=Marrakech');
         const data = await response.json();
         // Filter to only villas
         const villas = data.filter(bien => bien.typeDeBien === 'Villa');
