@@ -51,7 +51,7 @@ builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Ajouter le service de tâches en arrière-plan pour les réservations
-builder.Services.AddHostedService<ReservationBackgroundService>();
+// builder.Services.AddHostedService<ReservationBackgroundService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient();
