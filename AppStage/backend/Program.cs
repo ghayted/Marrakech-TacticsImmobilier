@@ -7,8 +7,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // Ecouter sur toutes les interfaces pour accès depuis Docker/n8n en dev
-// Configuration pour HTTPS en production
-builder.WebHost.UseUrls("http://0.0.0.0:5257", "https://0.0.0.0:5258");
+// Le port est géré par la variable ASPNETCORE_URLS dans Dockerfile
 
 // ➤ Ajouter les services nécessaires
 builder.Services.AddControllers(); // Active les contrôleurs [ApiController]
