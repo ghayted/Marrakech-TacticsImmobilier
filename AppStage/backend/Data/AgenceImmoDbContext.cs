@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -48,7 +48,7 @@ public partial class AgenceImmoDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__BiensImm__3214EC07F5469088");
 
             entity.Property(e => e.Adresse).HasMaxLength(255);
-            entity.Property(e => e.DateDePublication).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.DateDePublication).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.EstDisponible).HasDefaultValue(true);
             entity.Property(e => e.Latitude).HasColumnType("decimal(9, 6)");
             entity.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
@@ -117,7 +117,7 @@ public partial class AgenceImmoDbContext : DbContext
 
             entity.Property(e => e.PrixTotal).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Statut).HasMaxLength(50);
-            entity.Property(e => e.DateDeReservation).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.DateDeReservation).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasOne(d => d.BienImmobilier).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.BienImmobilierId)
@@ -137,7 +137,7 @@ public partial class AgenceImmoDbContext : DbContext
             entity.Property(e => e.StatutPaiement).HasMaxLength(50);
             entity.Property(e => e.TransactionId).HasMaxLength(255);
             entity.Property(e => e.CheminFacture).HasMaxLength(500);
-            entity.Property(e => e.DateDePaiement).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.DateDePaiement).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasOne(d => d.Reservation).WithMany(p => p.Paiements)
                 .HasForeignKey(d => d.ReservationId)
@@ -166,7 +166,7 @@ public partial class AgenceImmoDbContext : DbContext
             entity.Property(e => e.TransactionIdRemboursement).HasMaxLength(255);
             entity.Property(e => e.RaisonRemboursement).HasMaxLength(500);
             entity.Property(e => e.CheminFactureRemboursement).HasMaxLength(500);
-            entity.Property(e => e.DateDeRemboursement).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.DateDeRemboursement).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasOne(d => d.Reservation).WithMany()
                 .HasForeignKey(d => d.ReservationId)
@@ -186,7 +186,7 @@ public partial class AgenceImmoDbContext : DbContext
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.Telephone).HasMaxLength(20);
             entity.Property(e => e.Adresse).HasMaxLength(500);
-            entity.Property(e => e.DateCreation).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.DateCreation).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.EstActif).HasDefaultValue(true);
         });
 
@@ -195,7 +195,7 @@ public partial class AgenceImmoDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__AnalyticsEvents__3214EC07");
             entity.Property(e => e.EventType).HasMaxLength(50);
             entity.Property(e => e.Path).HasMaxLength(500);
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getutcdate())");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
         OnModelCreatingPartial(modelBuilder);
